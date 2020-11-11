@@ -7,8 +7,8 @@ import Graph from './components/Graph';
 import Home from './components/Home';
 import Search from './components/Search';
 
-// import lesmis from './services/test_data';
-import { fetchGraphData, queryPathBuilder } from './services/ApiClient';
+import { queryPathBuilder } from './services/ApiClient';
+// import { fetchGraphData, queryPathBuilder } from './services/ApiClient';
 import { testdata } from './services/test_query';
 
 function App() {
@@ -16,14 +16,23 @@ function App() {
 
   const handleSearchForm = async (title, author) => {
     const query = queryPathBuilder(title, author);
-    const data = await fetchGraphData(query);
-    console.log(data);
+    console.log('query', query);
+    // const data = await fetchGraphData(query);
+    // const data = testdata;
+    initData();
+    // setGraphData((init) => {
+    //   return {
+    //     ...init,
+    //     ...data,
+    //   };
+    // });
   };
 
   const initData = () => {
-    setGraphData((data) => {
+    console.log('init called');
+    setGraphData((init) => {
       return {
-        ...data,
+        ...init,
         ...testdata,
       };
     });
@@ -85,7 +94,7 @@ function App() {
           <Search handleSearchForm={handleSearchForm} />
         </Route>
         <Route exact path="/graph">
-          <Graph data={graphData} />
+          <Graph graphData={graphData} />
         </Route>
       </Switch>
     </div>
