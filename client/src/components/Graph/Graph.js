@@ -13,6 +13,7 @@ function Graph({ data }) {
     width: 800,
   };
   useEffect(() => {
+    console.log(data);
     drawGraph(svg, data, dimensions);
   }, [data]);
 

@@ -1,13 +1,13 @@
 import './App.css';
 import React, { useState } from 'react';
-import Graph from './components/Graph/Graph';
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link
-// } from "react-router-dom";
-import lesmis from './services/test_data';
+import { Switch, Route, Link } from 'react-router-dom';
+
+// import ApiClient from './services/ApiClient';
+import Graph from './components/Graph';
+import Home from './components/Home';
+
+// import lesmis from './services/test_data';
+import { testdata } from './services/test_query';
 
 function App() {
   const [data, setData] = useState({});
@@ -16,7 +16,7 @@ function App() {
     setData((data) => {
       return {
         ...data,
-        ...lesmis,
+        ...testdata,
       };
     });
     console.log(data);
@@ -67,7 +67,16 @@ function App() {
           Delete data
         </button>
       </div>
-      <Graph data={data}></Graph>
+      <Link to="/">Home</Link>
+      <Link to="/graph">Graph</Link>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/graph">
+          <Graph data={data} />
+        </Route>
+      </Switch>
     </div>
   );
 }
