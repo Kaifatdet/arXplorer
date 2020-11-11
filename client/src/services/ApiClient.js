@@ -5,9 +5,26 @@ const { parseString } = require('xml2js');
 const BASE_URL = 'http://export.arxiv.org/api/';
 
 async function fetchRequest(path) {
-  const res = await fetch(BASE_URL + path);
+  const res = await fetch(path);
   const text = await res.text();
   return parseResponse(text);
+}
+
+function queryPathBuilder(title = '', author = '') {
+  let queryUrl = BASE_URL + '/query' + '?search_query=';
+  if (title && author) {
+    queryUrl += `ti:%22${title.replace(/\s/g, '+')}%22`;
+    queryUrl += '+AND+';
+    queryUrl += `au:%22${author.replace(/\s/g, '+')}%22`;
+  } else if (title) {
+    queryUrl += `ti:%22${title.replace(/\s/g, '+')}%22`;
+  } else if (author) {
+    queryUrl += `au:%22${author.replace(/\s/g, '+')}%22`;
+  } else {
+    return false;
+  }
+  queryUrl += '&start=0&max_results=25';
+  return queryUrl;
 }
 
 function parseResponse(res) {
@@ -67,4 +84,9 @@ async function collectGraphData(query) {
   return collected;
 }
 
-export default collectGraphData;
+console.log(queryPathBuilder());
+console.log(queryPathBuilder('Minimisation in Logical Form '));
+console.log(queryPathBuilder('', 'Dexter Kozen'));
+console.log(queryPathBuilder('Minimisation in Logical Form ', 'Dexter Kozen'));
+
+// export default collectGraphData;
