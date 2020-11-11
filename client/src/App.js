@@ -18,14 +18,13 @@ function App() {
     const query = queryPathBuilder(title, author);
     console.log('query', query);
     // const data = await fetchGraphData(query);
-    // const data = testdata;
-    initData();
-    // setGraphData((init) => {
-    //   return {
-    //     ...init,
-    //     ...data,
-    //   };
-    // });
+    // console.log(data);
+    setGraphData((init) => {
+      return {
+        ...init,
+        ...testdata,
+      };
+    });
   };
 
   const initData = () => {

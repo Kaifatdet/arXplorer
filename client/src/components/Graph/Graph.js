@@ -7,15 +7,14 @@ import { select } from 'd3';
 // eslint-disable-next-line react/prop-types
 function Graph({ graphData }) {
   const svgRef = useRef();
-  const svg = select(svgRef.current);
   const dimensions = {
     height: 600,
     width: 800,
   };
 
   useEffect(() => {
-    drawGraph(svg, graphData, dimensions);
-    console.log('svgRef', svgRef.current);
+    const svg = select(svgRef.current);
+    drawGraph(svg, graphData, dimensions, svgRef);
   }, [graphData]);
 
   return (
