@@ -4,14 +4,14 @@ const { parseString } = require('xml2js');
 
 const BASE_URL = 'http://export.arxiv.org/api/';
 
-async function fetchRequest(path) {
-  const res = await fetch(path);
+async function fetchRequest(queryPath) {
+  const res = await fetch(queryPath);
   const text = await res.text();
   return parseResponse(text);
 }
 
-function queryPathBuilder(title = '', author = '') {
-  let queryUrl = BASE_URL + '/query' + '?search_query=';
+export function queryPathBuilder(title = '', author = '') {
+  let queryUrl = BASE_URL + 'query' + '?search_query=';
   if (title && author) {
     queryUrl += `ti:%22${title.replace(/\s/g, '+')}%22`;
     queryUrl += '+AND+';
@@ -76,17 +76,15 @@ function linkAuthors(authorArr) {
   return links;
 }
 
-async function collectGraphData(query) {
-  const articles = await fetchRequest(query);
-  const nodes = createNodes(articles);
-  const links = createLinks(articles);
-  const collected = { nodes: nodes, links: links };
-  return collected;
+export async function fetchGraphData(query) {
+  const [articles, metadata] = await fetchRequest(query);
+  if (articles) {
+    const nodes = createNodes(articles);
+    const links = createLinks(articles);
+    const fetched = { nodes: nodes, links: links };
+    console.log('fetched', fetched);
+    console.log('metadata', metadata);
+    return fetched;
+  }
+  return false;
 }
-
-console.log(queryPathBuilder());
-console.log(queryPathBuilder('Minimisation in Logical Form '));
-console.log(queryPathBuilder('', 'Dexter Kozen'));
-console.log(queryPathBuilder('Minimisation in Logical Form ', 'Dexter Kozen'));
-
-// export default collectGraphData;

@@ -5,21 +5,29 @@ import { Switch, Route, Link } from 'react-router-dom';
 // import ApiClient from './services/ApiClient';
 import Graph from './components/Graph';
 import Home from './components/Home';
+import Search from './components/Search';
 
 // import lesmis from './services/test_data';
+import { fetchGraphData, queryPathBuilder } from './services/ApiClient';
 import { testdata } from './services/test_query';
 
 function App() {
-  const [data, setData] = useState({});
+  const [graphData, setGraphData] = useState({});
+
+  const handleSearchForm = async (title, author) => {
+    const query = queryPathBuilder(title, author);
+    const data = await fetchGraphData(query);
+    console.log(data);
+  };
 
   const initData = () => {
-    setData((data) => {
+    setGraphData((data) => {
       return {
         ...data,
         ...testdata,
       };
     });
-    console.log(data);
+    console.log(graphData);
   };
 
   const updateData = () => {
@@ -34,21 +42,20 @@ function App() {
         { source: 'Hr Kineser', target: 'Hej verden', value: '1' },
       ],
     };
-    setData((data) => {
+    setGraphData((data) => {
       const newNodes = data.nodes.slice().concat(newData.nodes);
       const newLinks = data.links.slice().concat(newData.links);
       return { nodes: newNodes, links: newLinks };
     });
-    console.log(data);
+    console.log(graphData);
   };
 
   const deleteData = () => {
-    setData((data) => {
+    setGraphData((data) => {
       const newNodes = data.nodes.slice().filter((el) => el.id !== 'Myriel');
       const newLinks = data.links
         .slice()
         .filter((el) => el.source !== 'Myriel' && el.target !== 'Myriel');
-      // Hvis en node ikke er linket til noget bliver den fjernet fra grafen
       return { nodes: newNodes, links: newLinks };
     });
   };
@@ -68,13 +75,17 @@ function App() {
         </button>
       </div>
       <Link to="/">Home</Link>
+      <Link to="/search">Search</Link>
       <Link to="/graph">Graph</Link>
       <Switch>
         <Route exact path="/">
           <Home />
         </Route>
+        <Route exact path="/search">
+          <Search handleSearchForm={handleSearchForm} />
+        </Route>
         <Route exact path="/graph">
-          <Graph data={data} />
+          <Graph data={graphData} />
         </Route>
       </Switch>
     </div>
