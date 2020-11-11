@@ -55,11 +55,31 @@ function createNodes(articles) {
 
 function createLinks(articles) {
   let links = [];
+  let dict = {};
   articles.forEach((article) => {
     if (linkAuthors(article.author) !== []) {
-      links.push(linkAuthors(article.author));
+      const tempLinks = linkAuthors(article.author);
+      tempLinks.forEach((link) => {
+        if (dict[link.source]) {
+          if (!dict[link.source].includes(link.target)) {
+            dict[link.source].push(link.target);
+          }
+        } else {
+          dict[link.source] = [link.target];
+        }
+      });
     }
   });
+
+  for (const key in dict) {
+    dict[key].forEach((target) =>
+      links.push({
+        source: key,
+        target: target,
+      })
+    );
+  }
+  // console.log(dict);
   return links.flat();
 }
 
@@ -88,3 +108,6 @@ export async function fetchGraphData(query) {
   }
   return false;
 }
+
+// const query = queryPathBuilder('', 'Dexter Kozen');
+// fetchGraphData(query);
