@@ -1,8 +1,17 @@
+const { categoriesDict } = require('./categories');
+
 export function createAuthorDict(articles) {
   let dict = {};
   articles.forEach((article) => {
     const aID = article.id[0].replace('http://arxiv.org/abs/', '');
     const collabs = article.author.map((auth) => auth.name).flat();
+    const categories = article.category
+      .map((cat) => {
+        if (categoriesDict[cat.$.term]) return cat.$.term;
+      })
+      .flat()
+      .filter((cat) => cat !== undefined);
+
     collabs.forEach((author) => {
       if (dict[author]) {
         if (!dict[author].ids.includes(aID)) {
@@ -13,6 +22,17 @@ export function createAuthorDict(articles) {
               (au) => !dict[author].collabs.includes(au) && au !== author
             )
           );
+          categories.forEach((cat) => {
+            const main_cat = dict[author].main_cat;
+            dict[author].categories[cat]
+              ? dict[author].categories[cat]++
+              : (dict[author].categories[cat] = 1);
+            if (
+              dict[author].categories[cat] > dict[author].categories[main_cat]
+            ) {
+              dict[author].main_cat = cat;
+            }
+          });
         }
       } else {
         dict[author] = {
@@ -20,7 +40,10 @@ export function createAuthorDict(articles) {
           ids: [aID],
           articles: [article],
           expanded: false,
+          main_cat: categories[0],
+          categories: {},
         };
+        categories.forEach((cat) => (dict[author].categories[cat] = 1));
       }
     });
   });
@@ -70,6 +93,25 @@ export function updateAuthorDict(oldDict, newDict) {
         if (!dict[key].ids.includes(aID)) {
           dict[key].ids.push(aID);
           dict[key].articles.push(ar);
+
+          const categories = ar.category
+            .map((cat) => {
+              if (categoriesDict[cat.$.term]) return cat.$.term;
+            })
+            .flat()
+            .filter((cat) => cat !== undefined);
+
+          categories.forEach((cat) => {
+            const main_cat = dict[key].main_cat;
+            if (dict[key].categories[cat]) {
+              dict[key].categories[cat]++;
+              if (dict[key].categories[cat] > dict[key].categories[main_cat]) {
+                dict[key].main_cat = cat;
+              }
+            } else {
+              dict[key].categories[cat] = 1;
+            }
+          });
         }
       });
       newDict[key].collabs.forEach((col) => {
