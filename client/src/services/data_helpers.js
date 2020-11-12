@@ -58,3 +58,24 @@ export function createLinksFromDict(dict) {
   }
   return links;
 }
+
+export function updateAuthorDict(oldDict, newDict) {
+  let dict = Object.assign({}, oldDict);
+  for (const key in newDict) {
+    if (!dict[key]) {
+      dict[key] = newDict[key];
+    } else {
+      newDict[key].articles.forEach((ar) => {
+        const aID = ar.id[0].replace('http://arxiv.org/abs/', '');
+        if (!dict[key].ids.includes(aID)) {
+          dict[key].ids.push(aID);
+          dict[key].articles.push(ar);
+        }
+      });
+      newDict[key].collabs.forEach((col) => {
+        !dict[key].collabs.includes(col) && dict[key].collabs.push(col);
+      });
+    }
+  }
+  return dict;
+}

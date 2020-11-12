@@ -50,7 +50,6 @@ export async function fetchGraphData(query) {
     const dict = createAuthorDict(articles);
     const nodes = createNodesFromDict(dict);
     const links = createLinksFromDict(dict);
-    console.log('metadata', metadata);
     return [dict, { nodes, links }, metadata];
   }
   return false;
