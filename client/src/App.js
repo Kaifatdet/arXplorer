@@ -9,7 +9,8 @@ import Search from './components/Search';
 
 import { queryPathBuilder } from './services/ApiClient';
 // import { fetchGraphData, queryPathBuilder } from './services/ApiClient';
-import { testdata } from './services/test_query';
+import { test_data } from './services/test_query';
+import { update } from './services/update_query';
 
 function App() {
   const [graphData, setGraphData] = useState({});
@@ -22,43 +23,55 @@ function App() {
     setGraphData((init) => {
       return {
         ...init,
-        ...testdata,
+        ...test_data,
       };
     });
   };
 
   const initData = () => {
-    console.log('init called');
     setGraphData((init) => {
       return {
         ...init,
-        ...testdata,
+        ...test_data,
       };
     });
-    console.log(graphData);
   };
 
   const updateData = () => {
-    const newData = {
-      nodes: [
-        { id: 'Hr Kineser', group: 1 },
-        { id: 'Hej verden', group: 1 },
-      ],
-      links: [
-        { source: 'Myriel', target: 'Hr Kineser', value: '1' },
-        { source: 'Myriel', target: 'Hej verden', value: '1' },
-        { source: 'Hr Kineser', target: 'Hej verden', value: '1' },
-      ],
-    };
     setGraphData((data) => {
-      const newNodes = data.nodes.slice().concat(newData.nodes);
-      const newLinks = data.links.slice().concat(newData.links);
+      const newNodes = updateNodes(data.nodes, update.nodes);
+      const newLinks = updateLinks(data.links, update.links);
       return { nodes: newNodes, links: newLinks };
     });
-    console.log(graphData);
   };
 
-  const deleteData = () => {
+  function updateNodes(oldNodes, newNodes) {
+    let result = [...oldNodes];
+    const toAdd = newNodes.map((n) => {
+      result.forEach((o, j) => {
+        if (n.id === o.id) {
+          result.splice(j, 1);
+        }
+      });
+      return n;
+    });
+    return [...result, ...toAdd];
+  }
+
+  function updateLinks(oldLinks, newLinks) {
+    let toAdd = [];
+    newLinks.forEach((n) => {
+      if (
+        [...oldLinks].filter(
+          (o) => o.source === n.source && o.target === n.target
+        ).length === 0
+      )
+        toAdd.push(n);
+    });
+    return [...oldLinks, ...toAdd];
+  }
+
+  function deleteData() {
     setGraphData((data) => {
       const newNodes = data.nodes.slice().filter((el) => el.id !== 'Myriel');
       const newLinks = data.links
@@ -66,7 +79,7 @@ function App() {
         .filter((el) => el.source !== 'Myriel' && el.target !== 'Myriel');
       return { nodes: newNodes, links: newLinks };
     });
-  };
+  }
 
   return (
     <div className="App">

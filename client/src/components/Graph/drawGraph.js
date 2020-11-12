@@ -84,6 +84,7 @@ const drawGraph = (svg, data, { width, height }) => {
       .attr('cy', (d) => d.y)
       .on('click', (d) => {
         console.log('target click:', d.target.__data__.id);
+        console.log('target click:', d.target.__data__.val);
       })
       .on('mouseover', function (d) {
         const index = d.target.__data__.index;
@@ -93,6 +94,7 @@ const drawGraph = (svg, data, { width, height }) => {
         const index = d.target.__data__.index;
         select(text._groups[0][index]).attr('visibility', 'hidden');
       });
+
     text.attr('x', (d) => d.x).attr('y', (d) => d.y - 10);
   });
 };

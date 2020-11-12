@@ -1,10 +1,10 @@
 'use strict';
 
 import React, { useRef, useEffect } from 'react';
+import './Graph.css';
 import drawGraph from './drawGraph';
 import { select } from 'd3';
 
-// eslint-disable-next-line react/prop-types
 function Graph({ graphData }) {
   const svgRef = useRef();
   const dimensions = {
