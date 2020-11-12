@@ -1,4 +1,4 @@
-export const update = {
+export const update_data = {
   nodes: [
     { id: 'Helle Hvid Hansen', val: 2 },
     { id: 'Clemens Kupke' },

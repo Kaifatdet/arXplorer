@@ -10,7 +10,7 @@ import {
 } from 'd3';
 import { dragFunc, color } from './dragHelper';
 
-const drawGraph = (svg, data, { width, height }) => {
+const drawGraph = (svg, data, { width, height }, clickHandler) => {
   svg.attr('viewBox', [0, 0, width, height]).classed('viewBox', true);
 
   let offsetX = 0;
@@ -82,9 +82,9 @@ const drawGraph = (svg, data, { width, height }) => {
     node
       .attr('cx', (d) => d.x)
       .attr('cy', (d) => d.y)
-      .on('click', (d) => {
-        console.log('target click:', d.target.__data__.id);
-        console.log('target click:', d.target.__data__.val);
+      .on('click', function (d) {
+        clickHandler(d.target.__data__.id);
+        // select(this).attr('fill', 'green');
       })
       .on('mouseover', function (d) {
         const index = d.target.__data__.index;
