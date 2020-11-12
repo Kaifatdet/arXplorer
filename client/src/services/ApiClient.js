@@ -1,7 +1,11 @@
 'use strict';
 const fetch = require('node-fetch');
 const { parseString } = require('xml2js');
-const { createNodes, createLinks } = require('./data_helpers');
+const {
+  createAuthorDict,
+  createNodesFromDict,
+  createLinksFromDict,
+} = require('./data_helpers');
 
 const BASE_URL = 'http://export.arxiv.org/api/';
 
@@ -43,12 +47,11 @@ function parseResponse(res) {
 export async function fetchGraphData(query) {
   const [articles, metadata] = await fetchRequest(query);
   if (articles) {
-    const nodes = createNodes(articles);
-    const links = createLinks(articles);
-    const fetched = { nodes: nodes, links: links };
-    console.log('fetched', fetched);
+    const dict = createAuthorDict(articles);
+    const nodes = createNodesFromDict(dict);
+    const links = createLinksFromDict(dict);
     console.log('metadata', metadata);
-    return fetched;
+    return [dict, { nodes, links }, metadata];
   }
   return false;
 }

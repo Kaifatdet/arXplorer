@@ -7,8 +7,8 @@ import Graph from './components/Graph';
 import Home from './components/Home';
 import Search from './components/Search';
 
-import { queryPathBuilder } from './services/ApiClient';
-// import { fetchGraphData, queryPathBuilder } from './services/ApiClient';
+// import { queryPathBuilder } from './services/ApiClient';
+import { fetchGraphData, queryPathBuilder } from './services/ApiClient';
 import { test_data } from './services/test_query';
 import { update_data } from './services/update_query';
 
@@ -17,13 +17,11 @@ function App() {
 
   const handleSearchForm = async (title, author) => {
     const query = queryPathBuilder(title, author);
-    console.log('query', query);
-    // const data = await fetchGraphData(query);
-    // console.log(data);
+    const data = await fetchGraphData(query)[1];
     setGraphData((init) => {
       return {
         ...init,
-        ...test_data,
+        ...data,
       };
     });
   };
