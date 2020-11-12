@@ -108,10 +108,14 @@ function createAuthorDict(articles) {
 
 function createNodesFromDict(dict) {
   const nodes = [];
+  const colorDict = calculateGroupsFromCategories(dict);
   for (const author in dict) {
+    const main_cat = dict[author].main_cat;
     nodes.push({
       id: author,
       weight: dict[author].collabs.length,
+      group: colorDict[main_cat],
+      cat: main_cat,
     });
   }
   return nodes;
@@ -178,25 +182,39 @@ function updateAuthorDict(oldDict, newDict) {
   return dict;
 }
 
+function calculateGroupsFromCategories(dict) {
+  let cats = {};
+  let counter = 1;
+  for (const key in dict) {
+    const cat = dict[key].main_cat;
+    if (!cats[cat]) {
+      cats[cat] = counter;
+      counter++;
+    }
+  }
+  return cats;
+}
+
 // tests
-// (async () => {
-//   const query = queryPathBuilder('', 'Dexter Kozen');
-//   // eslint-disable-next-line no-unused-vars
-//   const [dict, i, m] = await fetchGraphData(query);
-//   console.log(dict);
-//   return dict;
-// })();
 (async () => {
-  const firstQ = queryPathBuilder('', 'Dexter Kozen');
-  const secondQ = queryPathBuilder('', 'Helle Hvid Hansen');
+  const query = queryPathBuilder('', 'Dexter Kozen');
   // eslint-disable-next-line no-unused-vars
-  const [firstDict, i, m] = await fetchGraphData(firstQ);
-  // eslint-disable-next-line no-unused-vars
-  const [secondDict, j, n] = await fetchGraphData(secondQ);
-  const updatedDict = updateAuthorDict(firstDict, secondDict);
-  console.log(updatedDict);
-  return updatedDict;
+  const [dict, i, m] = await fetchGraphData(query);
+  const cats = calculateGroupsFromCategories(dict);
+  console.log(cats);
+  return dict;
 })();
+// (async () => {
+//   const firstQ = queryPathBuilder('', 'Dexter Kozen');
+//   const secondQ = queryPathBuilder('', 'Helle Hvid Hansen');
+//   // eslint-disable-next-line no-unused-vars
+//   const [firstDict, i, m] = await fetchGraphData(firstQ);
+//   // eslint-disable-next-line no-unused-vars
+//   const [secondDict, j, n] = await fetchGraphData(secondQ);
+//   const updatedDict = updateAuthorDict(firstDict, secondDict);
+//   console.log(updatedDict);
+//   return updatedDict;
+// })();
 
 const categoriesDict = {
   'astro-ph': 'Astrophysics',

@@ -52,10 +52,14 @@ export function createAuthorDict(articles) {
 
 export function createNodesFromDict(dict) {
   const nodes = [];
+  const colorDict = calculateGroupsFromCategories(dict);
   for (const author in dict) {
+    const main_cat = dict[author].main_cat;
     nodes.push({
       id: author,
       weight: dict[author].collabs.length,
+      group: colorDict[main_cat],
+      cat: main_cat,
     });
   }
   return nodes;
@@ -120,4 +124,17 @@ export function updateAuthorDict(oldDict, newDict) {
     }
   }
   return dict;
+}
+
+function calculateGroupsFromCategories(dict) {
+  let cats = {};
+  let counter = 1;
+  for (const key in dict) {
+    const cat = dict[key].main_cat;
+    if (!cats[cat]) {
+      cats[cat] = counter;
+      counter++;
+    }
+  }
+  return cats;
 }
