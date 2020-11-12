@@ -2,20 +2,15 @@ import './App.css';
 import React, { useState } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 
-// import ApiClient from './services/ApiClient';
 import Graph from './components/Graph';
 import Home from './components/Home';
 import Search from './components/Search';
 
-// import { queryPathBuilder } from './services/ApiClient';
 import {
   fetchGraphData,
   queryPathBuilder,
   updateData,
 } from './services/ApiClient';
-
-// import { test_data } from './services/test_query';
-// import { update_data } from './services/update_query';
 
 function App() {
   const [authorDict, setAuthorDict] = useState({});
@@ -47,17 +42,6 @@ function App() {
   return (
     <div className="App">
       <h1>Graph container</h1>
-      <div className="buttons">
-        {/* <button type="submit" onClick={initData}>
-          Create chart
-        </button> */}
-        {/* <button type="submit" onClick={() => updateState(update_data)}>
-          Update chart
-        </button> */}
-        {/* <button type="submit" onClick={deleteData}>
-          Delete data
-        </button> */}
-      </div>
       <Link to="/">Home</Link>
       <Link to="/search">Search</Link>
       <Link to="/graph">Graph</Link>

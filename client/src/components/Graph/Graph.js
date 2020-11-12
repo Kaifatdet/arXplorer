@@ -6,7 +6,7 @@ import drawGraph from './drawGraph';
 import { select } from 'd3';
 import RightSidebar from '../RightSidebar';
 
-function Graph({ graphData, handleGraphExpand }) {
+function Graph({ graphData, handleGraphExpand, authorDict }) {
   const [selected, setSelected] = useState('');
   const svgRef = useRef();
   const dimensions = {
@@ -41,12 +41,16 @@ function Graph({ graphData, handleGraphExpand }) {
   }, [graphData]);
 
   return (
-    <>
+    <div className="graph-container">
       <div className="data-container">
         <svg ref={svgRef}></svg>
       </div>
-      <RightSidebar selected={selected} handleExpandClick={handleExpandClick} />
-    </>
+      <RightSidebar
+        selected={selected}
+        handleExpandClick={handleExpandClick}
+        authorDict={authorDict}
+      />
+    </div>
   );
 }
 

@@ -1,5 +1,67 @@
 .rsb-container {
+  position: absolute;
+  box-sizing: border-box;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+  width: 25%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  background-color: #17404d;
+}
+
+.rsb-icon {
+  align-self: flex-start;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+.rsb-icon-close {
+  color: black;
+  font-size: 4rem;
+  font-weight: lighter;
+}
+
+.rsb-details {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.rsb-author {
+  align-self: flex-start;
+  font-size: xx-large;
+  text-decoration: underline;
+  margin-bottom: 5px;
+}
+
+.rsb-expand-btn {
+  margin: 10px;
+}
+
+.rsb-list {
+  flex: 3;
+  overflow: scroll;
+  color: black;
+}
+
+.rsb-list-article {
+  background-color: rgb(227, 221, 202);
+  margin: 0 5px 5px 5px;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.rsb-article-title {
+  font-weight: bold;
+}
+
+.rsb-article-authors {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-style: italic;
 }
