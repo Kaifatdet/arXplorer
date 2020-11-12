@@ -5,6 +5,7 @@ const {
   createAuthorDict,
   createNodesFromDict,
   createLinksFromDict,
+  updateAuthorDict,
 } = require('./data_helpers');
 
 const BASE_URL = 'http://export.arxiv.org/api/';
@@ -53,4 +54,11 @@ export async function fetchGraphData(query) {
     return [dict, { nodes, links }, metadata];
   }
   return false;
+}
+
+export async function updateData(oldDict, newDict) {
+  const dict = updateAuthorDict(oldDict, newDict);
+  const nodes = createNodesFromDict(dict);
+  const links = createLinksFromDict(dict);
+  return [dict, { nodes, links }];
 }
