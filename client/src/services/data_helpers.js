@@ -60,6 +60,7 @@ export function createNodesFromDict(dict) {
       weight: dict[author].collabs.length,
       group: colorDict[main_cat],
       cat: main_cat,
+      cat_name: categoriesDict[main_cat],
     });
   }
   return nodes;

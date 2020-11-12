@@ -10,7 +10,13 @@ import {
 } from 'd3';
 import { dragFunc, color } from './dragHelper';
 
-const drawGraph = (svg, data, { width, height }, clickHandler) => {
+const drawGraph = (
+  svg,
+  data,
+  { width, height },
+  clickHandler,
+  extractCategories
+) => {
   svg.attr('viewBox', [0, 0, width, height]).classed('viewBox', true);
 
   let offsetX = 0;
@@ -35,6 +41,7 @@ const drawGraph = (svg, data, { width, height }, clickHandler) => {
   if (!data.nodes) return;
   const nodes = data.nodes.map((d) => Object.create(d));
   const links = data.links.map((d) => Object.create(d));
+  const categories = extractCategories(nodes);
 
   const simulation = forceSimulation(nodes)
     .force(
@@ -68,9 +75,24 @@ const drawGraph = (svg, data, { width, height }, clickHandler) => {
     .join('text')
     .attr('class', 'label')
     .attr('text-anchor', 'middle')
-    .attr('font-size', 6)
+    .attr('font-size', 10)
     .attr('visibility', 'hidden')
     .text((d) => d.id);
+
+  const legend_circle = svg
+    .selectAll('legend-circle')
+    .data(categories)
+    .join('circle')
+    .attr('r', 10)
+    .attr('fill', color());
+
+  const legend_text = svg
+    .selectAll('legend-text')
+    .data(categories)
+    .join('text')
+    .attr('class', 'legend-label')
+    .attr('font-size', 10)
+    .text((d) => d.name);
 
   simulation.on('tick', () => {
     link
@@ -96,6 +118,9 @@ const drawGraph = (svg, data, { width, height }, clickHandler) => {
       });
 
     text.attr('x', (d) => d.x).attr('y', (d) => d.y - 10);
+
+    legend_circle.attr('cx', 0).attr('cy', (d) => height - d.group * 30);
+    legend_text.attr('x', 15).attr('y', (d) => height - d.group * 30 + 2);
   });
 };
 

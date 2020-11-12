@@ -11,7 +11,7 @@ function Graph({ graphData, handleGraphExpand }) {
   const svgRef = useRef();
   const dimensions = {
     height: 600,
-    width: 800,
+    width: 1280,
   };
 
   const handleClick = (input) => {
@@ -22,9 +22,22 @@ function Graph({ graphData, handleGraphExpand }) {
     handleGraphExpand(selected);
   };
 
+  const extractCategories = (data) => {
+    let cats = [];
+    data.forEach((n) => {
+      if (cats.filter((el) => el.name === n.cat_name).length === 0) {
+        cats.push({
+          name: n.cat_name,
+          group: n.group,
+        });
+      }
+    });
+    return cats;
+  };
+
   useEffect(() => {
     const svg = select(svgRef.current);
-    drawGraph(svg, graphData, dimensions, handleClick);
+    drawGraph(svg, graphData, dimensions, handleClick, extractCategories);
   }, [graphData]);
 
   return (
