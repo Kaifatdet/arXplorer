@@ -6,9 +6,8 @@ import {
   forceManyBody,
   forceCenter,
   forceLink,
-  drag,
 } from 'd3';
-import { dragFunc, color } from './dragHelper';
+import { dragFunc, color, backgroundDrag } from './dragHelper';
 
 const drawGraph = (
   svg,
@@ -24,21 +23,8 @@ const drawGraph = (
   let offsetX = 0;
   let offsetY = 0;
 
-  const backgroundDrag = drag()
-    .on('start', () => undefined)
-    .on('drag', (e) => {
-      offsetX -= e.dx;
-      offsetY -= e.dy;
-      svg.attr('viewBox', [
-        0 + offsetX,
-        0 + offsetY,
-        width + offsetX,
-        height + offsetY,
-      ]);
-    })
-    .on('end', () => undefined);
-
-  svg.call(backgroundDrag);
+  // svg.call(backgroundDrag(width, height, offsetX, offsetY));
+  svg.call(backgroundDrag(svg, width, height, offsetX, offsetY));
 
   if (!data.nodes) return;
   const nodes = data.nodes.map((d) => Object.create(d));

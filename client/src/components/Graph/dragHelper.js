@@ -28,6 +28,32 @@ export const dragFunc = (simulation) => {
     .on('end', dragended);
 };
 
+export const backgroundDrag = (selection, width, height, offsetX, offsetY) => {
+  function dragstarted() {
+    return undefined;
+  }
+
+  function dragged(e) {
+    offsetX -= e.dx;
+    offsetY -= e.dy;
+    selection.attr('viewBox', [
+      0 + offsetX,
+      0 + offsetY,
+      width + offsetX,
+      height + offsetY,
+    ]);
+  }
+
+  function dragended() {
+    return undefined;
+  }
+
+  return drag()
+    .on('start', dragstarted)
+    .on('drag', dragged)
+    .on('end', dragended);
+};
+
 export const color = () => {
   const scale = scaleOrdinal(schemePaired);
   return (d) => scale(d.group);
