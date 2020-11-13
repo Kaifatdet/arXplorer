@@ -22,6 +22,10 @@ function Graph({ graphData, handleGraphExpand, authorDict }) {
     handleGraphExpand(selected);
   };
 
+  const toggleSelected = () => {
+    setSelected('');
+  };
+
   const extractCategories = (data) => {
     let cats = [];
     data.forEach((n) => {
@@ -49,6 +53,7 @@ function Graph({ graphData, handleGraphExpand, authorDict }) {
         selected={selected}
         handleExpandClick={handleExpandClick}
         authorDict={authorDict}
+        toggleSelected={toggleSelected}
       />
     </div>
   );

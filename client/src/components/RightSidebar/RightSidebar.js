@@ -4,13 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './RightSidebar.css';
 
-function RightSidebar({ selected, handleExpandClick, authorDict }) {
+function RightSidebar({
+  selected,
+  handleExpandClick,
+  authorDict,
+  toggleSelected,
+}) {
   const [details, setDetails] = useState({});
+  const [toggled, setToggled] = useState('hide');
 
   useEffect(() => {
     if (selected) {
       let selectedDetails = authorDict[selected];
       setDetails(selectedDetails);
+      setToggled('show');
       console.log(selectedDetails);
     }
   }, [selected]);
@@ -19,10 +26,19 @@ function RightSidebar({ selected, handleExpandClick, authorDict }) {
     handleExpandClick();
   };
 
+  const toggleSidebar = () => {
+    toggleSelected();
+    setToggled('hide');
+  };
+
   return (
-    <div className="rsb-container">
+    <div className={`rsb-container ${toggled}`}>
       <div className="rsb-icon">
-        <FontAwesomeIcon icon={faTimes} className="rsb-icon-close" />
+        <FontAwesomeIcon
+          icon={faTimes}
+          className="rsb-icon-close"
+          onClick={toggleSidebar}
+        />
       </div>
       <div className="rsb-details">
         <div className="rsb-author">{selected}</div>

@@ -5,12 +5,21 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 25%;
   height: 100%;
   top: 0;
   right: 0;
   z-index: 2;
   background-color: #17404d;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.hide {
+  width: 0;
+}
+
+.show {
+  width: 25%;
 }
 
 .rsb-icon {
@@ -40,6 +49,13 @@
 
 .rsb-expand-btn {
   margin: 10px;
+  color: black;
+  width: 50%;
+}
+
+.rsb-expand-btn:hover {
+  color: rgb(227, 221, 202);
+  background-color: rgb(42, 83, 73);
 }
 
 .rsb-list {
