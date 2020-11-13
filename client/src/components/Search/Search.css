@@ -1,0 +1,55 @@
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 80vh;
+  width: 40vw;
+  margin: 0 auto;
+  border-radius: 5px;
+  background-color: rgb(227, 221, 202);
+  color: rgb(23, 64, 77);
+}
+
+h1 {
+  color: rgb(23, 64, 77);
+}
+
+.search-title,
+.search-author,
+.search-journal,
+.search-abstract {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.search-input-title,
+.search-input-author,
+.search-input-journal,
+.search-input-abstract {
+  border: 0px;
+  border-radius: 3px;
+  background-color: rgba(120, 120, 120, 0.2);
+  height: 2rem;
+  padding: 3px;
+}
+
+.search-label-title,
+.search-label-author,
+.search-label-journal, 
+.search-label-abstract {
+  font-size: 1.2rem;
+  margin-bottom: 2px;
+}
+
+.search-submit {
+  width: 80%;
+  height: 5%;
+  border: 0;
+  border-radius: 5px;
+  background-color: rgb(23, 64, 77);
+  color: rgb(227, 221, 202);
+  font-size: x-large;
+  margin-bottom: 5%;
+}
