@@ -14,7 +14,12 @@ function Search({ handleSearchForm }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSearchForm(fields.title, fields.author);
+    handleSearchForm(
+      fields.title,
+      fields.author,
+      fields.journal,
+      fields.abstract
+    );
     setFields(() => init);
     setToGraph(() => true);
   };

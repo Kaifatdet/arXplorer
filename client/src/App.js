@@ -17,17 +17,22 @@ function App() {
   const [authorDict, setAuthorDict] = useState({});
   const [graphData, setGraphData] = useState({});
 
-  const handleSearchForm = async (title, author) => {
-    const query = queryPathBuilder(title, author);
-    const [dict, data, metadata] = await fetchGraphData(query);
-    console.log(metadata);
-    setAuthorDict(() => dict);
-    setGraphData((init) => {
-      return {
-        ...init,
-        ...data,
-      };
-    });
+  const handleSearchForm = async (title, author, journal, abstract) => {
+    const query = queryPathBuilder(title, author, journal, abstract);
+    console.log(query);
+    try {
+      // eslint-disable-next-line no-unused-vars
+      const [dict, data, metadata] = await fetchGraphData(query);
+      setAuthorDict(() => dict);
+      setGraphData((init) => {
+        return {
+          ...init,
+          ...data,
+        };
+      });
+    } catch (err) {
+      console.log('No results for the given search');
+    }
   };
 
   const handleGraphExpand = async (author) => {
