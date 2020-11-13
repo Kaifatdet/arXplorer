@@ -16,8 +16,6 @@ export const dragFunc = (simulation) => {
 
   function dragended(event) {
     if (!event.active) simulation.alphaTarget(0);
-    // event.subject.fx = null;
-    // event.subject.fy = null;
     event.subject.fx = event.x;
     event.subject.fy = event.y;
   }
@@ -28,7 +26,7 @@ export const dragFunc = (simulation) => {
     .on('end', dragended);
 };
 
-export const backgroundDrag = (selection, width, height, offsetX, offsetY) => {
+export const backgroundDrag = (selection, offsetX, offsetY) => {
   function dragstarted() {
     return undefined;
   }
@@ -36,12 +34,9 @@ export const backgroundDrag = (selection, width, height, offsetX, offsetY) => {
   function dragged(e) {
     offsetX -= e.dx;
     offsetY -= e.dy;
-    selection.attr('viewBox', [
-      0 + offsetX,
-      0 + offsetY,
-      width + offsetX,
-      height + offsetY,
-    ]);
+    selection
+      .selectAll('g.nodes')
+      .attr('transform', `translate(${-offsetX}, ${-offsetY})`);
   }
 
   function dragended() {

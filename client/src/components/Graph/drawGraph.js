@@ -18,13 +18,23 @@ const drawGraph = (
 ) => {
   svg.attr('viewBox', [0, 0, width, height]).classed('viewBox', true);
 
+  svg.selectAll('rect').remove();
   svg.selectAll('g').remove();
 
   let offsetX = 0;
   let offsetY = 0;
 
-  // svg.call(backgroundDrag(width, height, offsetX, offsetY));
-  svg.call(backgroundDrag(svg, width, height, offsetX, offsetY));
+  svg
+    .append('rect')
+    .classed('bg', true)
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('width', width)
+    .attr('height', height)
+    .attr('stroke', 'transparent')
+    .attr('fill', 'transparent');
+
+  svg.call(backgroundDrag(svg, offsetX, offsetY));
 
   if (!data.nodes) return;
   const nodes = data.nodes.map((d) => Object.create(d));
@@ -41,6 +51,7 @@ const drawGraph = (
 
   const link = svg
     .append('g')
+    .classed('nodes', true)
     .selectAll('line')
     .data(links)
     .join('line')
@@ -50,6 +61,7 @@ const drawGraph = (
 
   const node = svg
     .append('g')
+    .classed('nodes', true)
     .selectAll('circle')
     .data(nodes)
     .join('circle')
@@ -61,7 +73,8 @@ const drawGraph = (
 
   const text = svg
     .append('g')
-    .selectAll('.g')
+    .classed('nodes', true)
+    .selectAll('text')
     .data(nodes)
     .join('text')
     .attr('class', 'label')
@@ -71,6 +84,8 @@ const drawGraph = (
     .text((d) => d.id);
 
   const legend_circle = svg
+    .append('g')
+    .classed('legend', true)
     .selectAll('legend-circle')
     .data(categories)
     .join('circle')
@@ -79,7 +94,8 @@ const drawGraph = (
 
   const legend_text = svg
     .append('g')
-    .selectAll('g')
+    .classed('legend', true)
+    .selectAll('lengend-text')
     .data(categories)
     .join('text')
     .attr('class', 'legend-label')
