@@ -139,3 +139,12 @@ function calculateGroupsFromCategories(dict) {
   }
   return cats;
 }
+
+export function addNewArticles(prev, newList) {
+  let toAdd = [];
+  newList.forEach((ar) => {
+    prev.filter((old) => old.id[0] === ar.id[0]).length === 0 && toAdd.push(ar);
+  });
+  console.log(toAdd);
+  return [...prev, ...toAdd];
+}

@@ -51,7 +51,7 @@ async function fetchGraphData(query) {
     const dict = createAuthorDict(articles);
     const nodes = createNodesFromDict(dict);
     const links = createLinksFromDict(dict);
-    return [dict, { nodes, links }, metadata];
+    return [dict, { nodes, links }, metadata, articles];
   }
   return false;
 }
@@ -195,26 +195,38 @@ function calculateGroupsFromCategories(dict) {
   return cats;
 }
 
+function addNewArticles(prev, newList) {
+  let toAdd = [];
+  newList.forEach((ar) => {
+    prev.filter((old) => old.id[0] === ar.id[0]).length === 0 && toAdd.push(ar);
+  });
+  console.log(toAdd);
+  return [...prev, ...toAdd];
+}
+
 // tests
-(async () => {
-  const query = queryPathBuilder('', 'Dexter Kozen');
-  // eslint-disable-next-line no-unused-vars
-  const [dict, i, m] = await fetchGraphData(query);
-  const cats = calculateGroupsFromCategories(dict);
-  console.log(cats);
-  return dict;
-})();
 // (async () => {
-//   const firstQ = queryPathBuilder('', 'Dexter Kozen');
-//   const secondQ = queryPathBuilder('', 'Helle Hvid Hansen');
+//   const query = queryPathBuilder('', 'Dexter Kozen');
 //   // eslint-disable-next-line no-unused-vars
-//   const [firstDict, i, m] = await fetchGraphData(firstQ);
-//   // eslint-disable-next-line no-unused-vars
-//   const [secondDict, j, n] = await fetchGraphData(secondQ);
-//   const updatedDict = updateAuthorDict(firstDict, secondDict);
-//   console.log(updatedDict);
-//   return updatedDict;
+//   const [dict, i, m, articles] = await fetchGraphData(query);
+
+//   const cats = calculateGroupsFromCategories(dict);
+//   console.log(cats);
+//   return dict;
 // })();
+(async () => {
+  const firstQ = queryPathBuilder('', 'Dexter Kozen');
+  const secondQ = queryPathBuilder('', 'Helle Hvid Hansen');
+  // eslint-disable-next-line no-unused-vars
+  const [firstDict, i, m, firstList] = await fetchGraphData(firstQ);
+  // eslint-disable-next-line no-unused-vars
+  const [secondDict, j, n, secondList] = await fetchGraphData(secondQ);
+  const updatedList = addNewArticles(firstList, secondList);
+  console.log('first', firstList.length);
+  console.log('second', secondList.length);
+  console.log('updated', updatedList.length);
+  return updatedList;
+})();
 
 const categoriesDict = {
   'astro-ph': 'Astrophysics',
