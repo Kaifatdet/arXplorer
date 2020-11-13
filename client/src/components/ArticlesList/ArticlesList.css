@@ -1,0 +1,50 @@
+h1 {
+  color: rgb(227, 221, 202);
+}
+
+.list-container {
+  width: 90vw;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list-article {
+  background-color: rgb(227, 221, 202);
+  color: rgb(23, 64, 77);
+  margin-bottom: 1rem;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 1px #3333;
+}
+
+.list-article-title,
+.list-article-authors,
+.list-article-abstract,
+.list-article-published {
+  margin-bottom: 5px;
+}
+
+.list-article-title {
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.list-article-authors {
+  font-style: italic;
+}
+
+.list-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+a {
+  text-decoration: underline;
+  color: rgb(23, 64, 77);
+  font-weight: bold;
+  font-style: italic;
+  margin-right: 0.3rem;
+}

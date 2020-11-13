@@ -15,6 +15,9 @@ function Navbar() {
         <Link className="nav-link" to="/graph">
           Graph
         </Link>
+        <Link className="nav-link" to="/list">
+          List
+        </Link>
       </div>
     </nav>
   );
