@@ -22,7 +22,6 @@ function App() {
 
   const handleSearchForm = async (title, author, journal, abstract) => {
     const query = queryPathBuilder(title, author, journal, abstract);
-    console.log(query);
     try {
       // eslint-disable-next-line no-unused-vars
       const [dict, data, metadata, articles] = await fetchGraphData(query);
@@ -41,10 +40,10 @@ function App() {
 
   const handleGraphExpand = async (author) => {
     const query = queryPathBuilder('', author);
+    // eslint-disable-next-line no-unused-vars
     const [dict, data, metadata, articles] = await fetchGraphData(query);
     const [updatedDict, updatedData] = await updateAuthorData(authorDict, dict);
     const updatedArticles = await updateArticlesList(articleList, articles);
-    console.log('metadata', metadata, 'data', data);
 
     setGraphData(updatedData);
     setAuthorDict(updatedDict);

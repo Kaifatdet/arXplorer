@@ -12,9 +12,13 @@ const {
 const BASE_URL = 'http://export.arxiv.org/api/';
 
 async function fetchRequest(queryPath) {
+  if (localStorage.getItem(queryPath))
+    return JSON.parse(localStorage.getItem(queryPath));
   const res = await fetch(queryPath);
   const text = await res.text();
-  return parseResponse(text);
+  const parsed = parseResponse(text);
+  localStorage.setItem(queryPath, JSON.stringify(parsed));
+  return parsed;
 }
 
 export function queryPathBuilder(
