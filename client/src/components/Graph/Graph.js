@@ -10,8 +10,8 @@ function Graph({ graphData, handleGraphExpand, authorDict }) {
   const [selected, setSelected] = useState('');
   const svgRef = useRef();
   const dimensions = {
-    height: 600,
-    width: 1280,
+    width: window.innerWidth,
+    height: window.innerWidth / 2,
   };
 
   const handleClick = (input) => {

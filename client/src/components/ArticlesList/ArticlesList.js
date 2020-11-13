@@ -8,12 +8,17 @@ function ArticlesList({ authorDict, articleList }) {
     console.log('authors', authorDict);
   }, [articleList]);
 
-  if (articleList.length === 0)
-    return <div className="no-articles">No articles to show yet</div>;
+  if (articleList.length === 0) {
+    return (
+      <div className="no-articles">
+        No articles to show yet, please perform a search
+      </div>
+    );
+  }
 
   return (
     <div className="list-container">
-      <h1>Articles</h1>
+      <h1 className="articles-header">Articles</h1>
       {articleList.map((ar) => (
         <div
           key={ar.id[0].replace('http://arxiv.org/abs/', '')}
@@ -47,6 +52,7 @@ function ArticlesList({ authorDict, articleList }) {
             </div>
             <div className="list-article-link">
               <a
+                className="arxiv-link"
                 href={`http://arxiv.org/abs/${ar.id[0].replace(
                   'http://arxiv.org/abs/',
                   ''

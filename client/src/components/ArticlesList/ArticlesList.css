@@ -1,5 +1,6 @@
-h1 {
+.articles-header {
   color: rgb(227, 221, 202);
+  margin-top: 0;
 }
 
 .list-container {
@@ -17,6 +18,7 @@ h1 {
   padding: 5px;
   border-radius: 5px;
   box-shadow: 0 0 5px 1px #3333;
+  width: 100%;
 }
 
 .list-article-title,
@@ -41,10 +43,15 @@ h1 {
   justify-content: space-between;
 }
 
-a {
+.arxiv-link {
   text-decoration: underline;
   color: rgb(23, 64, 77);
   font-weight: bold;
   font-style: italic;
   margin-right: 0.3rem;
+}
+
+.no-articles {
+  text-align: center;
+  font-size: x-large;
 }

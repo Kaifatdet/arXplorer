@@ -19,6 +19,8 @@ const drawGraph = (
 ) => {
   svg.attr('viewBox', [0, 0, width, height]).classed('viewBox', true);
 
+  svg.selectAll('g').remove();
+
   let offsetX = 0;
   let offsetY = 0;
 
@@ -52,14 +54,16 @@ const drawGraph = (
     .force('center', forceCenter(width / 2, height / 2));
 
   const link = svg
+    .append('g')
     .selectAll('line')
     .data(links)
     .join('line')
-    .attr('stroke-width', (d) => Math.sqrt(d.value))
+    .attr('stroke-width', 1)
     .attr('stroke', '#3333')
     .attr('stroke-opacity', 0.6);
 
   const node = svg
+    .append('g')
     .selectAll('circle')
     .data(nodes)
     .join('circle')
@@ -70,7 +74,8 @@ const drawGraph = (
     .call(dragFunc(simulation));
 
   const text = svg
-    .selectAll('.label')
+    .append('g')
+    .selectAll('.g')
     .data(nodes)
     .join('text')
     .attr('class', 'label')
@@ -87,7 +92,8 @@ const drawGraph = (
     .attr('fill', color());
 
   const legend_text = svg
-    .selectAll('legend-text')
+    .append('g')
+    .selectAll('g')
     .data(categories)
     .join('text')
     .attr('class', 'legend-label')
