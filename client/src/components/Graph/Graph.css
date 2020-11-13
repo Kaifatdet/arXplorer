@@ -1,0 +1,14 @@
+.data-container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 500px;
+  background-color: rgb(178, 178, 178, 0.3);
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+}

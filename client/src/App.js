@@ -1,10 +1,11 @@
 import './App.css';
 import React, { useState } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import Graph from './components/Graph';
 import Home from './components/Home';
 import Search from './components/Search';
+import Navbar from './components/Navbar';
 
 import {
   fetchGraphData,
@@ -41,10 +42,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Graph container</h1>
-      <Link to="/">Home</Link>
-      <Link to="/search">Search</Link>
-      <Link to="/graph">Graph</Link>
+      <Navbar />
       <Switch>
         <Route exact path="/">
           <Home />

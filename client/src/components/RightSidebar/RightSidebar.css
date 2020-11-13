@@ -34,6 +34,10 @@
   font-weight: lighter;
 }
 
+.rsb-icon-close:hover {
+  color: rgb(227, 221, 202);
+}
+
 .rsb-details {
   display: flex;
   flex-direction: column;
@@ -51,6 +55,11 @@
   margin: 10px;
   color: black;
   width: 50%;
+  background-color: rgb(227, 221, 202);
+  border: 0px;
+  border-radius: 3px;
+  padding: 5px;
+  box-shadow: 0 0 5px 1px rgba(51, 51, 51, 0.5);
 }
 
 .rsb-expand-btn:hover {
