@@ -1,6 +1,6 @@
 .articles-header {
   color: rgb(227, 221, 202);
-  margin-top: 0;
+  margin-top: 1.5rem;
 }
 
 .list-container {
@@ -54,4 +54,10 @@
 .no-articles {
   text-align: center;
   font-size: x-large;
+  margin-top: 15px;
+}
+
+.redirect {
+  text-decoration: none;
+  color: rgb(13, 44, 57)
 }

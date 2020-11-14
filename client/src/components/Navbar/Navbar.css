@@ -1,7 +1,7 @@
 .nav-container {
   background-color: rgb(23, 64, 77);
   padding: 5px;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
   box-shadow: 0 0 5px 1px rgba(51, 51, 51, 0.5);
 }
 

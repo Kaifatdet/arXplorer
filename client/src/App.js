@@ -40,14 +40,20 @@ function App() {
 
   const handleGraphExpand = async (author) => {
     const query = queryPathBuilder('', author);
-    // eslint-disable-next-line no-unused-vars
-    const [dict, data, metadata, articles] = await fetchGraphData(query);
-    const [updatedDict, updatedData] = await updateAuthorData(authorDict, dict);
-    const updatedArticles = await updateArticlesList(articleList, articles);
-
-    setGraphData(updatedData);
-    setAuthorDict(updatedDict);
-    setArticleList(updatedArticles);
+    try {
+      // eslint-disable-next-line no-unused-vars
+      const [dict, data, metadata, articles] = await fetchGraphData(query);
+      const [updatedDict, updatedData] = await updateAuthorData(
+        authorDict,
+        dict
+      );
+      const updatedArticles = await updateArticlesList(articleList, articles);
+      setGraphData(updatedData);
+      setAuthorDict(updatedDict);
+      setArticleList(updatedArticles);
+    } catch (err) {
+      console.log('No results for the searched author');
+    }
   };
 
   return (
