@@ -32,8 +32,9 @@ export const textElement = (selection, data) => {
     .join('text')
     .attr('class', 'label')
     .attr('text-anchor', 'middle')
-    .attr('font-size', 12)
+    .attr('font-size', 14)
     .attr('visibility', 'hidden')
+    .style('fill', 'black')
     .text((d) => d.id);
 };
 
@@ -59,6 +60,7 @@ export const categoryLegendTextElement = (selection, data) => {
     .join('text')
     .attr('class', 'legend-label')
     .attr('font-size', 12)
+    .style('fill', 'whitesmoke')
     .text((d) => d.name);
 };
 
@@ -84,5 +86,6 @@ export const sizeLegendTextElement = (selection, data) => {
     .join('text')
     .attr('class', 'legend-label')
     .attr('font-size', 12)
+    .style('fill', 'whitesmoke')
     .text((d) => d.legend);
 };

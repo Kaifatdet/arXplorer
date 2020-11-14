@@ -6,6 +6,7 @@ import {
   forceManyBody,
   forceCenter,
   forceLink,
+  forceCollide,
 } from 'd3';
 import { dragFunc, color, backgroundDrag } from './dragHelper';
 import {
@@ -56,7 +57,8 @@ const drawGraph = (
       'link',
       forceLink(links).id((d) => d.id)
     )
-    .force('charge', forceManyBody())
+    .force('charge', forceManyBody().distanceMax(150))
+    .force('collision', forceCollide().strength(0.8))
     .force('center', forceCenter(width / 2, height / 2));
 
   const link = linkElement(svg, links);
@@ -104,10 +106,13 @@ const drawGraph = (
 
     text.attr('x', (d) => d.x).attr('y', (d) => d.y - 10);
 
-    categoryLegendCircle.attr('cx', 0).attr('cy', (d) => height - d.group * 30);
+    categoryLegendCircle
+      .attr('cx', -width * 0.05)
+      .attr('cy', (d) => height - d.group * 30);
     categoryLegendText
-      .attr('x', 15)
-      .attr('y', (d) => height - d.group * 30 + 2);
+      .attr('x', -width * 0.05 + 15)
+      .attr('y', (d) => height - d.group * 30 + 3);
+
     sizeLegendCircle
       .attr('cx', (d) => width * 0.38 + d.id * width * 0.12)
       .attr('cy', height - height * 0.05);

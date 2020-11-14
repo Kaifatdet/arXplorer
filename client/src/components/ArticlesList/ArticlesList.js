@@ -3,19 +3,26 @@ import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import './ArticlesList.css';
 import { categoriesDict } from '../../services/categories';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { sortArticleList } from '../../services/dataHelpers';
 
-function ArticlesList({ articleList }) {
+function ArticlesList({ articleList, selectedAuthor, authorDict }) {
   const [filteredList, setFilteredList] = useState([]);
   const [categories, setCategories] = useState([]);
   const [sortOrder, setSortOrder] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
-    setFilteredList(() =>
-      [...articleList].sort(
-        (a, b) => new Date(b.published) - new Date(a.published)
-      )
-    );
+    setFilteredList(() => sortArticleList([...articleList]));
+
+    if (authorDict[selectedAuthor]) {
+      setFilteredList(() =>
+        sortArticleList([...authorDict[selectedAuthor].articles])
+      );
+    }
+
     if (articleList.length > 0) {
       setCategories(() => {
         let catDict = {};
@@ -40,12 +47,6 @@ function ArticlesList({ articleList }) {
       </div>
     );
   }
-
-  const sortArticleList = (arr, order = 'newest') => {
-    return order === 'newest'
-      ? [...arr].sort((a, b) => new Date(b.published) - new Date(a.published))
-      : [...arr].sort((a, b) => new Date(a.published) - new Date(b.published));
-  };
 
   const handleDateFilter = (e) => {
     setSortOrder(e.target.value);
@@ -90,9 +91,26 @@ function ArticlesList({ articleList }) {
     });
   };
 
+  const handleReturn = () => {
+    history.push('/graph');
+  };
+
   return (
     <div className="list-container">
-      <h1 className="articles-header">Articles</h1>
+      {selectedAuthor ? (
+        <div className="list-top">
+          <FontAwesomeIcon
+            icon={faArrowLeft}
+            className="list-return icon"
+            onClick={handleReturn}
+          />
+          <h1 className="articles-header">Articles by {selectedAuthor}</h1>
+        </div>
+      ) : (
+        <div className="list-top">
+          <h1 className="articles-header">Articles</h1>
+        </div>
+      )}
       <div className="list-filters">
         <input
           type="text"

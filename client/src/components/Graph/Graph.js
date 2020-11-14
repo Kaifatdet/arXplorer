@@ -6,7 +6,12 @@ import drawGraph from './drawGraph';
 import { select } from 'd3';
 import RightSidebar from '../RightSidebar';
 
-function Graph({ graphData, handleGraphExpand, authorDict }) {
+function Graph({
+  graphData,
+  handleGraphExpand,
+  authorDict,
+  handleSidebarAuthorRedirect,
+}) {
   const [selected, setSelected] = useState('');
   const svgRef = useRef();
   const dimensions = {
@@ -54,6 +59,7 @@ function Graph({ graphData, handleGraphExpand, authorDict }) {
         handleExpandClick={handleExpandClick}
         authorDict={authorDict}
         toggleSelected={toggleSelected}
+        handleSidebarAuthorRedirect={handleSidebarAuthorRedirect}
       />
     </div>
   );

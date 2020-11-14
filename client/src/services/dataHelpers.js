@@ -147,3 +147,9 @@ export function addNewArticles(prev, newList) {
   });
   return [...prev, ...toAdd];
 }
+
+export const sortArticleList = (arr, order = 'newest') => {
+  return order === 'newest'
+    ? [...arr].sort((a, b) => new Date(b.published) - new Date(a.published))
+    : [...arr].sort((a, b) => new Date(a.published) - new Date(b.published));
+};
