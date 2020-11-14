@@ -8,6 +8,12 @@ import RightSidebar from '../RightSidebar';
 
 function Graph({ graphData, handleGraphExpand, authorDict }) {
   const [selected, setSelected] = useState('');
+
+  useEffect(() => {
+    const svg = select(svgRef.current);
+    drawGraph(svg, graphData, dimensions, handleClick, extractCategories);
+  }, [graphData]);
+
   const svgRef = useRef();
   const dimensions = {
     width: window.innerWidth,
@@ -38,11 +44,6 @@ function Graph({ graphData, handleGraphExpand, authorDict }) {
     });
     return cats;
   };
-
-  useEffect(() => {
-    const svg = select(svgRef.current);
-    drawGraph(svg, graphData, dimensions, handleClick, extractCategories);
-  }, [graphData]);
 
   return (
     <div className="graph-container">

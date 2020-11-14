@@ -1,5 +1,5 @@
 .articles-header {
-  color: rgb(227, 221, 202);
+  color: var(--main-creme);
   margin-top: 1.5rem;
 }
 
@@ -12,9 +12,8 @@
 }
 
 .list-article {
-  /* background-color: rgb(227, 221, 202); */
   background-color: whitesmoke;
-  color: rgb(23, 64, 77);
+  color: var(--main-blue);
   margin-bottom: 1rem;
   padding: 5px;
   border-radius: 5px;
@@ -86,7 +85,7 @@
 
 .arxiv-link {
   text-decoration: underline;
-  color: rgb(23, 64, 77);
+  color: var(--main-blue);
   font-weight: bold;
   font-style: italic;
   margin-right: 0.3rem;

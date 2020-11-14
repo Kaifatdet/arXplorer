@@ -79,9 +79,9 @@ function ArticlesList({ articleList }) {
           au.name[0].toLowerCase().includes(e.target.value)
         );
 
-        const tempTitel = ar.title[0].toLowerCase().includes(e.target.value);
+        const tempTitle = ar.title[0].toLowerCase().includes(e.target.value);
 
-        if (tempAuth.length > 0 || tempTitel) return ar;
+        if (tempAuth.length > 0 || tempTitle) return ar;
       });
       return sortArticleList(
         [...filtered].filter((el) => el !== undefined),

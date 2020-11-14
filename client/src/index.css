@@ -1,3 +1,9 @@
+:root {
+  --main-creme: rgb(227, 221, 202);
+  --main-green: rgb(42, 83, 73);
+  --main-blue: rgb(23, 64, 77);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,8 +11,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(42, 83, 73);
-  color: rgb(227, 221, 202);
+  background-color: var(--main-green);
+  color: var(--main-creme);
   box-sizing: border-box;
   padding: 0;
 }

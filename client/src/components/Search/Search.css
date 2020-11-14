@@ -7,13 +7,13 @@
   width: 40vw;
   margin: 0 auto;
   border-radius: 5px;
-  background-color: rgb(227, 221, 202);
-  color: rgb(23, 64, 77);
+  background-color: var(--main-creme);
+  color: var(--main-blue);
   margin-top: 1.5rem;
 }
 
 h1 {
-  color: rgb(23, 64, 77);
+  color: var(--main-blue);
 }
 
 .search-title,
@@ -49,8 +49,8 @@ h1 {
   height: 5%;
   border: 0;
   border-radius: 5px;
-  background-color: rgb(23, 64, 77);
-  color: rgb(227, 221, 202);
+  background-color: var(--main-blue);
+  color: var(--main-creme);
   font-size: x-large;
   margin-bottom: 5%;
 }

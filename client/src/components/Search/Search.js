@@ -34,7 +34,7 @@ function Search({ handleSearchForm }) {
 
   return (
     <>
-      {toGraph ? <Redirect to="/graph" /> : null}
+      {toGraph && <Redirect to="/graph" />}
       <form className="search-form" onSubmit={handleSubmit}>
         <h1>Search</h1>
         <div className="search-title">

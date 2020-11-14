@@ -36,7 +36,7 @@
 }
 
 .rsb-icon-close:hover {
-  color: rgb(227, 221, 202);
+  color: var(--main-creme);
 }
 
 .rsb-details {
@@ -56,7 +56,7 @@
   margin: 10px;
   color: black;
   width: 50%;
-  background-color: rgb(227, 221, 202);
+  background-color: var(--main-creme);
   border: 0px;
   border-radius: 3px;
   padding: 5px;
@@ -64,8 +64,8 @@
 }
 
 .rsb-expand-btn:hover {
-  color: rgb(227, 221, 202);
-  background-color: rgb(42, 83, 73);
+  color: var(--main-creme);
+  background-color: var(--main-green);
 }
 
 .rsb-list {
@@ -76,7 +76,7 @@
 }
 
 .rsb-list-article {
-  background-color: rgb(227, 221, 202);
+  background-color: var(--main-creme);
   margin: 0 5px 5px 5px;
   padding: 5px;
   border-radius: 3px;

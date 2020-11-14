@@ -11,13 +11,13 @@ function RightSidebar({
   toggleSelected,
 }) {
   const [details, setDetails] = useState({});
-  const [toggled, setToggled] = useState('hide');
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (selected) {
       let selectedDetails = authorDict[selected];
       setDetails(selectedDetails);
-      setToggled('show');
+      setOpen(true);
     }
   }, [selected]);
 
@@ -27,11 +27,15 @@ function RightSidebar({
 
   const toggleSidebar = () => {
     toggleSelected();
-    setToggled('hide');
+    setOpen(false);
+  };
+
+  const renderList = () => {
+    return selected && details['articles'];
   };
 
   return (
-    <div className={`rsb-container ${toggled}`}>
+    <div className={`rsb-container ${open ? 'show' : 'hide'}`}>
       <div className="rsb-icon">
         <FontAwesomeIcon
           icon={faTimes}
@@ -43,11 +47,11 @@ function RightSidebar({
         <div className="rsb-author">{selected}</div>
         <div className="rsb-collabs">
           # of collaborators:
-          {selected && details['collabs'] ? details['collabs'].length : 0}
+          {renderList() ? details['collabs'].length : 0}
         </div>
       </div>
       <div className="rsb-list">
-        {selected && details['articles']
+        {renderList()
           ? details.articles.map((ar) => {
               return (
                 <div key={ar.id} className="rsb-list-article">

@@ -3,7 +3,7 @@
 import { drag, scaleOrdinal, schemePaired } from 'd3';
 
 export const dragFunc = (simulation) => {
-  function dragstarted(event) {
+  function dragStarted(event) {
     if (!event.active) simulation.alphaTarget(0.5).restart();
     event.subject.fx = event.subject.x;
     event.subject.fy = event.subject.y;
@@ -14,20 +14,20 @@ export const dragFunc = (simulation) => {
     event.subject.fy = event.y;
   }
 
-  function dragended(event) {
+  function dragEnded(event) {
     if (!event.active) simulation.alphaTarget(0);
     event.subject.fx = event.x;
     event.subject.fy = event.y;
   }
 
   return drag()
-    .on('start', dragstarted)
+    .on('start', dragStarted)
     .on('drag', dragged)
-    .on('end', dragended);
+    .on('end', dragEnded);
 };
 
 export const backgroundDrag = (selection, offsetX, offsetY) => {
-  function dragstarted() {
+  function dragStarted() {
     return undefined;
   }
 
@@ -39,14 +39,14 @@ export const backgroundDrag = (selection, offsetX, offsetY) => {
       .attr('transform', `translate(${-offsetX}, ${-offsetY})`);
   }
 
-  function dragended() {
+  function dragEnded() {
     return undefined;
   }
 
   return drag()
-    .on('start', dragstarted)
+    .on('start', dragStarted)
     .on('drag', dragged)
-    .on('end', dragended);
+    .on('end', dragEnded);
 };
 
 export const color = () => {

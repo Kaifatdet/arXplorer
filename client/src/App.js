@@ -10,10 +10,10 @@ import ArticlesList from './components/ArticlesList';
 
 import {
   fetchGraphData,
-  queryPathBuilder,
   updateArticlesList,
   updateAuthorData,
 } from './services/ApiClient';
+import { queryPathBuilder } from './services/apiHelpers';
 
 function App() {
   const [authorDict, setAuthorDict] = useState({});
