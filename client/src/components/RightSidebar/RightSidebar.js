@@ -12,12 +12,14 @@ function RightSidebar({
   toggleSelected,
   handleSidebarAuthorRedirect,
   resetSelectedAuthor,
+  removeSelectedAuthor,
 }) {
   const [details, setDetails] = useState({});
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (selectedAuthor) {
+      console.log(selectedAuthor);
       let selectedDetails = authorDict[selectedAuthor];
       setDetails(selectedDetails);
       setOpen(true);
@@ -42,6 +44,11 @@ function RightSidebar({
     handleSidebarAuthorRedirect(selectedAuthor);
   };
 
+  const deleteHandler = () => {
+    removeSelectedAuthor(selectedAuthor);
+    setOpen(false);
+  };
+
   return (
     <div className={`rsb-container ${open ? 'show' : 'hide'}`}>
       <div className="rsb-icon">
@@ -57,9 +64,10 @@ function RightSidebar({
             {selectedAuthor}
           </Link>
         </div>
-        <div className="rsb-collabs">
-          # of collaborators:
-          {renderList() ? details['collabs'].length : 0}
+        <div className="rsb-small-link">
+          <Link to="/list" id="redirect-link">
+            show details
+          </Link>
         </div>
       </div>
       <div className="rsb-list">
@@ -79,9 +87,18 @@ function RightSidebar({
             })
           : 'No articles to display'}
       </div>
-      <button type="submit" className="rsb-expand-btn" onClick={clickHandler}>
-        Expand graph
-      </button>
+      <div className="rsb-buttons-container">
+        <button type="submit" className="rsb-expand-btn" onClick={clickHandler}>
+          Expand graph
+        </button>
+        <button
+          type="submit"
+          className="rsb-delete-btn"
+          onClick={deleteHandler}
+        >
+          Remove
+        </button>
+      </div>
     </div>
   );
 }

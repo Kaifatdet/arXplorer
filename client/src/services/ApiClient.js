@@ -42,3 +42,11 @@ export async function updateAuthorData(oldDict, newDict) {
 export async function updateArticlesList(oldList, newList) {
   return addNewArticles(oldList, newList);
 }
+
+export function removeAuthorFromGraph(graphData, author) {
+  const nodes = [...graphData.nodes].filter((node) => node.id !== author);
+  const links = [...graphData.links].filter(
+    (link) => link.source !== author && link.target !== author
+  );
+  return { nodes, links };
+}

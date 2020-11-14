@@ -10,6 +10,7 @@ import ArticlesList from './components/ArticlesList';
 
 import {
   fetchGraphData,
+  removeAuthorFromGraph,
   updateArticlesList,
   updateAuthorData,
 } from './services/ApiClient';
@@ -69,6 +70,11 @@ function App() {
     setSelectedAuthor('');
   };
 
+  const removeSelectedAuthor = (author) => {
+    setGraphData(() => removeAuthorFromGraph(graphData, author));
+    setSelectedAuthor('');
+  };
+
   return (
     <div className="App">
       <Navbar />
@@ -88,6 +94,7 @@ function App() {
             selectAuthor={selectAuthor}
             resetSelectedAuthor={resetSelectedAuthor}
             handleSidebarAuthorRedirect={handleSidebarAuthorRedirect}
+            removeSelectedAuthor={removeSelectedAuthor}
           />
         </Route>
         <Route exact path="/list">

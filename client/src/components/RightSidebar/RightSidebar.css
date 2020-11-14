@@ -53,20 +53,51 @@
   margin-bottom: 5px;
 }
 
-.rsb-expand-btn {
-  margin: 10px;
-  color: black;
-  width: 50%;
-  background-color: var(--main-creme);
+.rsb-small-link {
+  text-align: center;
+}
+
+#redirect-link {
+  text-decoration: none;
+  color: var(--main-creme);
+  font-style: italic;
+}
+
+.rsb-buttons-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+}
+
+.rsb-expand-btn,
+.rsb-delete-btn {
   border: 0px;
   border-radius: 3px;
   padding: 5px;
   box-shadow: 0 0 5px 1px rgba(51, 51, 51, 0.5);
+  margin: 10px 5px;
+}
+
+.rsb-expand-btn {
+  color: black;
+  flex: 3;
+  background-color: var(--main-creme);
 }
 
 .rsb-expand-btn:hover {
   color: var(--main-creme);
   background-color: var(--main-green);
+}
+
+.rsb-delete-btn {
+  color: whitesmoke;
+  flex: 1;
+  background-color: #F00038;
+}
+
+.rsb-delete-btn:hover {
+  background-color: #A60027;
 }
 
 .rsb-list {
@@ -93,3 +124,4 @@
   flex-wrap: wrap;
   font-style: italic;
 }
+

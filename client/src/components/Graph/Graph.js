@@ -14,6 +14,7 @@ function Graph({
   selectAuthor,
   resetSelectedAuthor,
   handleSidebarAuthorRedirect,
+  removeSelectedAuthor,
 }) {
   useEffect(() => {
     const svg = select(svgRef.current);
@@ -63,6 +64,7 @@ function Graph({
         toggleSelected={toggleSelected}
         handleSidebarAuthorRedirect={handleSidebarAuthorRedirect}
         resetSelectedAuthor={resetSelectedAuthor}
+        removeSelectedAuthor={removeSelectedAuthor}
       />
     </div>
   );
