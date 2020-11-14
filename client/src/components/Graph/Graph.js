@@ -5,6 +5,9 @@ import './Graph.css';
 import drawGraph from './drawGraph';
 import { select } from 'd3';
 import RightSidebar from '../RightSidebar';
+import TinySearchBar from '../TinySearchBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Graph({
   graphData,
@@ -15,6 +18,8 @@ function Graph({
   resetSelectedAuthor,
   handleSidebarAuthorRedirect,
   removeSelectedAuthor,
+  handleQuickSearch,
+  killGraph,
 }) {
   useEffect(() => {
     const svg = select(svgRef.current);
@@ -52,6 +57,10 @@ function Graph({
     return cats;
   };
 
+  const handleClean = () => {
+    killGraph();
+  };
+
   return (
     <div className="graph-container">
       <div className="data-container">
@@ -66,6 +75,17 @@ function Graph({
         resetSelectedAuthor={resetSelectedAuthor}
         removeSelectedAuthor={removeSelectedAuthor}
       />
+      <TinySearchBar handleQuickSearch={handleQuickSearch} />
+      {Object.keys(graphData).length > 0 && (
+        <div className="graph-clean">
+          <FontAwesomeIcon
+            icon={faTrashAlt}
+            className="graph-icon-clean"
+            onClick={handleClean}
+          />
+          <p className="kill-text">Are you sure you want to clear graph?</p>
+        </div>
+      )}
     </div>
   );
 }

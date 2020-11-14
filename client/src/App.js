@@ -40,6 +40,14 @@ function App() {
     }
   };
 
+  const handleQuickSearch = (author) => {
+    if (articleList.length === 0) {
+      handleSearchForm('', author, '', '');
+    } else {
+      handleGraphExpand(author);
+    }
+  };
+
   const handleGraphExpand = async (author) => {
     const query = queryPathBuilder('', author);
     try {
@@ -75,12 +83,19 @@ function App() {
     setSelectedAuthor('');
   };
 
+  const killGraph = () => {
+    setGraphData({});
+    setAuthorDict({});
+    setArticleList([]);
+    setSelectedAuthor('');
+  };
+
   return (
     <div className="App">
       <Navbar />
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Home handleQuickSearch={handleQuickSearch} />
         </Route>
         <Route exact path="/search">
           <Search handleSearchForm={handleSearchForm} />
@@ -95,6 +110,8 @@ function App() {
             resetSelectedAuthor={resetSelectedAuthor}
             handleSidebarAuthorRedirect={handleSidebarAuthorRedirect}
             removeSelectedAuthor={removeSelectedAuthor}
+            handleQuickSearch={handleQuickSearch}
+            killGraph={killGraph}
           />
         </Route>
         <Route exact path="/list">

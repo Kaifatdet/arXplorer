@@ -13,3 +13,29 @@ svg {
   width: 100%;
   height: 100%;
 }
+
+.graph-clean {
+  display: flex;
+  flex-direction: row-reverse;
+  position: absolute;
+  top: 80vh;
+  right: 2rem;
+}
+
+.graph-icon-clean {
+  font-size: 3rem;
+  color: var(--main-blue);
+}
+
+.graph-icon-clean:hover {
+  color: var(--red);
+}
+
+.kill-text {
+  display: none;
+  margin-right: 5px;
+}
+
+.graph-icon-clean:hover + .kill-text {
+  display: block;
+}

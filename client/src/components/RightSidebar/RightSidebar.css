@@ -36,7 +36,7 @@
 }
 
 .icon:hover {
-  color: var(--main-creme);
+  color: var(--red);
 }
 
 .rsb-details {
@@ -93,7 +93,7 @@
 .rsb-delete-btn {
   color: whitesmoke;
   flex: 1;
-  background-color: #F00038;
+  background-color: var(--red);
 }
 
 .rsb-delete-btn:hover {
