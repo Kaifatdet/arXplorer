@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 function ArticlesList({ articleList }) {
   const [filteredList, setFilteredList] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [sortOrder, setSortOrder] = useState([]);
 
   useEffect(() => {
     setFilteredList(() =>
@@ -40,27 +41,34 @@ function ArticlesList({ articleList }) {
     );
   }
 
+  const sortArticleList = (arr, order = 'newest') => {
+    return order === 'newest'
+      ? [...arr].sort((a, b) => new Date(b.published) - new Date(a.published))
+      : [...arr].sort((a, b) => new Date(a.published) - new Date(b.published));
+  };
+
   const handleDateFilter = (e) => {
-    setFilteredList(() =>
-      e.target.value === 'descending'
-        ? [...filteredList].sort(
-            (a, b) => new Date(b.published) - new Date(a.published)
-          )
-        : [...filteredList].sort(
-            (a, b) => new Date(a.published) - new Date(b.published)
-          )
-    );
+    setSortOrder(e.target.value);
+    setFilteredList(() => {
+      return e.target.value === 'newest'
+        ? sortArticleList([...filteredList])
+        : sortArticleList([...filteredList], false);
+    });
   };
 
   const handleCategoryFilter = (e) => {
     setFilteredList(() => {
+      if (e.target.value === 'none') return [...articleList];
       const filtered = articleList.map((ar) => {
         const tempCat = ar.category.filter(
           (cat) => cat.$.term === e.target.value
         );
         if (tempCat.length > 0) return ar;
       });
-      return [...filtered].filter((el) => el !== undefined);
+      return sortArticleList(
+        [...filtered].filter((el) => el !== undefined),
+        sortOrder
+      );
     });
   };
 
@@ -75,7 +83,10 @@ function ArticlesList({ articleList }) {
 
         if (tempAuth.length > 0 || tempTitel) return ar;
       });
-      return [...filtered.filter((el) => el !== undefined)];
+      return sortArticleList(
+        [...filtered].filter((el) => el !== undefined),
+        sortOrder
+      );
     });
   };
 
@@ -83,31 +94,41 @@ function ArticlesList({ articleList }) {
     <div className="list-container">
       <h1 className="articles-header">Articles</h1>
       <div className="list-filters">
-        <select
-          name="select-date"
-          className="select-date"
-          onChange={handleDateFilter}
-        >
-          <option defaultValue="descending">Newest first</option>
-          <option value="ascending">Oldest first</option>
-        </select>
-        <select
-          name="select-category"
-          className="select-cat"
-          onChange={handleCategoryFilter}
-        >
-          {Object.keys(categories).map((cat) => (
-            <option key={cat} value={cat}>
-              {categories[cat]}
-            </option>
-          ))}
-        </select>
         <input
           type="text"
           name="filter-search"
           className="filter-search"
           onChange={handleSearchFilter}
+          placeholder="Search author or title..."
         />
+        <div className="filter-selectors">
+          <div className="date-selector">
+            <p>Published: </p>
+            <select
+              name="select-date"
+              className="select-date"
+              onChange={handleDateFilter}
+            >
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+            </select>
+          </div>
+          <div className="category-selector">
+            <p>Categories: </p>
+            <select
+              name="select-category"
+              className="select-cat"
+              onChange={handleCategoryFilter}
+            >
+              <option value="none">None</option>
+              {Object.keys(categories).map((cat) => (
+                <option key={cat} value={cat}>
+                  {categories[cat]}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
       {filteredList.length > 0
         ? filteredList.map((ar) => (

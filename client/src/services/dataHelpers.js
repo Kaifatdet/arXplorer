@@ -145,6 +145,5 @@ export function addNewArticles(prev, newList) {
   newList.forEach((ar) => {
     prev.filter((old) => old.id[0] === ar.id[0]).length === 0 && toAdd.push(ar);
   });
-  console.log(toAdd);
   return [...prev, ...toAdd];
 }

@@ -7,7 +7,7 @@ const {
   createLinksFromDict,
   updateAuthorDict,
   addNewArticles,
-} = require('./data_helpers');
+} = require('./dataHelpers');
 
 const BASE_URL = 'http://export.arxiv.org/api/';
 

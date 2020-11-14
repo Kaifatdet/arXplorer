@@ -18,7 +18,6 @@ function RightSidebar({
       let selectedDetails = authorDict[selected];
       setDetails(selectedDetails);
       setToggled('show');
-      console.log(selectedDetails);
     }
   }, [selected]);
 
@@ -72,16 +71,3 @@ function RightSidebar({
 }
 
 export default RightSidebar;
-
-// {return  (selected && details['articles'].length !== 0)
-//           ? details.articles.map((ar) => {
-//               <div className="rsb-list-article">
-//                 <div className="rsb-list-article">ar.title</div>
-//                 {/* <div className="rsb-list-article">
-//               ar.author.map()
-//             </div> */}
-//                 <div className="rsb-list-published">ar.published</div>
-//               </div>
-//           })
-//           : 'No articles to show'
-//         }
