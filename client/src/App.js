@@ -61,6 +61,14 @@ function App() {
     setSelectedAuthor(author);
   };
 
+  const selectAuthor = (author) => {
+    setSelectedAuthor(author);
+  };
+
+  const resetSelectedAuthor = () => {
+    setSelectedAuthor('');
+  };
+
   return (
     <div className="App">
       <Navbar />
@@ -76,6 +84,9 @@ function App() {
             graphData={graphData}
             handleGraphExpand={handleGraphExpand}
             authorDict={authorDict}
+            selectedAuthor={selectedAuthor}
+            selectAuthor={selectAuthor}
+            resetSelectedAuthor={resetSelectedAuthor}
             handleSidebarAuthorRedirect={handleSidebarAuthorRedirect}
           />
         </Route>
@@ -84,6 +95,8 @@ function App() {
             authorDict={authorDict}
             articleList={articleList}
             selectedAuthor={selectedAuthor}
+            selectAuthor={selectAuthor}
+            resetSelectedAuthor={resetSelectedAuthor}
           />
         </Route>
       </Switch>

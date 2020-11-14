@@ -6,22 +6,23 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './RightSidebar.css';
 
 function RightSidebar({
-  selected,
+  selectedAuthor,
   handleExpandClick,
   authorDict,
   toggleSelected,
   handleSidebarAuthorRedirect,
+  resetSelectedAuthor,
 }) {
   const [details, setDetails] = useState({});
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (selected) {
-      let selectedDetails = authorDict[selected];
+    if (selectedAuthor) {
+      let selectedDetails = authorDict[selectedAuthor];
       setDetails(selectedDetails);
       setOpen(true);
     }
-  }, [selected]);
+  }, [selectedAuthor]);
 
   const clickHandler = () => {
     handleExpandClick();
@@ -30,14 +31,15 @@ function RightSidebar({
   const toggleSidebar = () => {
     toggleSelected();
     setOpen(false);
+    resetSelectedAuthor();
   };
 
   const renderList = () => {
-    return selected && details['articles'];
+    return selectedAuthor && details['articles'];
   };
 
   const handleAuthorClick = () => {
-    handleSidebarAuthorRedirect(selected);
+    handleSidebarAuthorRedirect(selectedAuthor);
   };
 
   return (
@@ -52,7 +54,7 @@ function RightSidebar({
       <div className="rsb-details">
         <div className="rsb-author" onClick={handleAuthorClick}>
           <Link className="rsb-author" to="/list">
-            {selected}
+            {selectedAuthor}
           </Link>
         </div>
         <div className="rsb-collabs">

@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import './Graph.css';
 import drawGraph from './drawGraph';
 import { select } from 'd3';
@@ -10,10 +10,11 @@ function Graph({
   graphData,
   handleGraphExpand,
   authorDict,
+  selectedAuthor,
+  selectAuthor,
+  resetSelectedAuthor,
   handleSidebarAuthorRedirect,
 }) {
-  const [selected, setSelected] = useState('');
-
   useEffect(() => {
     const svg = select(svgRef.current);
     drawGraph(svg, graphData, dimensions, handleClick, extractCategories);
@@ -25,16 +26,16 @@ function Graph({
     height: window.innerWidth / 2,
   };
 
-  const handleClick = (input) => {
-    setSelected(input);
+  const handleClick = (author) => {
+    selectAuthor(author);
   };
 
   const handleExpandClick = () => {
-    handleGraphExpand(selected);
+    handleGraphExpand(selectedAuthor);
   };
 
   const toggleSelected = () => {
-    setSelected('');
+    resetSelectedAuthor();
   };
 
   const extractCategories = (data) => {
@@ -56,11 +57,12 @@ function Graph({
         <svg ref={svgRef}></svg>
       </div>
       <RightSidebar
-        selected={selected}
+        selectedAuthor={selectedAuthor}
         handleExpandClick={handleExpandClick}
         authorDict={authorDict}
         toggleSelected={toggleSelected}
         handleSidebarAuthorRedirect={handleSidebarAuthorRedirect}
+        resetSelectedAuthor={resetSelectedAuthor}
       />
     </div>
   );

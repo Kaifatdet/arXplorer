@@ -5,10 +5,15 @@ import './ArticlesList.css';
 import { categoriesDict } from '../../services/categories';
 import { Link, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { sortArticleList } from '../../services/dataHelpers';
 
-function ArticlesList({ articleList, selectedAuthor, authorDict }) {
+function ArticlesList({
+  articleList,
+  selectedAuthor,
+  authorDict,
+  resetSelectedAuthor,
+}) {
   const [filteredList, setFilteredList] = useState([]);
   const [categories, setCategories] = useState([]);
   const [sortOrder, setSortOrder] = useState([]);
@@ -95,6 +100,10 @@ function ArticlesList({ articleList, selectedAuthor, authorDict }) {
     history.push('/graph');
   };
 
+  const handleResetAuthor = () => {
+    resetSelectedAuthor();
+  };
+
   return (
     <div className="list-container">
       {selectedAuthor ? (
@@ -105,6 +114,11 @@ function ArticlesList({ articleList, selectedAuthor, authorDict }) {
             onClick={handleReturn}
           />
           <h1 className="articles-header">Articles by {selectedAuthor}</h1>
+          <FontAwesomeIcon
+            icon={faTimes}
+            className="rsb-icon-close icon"
+            onClick={handleResetAuthor}
+          />
         </div>
       ) : (
         <div className="list-top">
