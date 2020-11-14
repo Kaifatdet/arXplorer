@@ -29,13 +29,13 @@
   margin-bottom: 20px;
 }
 
-.rsb-icon-close {
+.icon {
   color: black;
   font-size: 4rem;
   font-weight: lighter;
 }
 
-.rsb-icon-close:hover {
+.icon:hover {
   color: var(--main-creme);
 }
 
@@ -46,6 +46,7 @@
   margin-bottom: 10px;
 }
 .rsb-author {
+  color: var(--main-creme);
   align-self: flex-start;
   font-size: xx-large;
   text-decoration: underline;

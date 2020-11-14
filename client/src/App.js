@@ -19,6 +19,7 @@ function App() {
   const [authorDict, setAuthorDict] = useState({});
   const [graphData, setGraphData] = useState({});
   const [articleList, setArticleList] = useState([]);
+  const [selectedAuthor, setSelectedAuthor] = useState('');
 
   const handleSearchForm = async (title, author, journal, abstract) => {
     const query = queryPathBuilder(title, author, journal, abstract);
@@ -56,6 +57,10 @@ function App() {
     }
   };
 
+  const handleSidebarAuthorRedirect = (author) => {
+    setSelectedAuthor(author);
+  };
+
   return (
     <div className="App">
       <Navbar />
@@ -71,10 +76,15 @@ function App() {
             graphData={graphData}
             handleGraphExpand={handleGraphExpand}
             authorDict={authorDict}
+            handleSidebarAuthorRedirect={handleSidebarAuthorRedirect}
           />
         </Route>
         <Route exact path="/list">
-          <ArticlesList authorDict={authorDict} articleList={articleList} />
+          <ArticlesList
+            authorDict={authorDict}
+            articleList={articleList}
+            selectedAuthor={selectedAuthor}
+          />
         </Route>
       </Switch>
     </div>

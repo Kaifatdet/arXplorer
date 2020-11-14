@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +10,7 @@ function RightSidebar({
   handleExpandClick,
   authorDict,
   toggleSelected,
+  handleSidebarAuthorRedirect,
 }) {
   const [details, setDetails] = useState({});
   const [open, setOpen] = useState(false);
@@ -34,17 +36,25 @@ function RightSidebar({
     return selected && details['articles'];
   };
 
+  const handleAuthorClick = () => {
+    handleSidebarAuthorRedirect(selected);
+  };
+
   return (
     <div className={`rsb-container ${open ? 'show' : 'hide'}`}>
       <div className="rsb-icon">
         <FontAwesomeIcon
           icon={faTimes}
-          className="rsb-icon-close"
+          className="rsb-icon-close icon"
           onClick={toggleSidebar}
         />
       </div>
       <div className="rsb-details">
-        <div className="rsb-author">{selected}</div>
+        <div className="rsb-author" onClick={handleAuthorClick}>
+          <Link className="rsb-author" to="/list">
+            {selected}
+          </Link>
+        </div>
         <div className="rsb-collabs">
           # of collaborators:
           {renderList() ? details['collabs'].length : 0}

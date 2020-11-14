@@ -6,8 +6,18 @@ import {
   forceManyBody,
   forceCenter,
   forceLink,
+  forceCollide,
 } from 'd3';
 import { dragFunc, color, backgroundDrag } from './dragHelper';
+import {
+  linkElement,
+  nodeElement,
+  textElement,
+  categoryLegendCircleElement,
+  categoryLegendTextElement,
+  sizeLegendCircleElement,
+  sizeLegendTextElement,
+} from './graphElements';
 
 const drawGraph = (
   svg,
@@ -18,6 +28,7 @@ const drawGraph = (
 ) => {
   svg.attr('viewBox', [0, 0, width, height]).classed('viewBox', true);
 
+  // Clears out the existing DOM-elements so the new graph won't override the graph and duplicate
   svg.selectAll('rect').remove();
   svg.selectAll('g').remove();
 
@@ -46,61 +57,29 @@ const drawGraph = (
       'link',
       forceLink(links).id((d) => d.id)
     )
-    .force('charge', forceManyBody())
+    .force('charge', forceManyBody().distanceMax(150))
+    .force('collision', forceCollide().strength(0.8))
     .force('center', forceCenter(width / 2, height / 2));
 
-  const link = svg
-    .append('g')
-    .classed('nodes', true)
-    .selectAll('line')
-    .data(links)
-    .join('line')
-    .attr('stroke-width', 1)
-    .attr('stroke', '#3333')
-    .attr('stroke-opacity', 0.6);
-
-  const node = svg
-    .append('g')
-    .classed('nodes', true)
-    .selectAll('circle')
-    .data(nodes)
-    .join('circle')
-    .attr('r', (d) => Math.sqrt(d.weight) * 3)
-    .attr('fill', color())
-    .attr('stroke', '#000')
-    .attr('stroke-width', 0.5)
-    .call(dragFunc(simulation));
-
-  const text = svg
-    .append('g')
-    .classed('nodes', true)
-    .selectAll('text')
-    .data(nodes)
-    .join('text')
-    .attr('class', 'label')
-    .attr('text-anchor', 'middle')
-    .attr('font-size', 10)
-    .attr('visibility', 'hidden')
-    .text((d) => d.id);
-
-  const legend_circle = svg
-    .append('g')
-    .classed('legend', true)
-    .selectAll('legend-circle')
-    .data(categories)
-    .join('circle')
-    .attr('r', 10)
-    .attr('fill', color());
-
-  const legend_text = svg
-    .append('g')
-    .classed('legend', true)
-    .selectAll('lengend-text')
-    .data(categories)
-    .join('text')
-    .attr('class', 'legend-label')
-    .attr('font-size', 10)
-    .text((d) => d.name);
+  const link = linkElement(svg, links);
+  const node = nodeElement(svg, nodes, color).call(dragFunc(simulation));
+  const text = textElement(svg, nodes);
+  const categoryLegendCircle = categoryLegendCircleElement(
+    svg,
+    categories,
+    color
+  );
+  const categoryLegendText = categoryLegendTextElement(svg, categories);
+  const sizeLegendCircle = sizeLegendCircleElement(svg, [
+    { id: 0, weight: 1 },
+    { id: 1, weight: 10 },
+    { id: 2, weight: 25 },
+  ]);
+  const sizeLegendText = sizeLegendTextElement(svg, [
+    { id: 0, weight: 1, legend: '1 collaborator' },
+    { id: 1, weight: 10, legend: '10 collaborators' },
+    { id: 2, weight: 25, legend: '25 collaborators' },
+  ]);
 
   simulation.on('tick', () => {
     link
@@ -127,8 +106,22 @@ const drawGraph = (
 
     text.attr('x', (d) => d.x).attr('y', (d) => d.y - 10);
 
-    legend_circle.attr('cx', 0).attr('cy', (d) => height - d.group * 30);
-    legend_text.attr('x', 15).attr('y', (d) => height - d.group * 30 + 2);
+    categoryLegendCircle
+      .attr('cx', -width * 0.05)
+      .attr('cy', (d) => height - d.group * 30);
+    categoryLegendText
+      .attr('x', -width * 0.05 + 15)
+      .attr('y', (d) => height - d.group * 30 + 3);
+
+    sizeLegendCircle
+      .attr('cx', (d) => width * 0.38 + d.id * width * 0.12)
+      .attr('cy', height - height * 0.05);
+    sizeLegendText
+      .attr(
+        'x',
+        (d) => width * 0.38 + d.id * width * 0.12 + Math.sqrt(d.weight) + 15
+      )
+      .attr('y', height - height * 0.05 + 4);
   });
 };
 
