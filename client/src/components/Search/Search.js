@@ -35,64 +35,180 @@ function Search({ handleSearchForm }) {
   return (
     <>
       {toGraph && <Redirect to="/graph" />}
-      <form className="search-form" onSubmit={handleSubmit}>
-        <h1>Search</h1>
-        <div className="search-title">
-          <label htmlFor="search-input-title" className="search-label-title">
-            Title
-          </label>
-          <input
-            type="text"
-            name="title"
-            className="search-input-title"
-            value={fields.title}
-            onChange={handleChange}
-          />
+      {/* <h1 className="search-header"></h1> */}
+      <div className="search-header">
+        <p className="lulz">S</p>
+        <p className="lulz">e</p>
+        <p className="lulz">a</p>
+        <p className="lulz">r</p>
+        <p className="lulz">c</p>
+        <p className="lulz">h</p>
+      </div>
+      <div className="search-form-container">
+        <form className="search-form" onSubmit={handleSubmit}>
+          <div className="search-title">
+            <label htmlFor="search-input-title" className="search-label-title">
+              Title
+            </label>
+            <input
+              type="text"
+              name="title"
+              className="search-input-title"
+              value={fields.title}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="search-author">
+            <label
+              htmlFor="search-input-author"
+              className="search-label-author"
+            >
+              Author
+            </label>
+            <input
+              type="text"
+              name="author"
+              className="search-input-author"
+              value={fields.author}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="search-journal">
+            <label
+              htmlFor="search-input-journal"
+              className="search-label-journal"
+            >
+              Journal
+            </label>
+            <input
+              type="text"
+              name="journal"
+              className="search-input-journal"
+              value={fields.journal}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="search-abstract">
+            <label
+              htmlFor="search-input-abstract"
+              className="search-label-abstract"
+            >
+              Abstract
+            </label>
+            <input
+              type="text"
+              name="abstract"
+              className="search-input-abstract"
+              value={fields.abstract}
+              onChange={handleChange}
+            />
+          </div>
+          <input type="submit" className="search-submit" value="Search" />
+        </form>
+        <div className="search-filters">
+          <div className="search-filter-date-picker">
+            <h3>Publication date</h3>
+            <div className="date-picker-container">
+              <div>
+                <label htmlFor="date-from" style={{ marginRight: '1rem' }}>
+                  From:{' '}
+                </label>
+                <input
+                  type="date"
+                  className="date-picker"
+                  name="date-from"
+                  id="date-from"
+                />
+              </div>
+              <div>
+                <label htmlFor="date-to" style={{ marginRight: '1rem' }}>
+                  {' '}
+                  to:
+                </label>
+                <input
+                  type="date"
+                  className="date-picker"
+                  name="date-to"
+                  id="date-from"
+                />
+              </div>
+            </div>
+          </div>
+          <h3>Subject</h3>
+          <div className="search-filter-categories">
+            <div className="subject-container">
+              <label className="switch">
+                <input id="checkbox" type="checkbox" value="cs" />
+                <span className="slider round"></span>
+              </label>
+              <label htmlFor="cs">Computer Science</label>
+            </div>
+            <div className="subject-container">
+              <label className="switch">
+                <input id="checkbox" type="checkbox" value="physics" />
+                <span className="slider round"></span>
+              </label>
+              <label htmlFor="physics">Physics</label>
+            </div>
+            <div className="subject-container">
+              <label className="switch">
+                <input id="checkbox" type="checkbox" value="math" />
+                <span className="slider round"></span>
+              </label>
+              <label htmlFor="math">Mathematics</label>
+            </div>
+            <div className="subject-container">
+              <label className="switch">
+                <input id="checkbox" type="checkbox" value="eess" />
+                <span className="slider round"></span>
+              </label>
+              <label htmlFor="eess">
+                Electrical Engineering and Systems Science
+              </label>
+            </div>
+            <div className="subject-container">
+              <label className="switch">
+                <input id="checkbox" type="checkbox" value="econ" />
+                <span className="slider round"></span>
+              </label>
+              <label htmlFor="econ">Economics</label>
+            </div>
+            <div className="subject-container">
+              <label className="switch">
+                <input id="checkbox" type="checkbox" value="q-bio" />
+                <span className="slider round"></span>
+              </label>
+              <label htmlFor="q-bio">Quantitative Biology</label>
+            </div>
+            <div className="subject-container">
+              <label className="switch">
+                <input id="checkbox" type="checkbox" value="q-fin" />
+                <span className="slider round"></span>
+              </label>
+              <label htmlFor="q-fin">Quantitative Finance</label>
+            </div>
+            <div className="subject-container">
+              <label className="switch">
+                <input id="checkbox" type="checkbox" value="stat" />
+                <span className="slider round"></span>
+              </label>
+              <label htmlFor="stat">Statistics</label>
+            </div>
+          </div>
+          <div className="search-filter-strict">
+            <h3>Search fuzzy</h3>
+            <label className="switch">
+              <input id="checkbox" type="checkbox" />
+              <span className="slider round"></span>
+            </label>
+          </div>
+          <p style={{ marginBottom: '1.5rem' }}>
+            If fuzzy search is checked, the search will look for first name OR
+            last name (in the case of an author search). It is recommended to do
+            strict searches.
+          </p>
         </div>
-        <div className="search-author">
-          <label htmlFor="search-input-author" className="search-label-author">
-            Author
-          </label>
-          <input
-            type="text"
-            name="author"
-            className="search-input-author"
-            value={fields.author}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="search-journal">
-          <label
-            htmlFor="search-input-journal"
-            className="search-label-journal"
-          >
-            Journal
-          </label>
-          <input
-            type="text"
-            name="journal"
-            className="search-input-journal"
-            value={fields.journal}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="search-abstract">
-          <label
-            htmlFor="search-input-abstract"
-            className="search-label-abstract"
-          >
-            Abstract
-          </label>
-          <input
-            type="text"
-            name="abstract"
-            className="search-input-abstract"
-            value={fields.abstract}
-            onChange={handleChange}
-          />
-        </div>
-        <input type="submit" className="search-submit" value="Search" />
-      </form>
+      </div>
     </>
   );
 }

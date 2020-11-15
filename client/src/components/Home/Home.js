@@ -7,16 +7,18 @@ import './Home.css';
 function Home({ handleQuickSearch }) {
   const history = useHistory();
 
-  const handleRedirect = (e) => {
-    console.log(e);
-    console.log(history);
+  const handleRedirect = (path) => {
+    history.push('/' + path);
   };
 
   return (
     <div className="">
       <h1 className="home-title">Ready to arXplore?</h1>
       <div className="home-container">
-        <div className="home-component" onClick={handleRedirect}>
+        <div
+          className="home-component"
+          onClick={() => handleRedirect('search')}
+        >
           <svg className="home-icon" id="search-icon" viewBox="0 0 352 512">
             <linearGradient id="icon-blue-gradient" x2="0.35" y2="1">
               <stop offset="0%" stopColor="var(--blue-stop)" />
@@ -40,7 +42,7 @@ function Home({ handleQuickSearch }) {
             </p>
           </div>
         </div>
-        <div className="home-component" onClick={handleRedirect}>
+        <div className="home-component" onClick={() => handleRedirect('graph')}>
           <svg className="home-icon" id="graph-icon" viewBox="0 0 352 512">
             <linearGradient id="icon-orange-gradient" x2="0.35" y2="1">
               <stop offset="0%" stopColor="var(--orange-stop)" />
@@ -64,7 +66,7 @@ function Home({ handleQuickSearch }) {
             </p>
           </div>
         </div>
-        <div className="home-component" onClick={handleRedirect}>
+        <div className="home-component" onClick={() => handleRedirect('list')}>
           <svg className="home-icon" id="list-icon" viewBox="0 0 352 512">
             <linearGradient id="icon-purple-gradient" x2="0.35" y2="1">
               <stop offset="0%" stopColor="var(--purple-stop)" />
