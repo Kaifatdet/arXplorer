@@ -9,34 +9,24 @@
   top: 0;
   right: 0;
   z-index: 2;
-  background-color: #17404d;
+  background-color: var(--main-bg-dark);
   overflow: hidden;
   transition: all 0.3s ease;
-  box-shadow: 0 0 3px 1px rgba(51, 51, 51, 0.5);
+  box-shadow: 0 0 3px 1px rgba(30, 30, 30, 0.3);
 }
 
-.hide {
+.hide-rsb {
   width: 0;
 }
 
-.show {
+.show-rsb {
   width: 25%;
 }
 
 .rsb-icon {
   align-self: flex-start;
-  margin-left: 10px;
+  margin-left: 0px;
   margin-bottom: 20px;
-}
-
-.icon {
-  color: black;
-  font-size: 4rem;
-  font-weight: lighter;
-}
-
-.icon:hover {
-  color: var(--red);
 }
 
 .rsb-details {
@@ -45,16 +35,26 @@
   margin-left: 10px;
   margin-bottom: 10px;
 }
+
 .rsb-author {
-  color: var(--main-creme);
+  color: var(--main-light);
   align-self: flex-start;
   font-size: xx-large;
   text-decoration: underline;
   margin-bottom: 5px;
+  transition: all .2s ease-in-out;
+}
+
+.rsb-author:hover {
+  transform: scale(1.05);
 }
 
 .rsb-small-link {
   text-align: center;
+}
+
+.rsb-small-link:hover {
+  text-decoration: underline;
 }
 
 #redirect-link {
@@ -67,7 +67,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 90%;
+  width: 100%;
 }
 
 .rsb-expand-btn,
@@ -82,12 +82,11 @@
 .rsb-expand-btn {
   color: black;
   flex: 3;
-  background-color: var(--main-creme);
+  background-color: var(--main-light);
 }
 
 .rsb-expand-btn:hover {
-  color: var(--main-creme);
-  background-color: var(--main-green);
+  background: -webkit-linear-gradient(225deg, rgb(0, 255, 255), rgb(0, 73, 125));
 }
 
 .rsb-delete-btn {
@@ -97,7 +96,7 @@
 }
 
 .rsb-delete-btn:hover {
-  background-color: #A60027;
+  background: -webkit-linear-gradient(300deg, var(--red), #6b0019);
 }
 
 .rsb-list {
@@ -108,10 +107,16 @@
 }
 
 .rsb-list-article {
-  background-color: var(--main-creme);
+  background-color: rgb(178, 178, 178, 0.2);
   margin: 0 5px 5px 5px;
   padding: 5px;
   border-radius: 3px;
+  color: var(--main-light);
+  transition: all 0.2s ease-in-out;
+}
+
+.rsb-list-article:hover {
+  transform: scale(1.01);
 }
 
 .rsb-article-title {
@@ -125,3 +130,18 @@
   font-style: italic;
 }
 
+.rsb-icon-close {
+  height: 4rem;
+  width: 4rem;
+  transition: all .2s ease-in-out;
+}
+
+.rsb-icon-close:hover {
+  fill: url(#icon-red-gradient) #fff;
+  transform: scale(1.1);
+}
+
+#icon-red-gradient {
+  --color-stop: #f12c06;
+  --color-bot: #a41d02;
+}

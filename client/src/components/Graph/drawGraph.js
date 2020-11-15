@@ -104,7 +104,7 @@ const drawGraph = (
         select(text._groups[0][index]).attr('visibility', 'hidden');
       });
 
-    text.attr('x', (d) => d.x).attr('y', (d) => d.y - 10);
+    text.attr('x', (d) => d.x).attr('y', (d) => d.y - Math.sqrt(d.weight) - 15);
 
     categoryLegendCircle
       .attr('cx', -width * 0.05)

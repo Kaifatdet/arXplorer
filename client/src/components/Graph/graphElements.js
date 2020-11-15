@@ -6,7 +6,7 @@ export const linkElement = (selection, data) => {
     .data(data)
     .join('line')
     .attr('stroke-width', 1)
-    .attr('stroke', '#3333')
+    .attr('stroke', '#707070')
     .attr('stroke-opacity', 0.6);
 };
 
@@ -19,7 +19,7 @@ export const nodeElement = (selection, data, cb) => {
     .join('circle')
     .attr('r', (d) => Math.sqrt(d.weight) * 3)
     .attr('fill', cb())
-    .attr('stroke', '#000')
+    .attr('stroke', 'black')
     .attr('stroke-width', 0.3);
 };
 
@@ -34,7 +34,7 @@ export const textElement = (selection, data) => {
     .attr('text-anchor', 'middle')
     .attr('font-size', 14)
     .attr('visibility', 'hidden')
-    .style('fill', 'black')
+    .style('fill', 'whitesmoke')
     .text((d) => d.id);
 };
 

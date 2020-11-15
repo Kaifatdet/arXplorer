@@ -1,31 +1,35 @@
 .tiny-container {
-  text-align: center;
-  margin: 15px;
+  margin: 0 auto;
+  /* margin: 15px; */
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+  width: 30%;
+  box-shadow: 0 0 2px 1px rgba(190, 190, 190, 0.1);
 }
 
 .tinysearch-input,
 .tinysearch-btn {
-  padding: 5px;
+  padding: 0.5rem;
   border: 0;
-  border-radius: 3px;
-  box-shadow: 0 0 5px 1px rgba(51, 51, 51, 0.5);
-  margin: 10px 5px;
 }
 
 .tinysearch-input {
-  width: 25%;
-  background-color: var(--main-creme);
-  color: var(--main-blue);
+  flex: 3;
+  background-color: var(--main-bg-light);
+  color: var(--main-bg-dark);
 }
 
-
+.tinysearch-input:hover {
+  background-color: rgb(235, 235, 235);
+}
 
 .tinysearch-btn {
-  color: var(--main-blue);
-  background-color: #a6cee3;
+  color: black;
+  flex: 1;
+  background: -webkit-linear-gradient(290deg, rgb(0, 255, 255), rgb(0, 73, 125));
 }
 
 .tinysearch-btn:hover {
-  color: var(--main-creme);
-  background-color: var(--main-blue);
+  background: -webkit-linear-gradient(290deg, rgb(0, 265, 265), rgb(0, 106, 171));
 }

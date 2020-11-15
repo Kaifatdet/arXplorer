@@ -107,22 +107,67 @@ function ArticlesList({
   return (
     <div className="list-container">
       {selectedAuthor ? (
-        <div className="list-top">
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            className="list-return icon"
+        <div className="list-top selectedAuth">
+          <svg
+            className="list-return"
+            viewBox="0 0 352 512"
             onClick={handleReturn}
-          />
-          <h1 className="articles-header">Articles by {selectedAuthor}</h1>
-          <FontAwesomeIcon
-            icon={faTimes}
-            className="rsb-icon-close icon"
+          >
+            <linearGradient id="icon-blue-gradient" x2="0.35" y2="1">
+              <stop offset="0%" stopColor="var(--blue-stop)" />
+              <stop offset="30%" stopColor="var(--blue-stop)" />
+              <stop offset="100%" stopColor="var(--blue-bot)" />
+            </linearGradient>
+            <path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path>
+          </svg>
+          <div className="header-container">
+            <h1 className="articles-header">Articles</h1>
+            <p id="header-author" className="author-selected">
+              {'by ' + selectedAuthor}
+            </p>
+          </div>
+          <svg
+            className="rsb-icon-close"
+            viewBox="0 0 352 512"
             onClick={handleResetAuthor}
-          />
+          >
+            <defs>
+              <linearGradient id="icon-red-gradient" x2="0.35" y2="1">
+                <stop offset="0%" stopColor="var(--color-stop)" />
+                <stop offset="30%" stopColor="var(--color-stop)" />
+                <stop offset="100%" stopColor="var(--color-bot)" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M242.72 256
+            l100.07-100.07
+            c12.28-12.28 12.28-32.19 0-44.48
+            l-22.24-22.24
+            c-12.28-12.28-32.19-12.28-44.48 0
+            L176 189.28 75.93 89.21
+            c-12.28-12.28-32.19-12.28-44.48 0
+            L9.21 111.45
+            c-12.28 12.28-12.28 32.19 0 44.48
+            L109.28 256 9.21 356.07
+            c-12.28 12.28-12.28 32.19 0 44.48
+            l22.24 22.24
+            c12.28 12.28 32.2 12.28 44.48 0
+            L176 322.72
+            l100.07 100.07
+            c12.28 12.28 32.2 12.28 44.48 0
+            l22.24-22.24
+            c12.28-12.28 12.28-32.19 0-44.48
+            L242.72 256
+            z"
+            ></path>
+          </svg>
         </div>
       ) : (
         <div className="list-top">
-          <h1 className="articles-header">Articles</h1>
+          <div className="header-container">
+            <h1 className="articles-header">Articles</h1>
+            <p id="header-author" className="author-not-selected"></p>
+          </div>
         </div>
       )}
       <div className="list-filters">
@@ -133,12 +178,13 @@ function ArticlesList({
           onChange={handleSearchFilter}
           placeholder="Search author or title..."
         />
+        <h4>Filter articles by:</h4>
         <div className="filter-selectors">
           <div className="date-selector">
             <p>Published: </p>
             <select
               name="select-date"
-              className="select-date"
+              className="select-date select"
               onChange={handleDateFilter}
             >
               <option value="newest">Newest first</option>
@@ -149,10 +195,10 @@ function ArticlesList({
             <p>Categories: </p>
             <select
               name="select-category"
-              className="select-cat"
+              className="select-cat select"
               onChange={handleCategoryFilter}
             >
-              <option value="none">None</option>
+              <option value="none">Show all</option>
               {Object.keys(categories).map((cat) => (
                 <option key={cat} value={cat}>
                   {categories[cat]}
