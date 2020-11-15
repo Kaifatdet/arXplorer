@@ -59,6 +59,11 @@ code {
   /* height: 34px; */
   min-width: 3rem;
   height: 1.65rem;
+  transition: all .2s ease-in-out;
+}
+
+.switch:hover {
+  transform: scale(1.1);
 }
 
 /* Hide default HTML checkbox */

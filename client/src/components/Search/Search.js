@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import './Search.css';
+import { subjects } from '../../services/categories';
 
 function Search({ handleSearchForm }) {
   const init = {
@@ -136,64 +137,15 @@ function Search({ handleSearchForm }) {
           </div>
           <h3>Subject</h3>
           <div className="search-filter-categories">
-            <div className="subject-container">
-              <label className="switch">
-                <input id="checkbox" type="checkbox" value="cs" />
-                <span className="slider round"></span>
-              </label>
-              <label htmlFor="cs">Computer Science</label>
-            </div>
-            <div className="subject-container">
-              <label className="switch">
-                <input id="checkbox" type="checkbox" value="physics" />
-                <span className="slider round"></span>
-              </label>
-              <label htmlFor="physics">Physics</label>
-            </div>
-            <div className="subject-container">
-              <label className="switch">
-                <input id="checkbox" type="checkbox" value="math" />
-                <span className="slider round"></span>
-              </label>
-              <label htmlFor="math">Mathematics</label>
-            </div>
-            <div className="subject-container">
-              <label className="switch">
-                <input id="checkbox" type="checkbox" value="eess" />
-                <span className="slider round"></span>
-              </label>
-              <label htmlFor="eess">
-                Electrical Engineering and Systems Science
-              </label>
-            </div>
-            <div className="subject-container">
-              <label className="switch">
-                <input id="checkbox" type="checkbox" value="econ" />
-                <span className="slider round"></span>
-              </label>
-              <label htmlFor="econ">Economics</label>
-            </div>
-            <div className="subject-container">
-              <label className="switch">
-                <input id="checkbox" type="checkbox" value="q-bio" />
-                <span className="slider round"></span>
-              </label>
-              <label htmlFor="q-bio">Quantitative Biology</label>
-            </div>
-            <div className="subject-container">
-              <label className="switch">
-                <input id="checkbox" type="checkbox" value="q-fin" />
-                <span className="slider round"></span>
-              </label>
-              <label htmlFor="q-fin">Quantitative Finance</label>
-            </div>
-            <div className="subject-container">
-              <label className="switch">
-                <input id="checkbox" type="checkbox" value="stat" />
-                <span className="slider round"></span>
-              </label>
-              <label htmlFor="stat">Statistics</label>
-            </div>
+            {Object.keys(subjects).map((cat) => (
+              <div key={cat} className="subject-container">
+                <label className="switch">
+                  <input id="checkbox" type="checkbox" value={cat} />
+                  <span className="slider round"></span>
+                </label>
+                <label htmlFor={cat}>{subjects[cat]}</label>
+              </div>
+            ))}
           </div>
           <div className="search-filter-strict">
             <h3>Search fuzzy</h3>
@@ -202,7 +154,7 @@ function Search({ handleSearchForm }) {
               <span className="slider round"></span>
             </label>
           </div>
-          <p style={{ marginBottom: '1.5rem' }}>
+          <p style={{ marginBottom: '1.5rem', fontSize: '1rem' }}>
             If fuzzy search is checked, the search will look for first name OR
             last name (in the case of an author search). It is recommended to do
             strict searches.

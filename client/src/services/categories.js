@@ -153,3 +153,14 @@ export const categoriesDict = {
   'stat.OT': 'Other Statistics',
   'stat.TH': 'Statistics Theory',
 };
+
+export const subjects = {
+  cs: 'Computer Science',
+  physics: 'Physics',
+  math: 'Mathematics',
+  eess: 'Electrical Engineering and Systems Science',
+  econ: 'Economics',
+  'q-bio': 'Quantitative Biology',
+  'q-fin': 'Quantitative Finance',
+  stat: 'Statistics',
+};
