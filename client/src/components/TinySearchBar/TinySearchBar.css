@@ -12,6 +12,7 @@
 .tinysearch-btn {
   padding: 0.5rem;
   border: 0;
+  font-family: 'Quicksand';
 }
 
 .tinysearch-input {
@@ -25,7 +26,7 @@
 }
 
 .tinysearch-btn {
-  color: black;
+  color: var(--main-bg-dark);
   flex: 1;
   background: -webkit-linear-gradient(290deg, rgb(0, 255, 255), rgb(0, 73, 125));
 }

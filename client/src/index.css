@@ -30,23 +30,27 @@ code {
     monospace;
 }
 
-.icon {
-  color: black;
-  font-size: 4rem;
-  font-weight: lighter;
+#icon-blue-gradient {
+  --blue-stop: rgb(0, 255, 255);
+  --blue-bot: rgb(0, 73, 125);
 }
 
-.icon-dlt:hover {
-  color: var(--red);
+#icon-red-gradient {
+  --red-stop: #f12c06;
+  --red-bot: #a41d02;
+}
+
+#icon-orange-gradient {
+  --orange-stop: rgb(255, 187, 0);
+  --orange-bot: rgb(166, 1, 1);
+}
+
+#icon-purple-gradient {
+  --purple-stop: rgb(149, 0, 142);
+  --purple-bot: rgb(34, 0, 62);
 }
 
 /* Rainbow text */
-.rainbow {
-  text-align: center;
-  text-decoration: underline;
-  font-size: 32px;
-  letter-spacing: 5px;
-}
 .rainbow_text_animated {
   background: linear-gradient(to right, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
   -webkit-background-clip: text;

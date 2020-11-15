@@ -133,9 +133,9 @@ function ArticlesList({
           >
             <defs>
               <linearGradient id="icon-red-gradient" x2="0.35" y2="1">
-                <stop offset="0%" stopColor="var(--color-stop)" />
-                <stop offset="30%" stopColor="var(--color-stop)" />
-                <stop offset="100%" stopColor="var(--color-bot)" />
+                <stop offset="0%" stopColor="var(--red-stop)" />
+                <stop offset="30%" stopColor="var(--red-stop)" />
+                <stop offset="100%" stopColor="var(--red-bot)" />
               </linearGradient>
             </defs>
             <path

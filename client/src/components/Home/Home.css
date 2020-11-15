@@ -1,4 +1,66 @@
-body {
-  background-color: var(--main-bg-medium);
-  color: var(--main-light);
+.home-title {
+  margin: 2rem 0 3rem 0;
+  text-align: center;
+  font-size: 5rem;
+  color: var(--main-bg-light)
+}
+
+.home-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 40vh;
+  margin-bottom: 5rem;
+}
+
+.home-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 20%;
+  height: 100%;
+  /* background-color: var(--main-bg-dark); */
+  margin: 5rem 2rem 5rem 2rem;
+  border-radius: 5px;
+}
+
+.home-component:hover > .home-icon {
+  transform: scale(1.1);
+}
+
+.home-icon {
+  margin: 0 auto;
+  height: 10rem;
+  width: 100;
+  vertical-align: middle;
+  margin-top: 2em;
+  transition: all .2s ease-in-out;
+}
+
+#search-icon {
+  fill: url(#icon-blue-gradient);
+}
+
+#graph-icon {
+  fill: url(#icon-orange-gradient);
+}
+
+#list-icon {
+  fill: url(#icon-purple-gradient);
+}
+
+.component-description {
+  text-align: center;
+}
+
+.description-header {
+  margin-bottom: 1rem;
+}
+
+.intro-tinysearch {
+  text-align: center;
+  margin-bottom: 1rem;
 }
