@@ -22,9 +22,11 @@ function App() {
   const [articleList, setArticleList] = useState([]);
   const [selectedAuthor, setSelectedAuthor] = useState('');
   const [emptySearch, setEmptySearch] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSearchForm = async (title, author, journal, abstract) => {
     const query = queryPathBuilder(title, author, journal, abstract);
+    setLoading(true);
     try {
       // eslint-disable-next-line no-unused-vars
       const [dict, data, metadata, articles] = await fetchGraphData(query);
@@ -36,8 +38,12 @@ function App() {
         };
       });
       setArticleList(articles);
+      setLoading(false);
+      return true;
     } catch (err) {
       console.log('No results for the given search');
+      setLoading(false);
+      return false;
     }
   };
 
@@ -51,6 +57,7 @@ function App() {
 
   const handleGraphExpand = async (author) => {
     const query = queryPathBuilder('', author);
+    setLoading(true);
     try {
       // eslint-disable-next-line no-unused-vars
       const [dict, data, metadata, articles] = await fetchGraphData(query);
@@ -60,11 +67,13 @@ function App() {
       );
       const updatedArticles = await updateArticlesList(articleList, articles);
       setEmptySearch(false);
+      setLoading(false);
       setGraphData(updatedData);
       setAuthorDict(updatedDict);
       setArticleList(updatedArticles);
     } catch (err) {
       setEmptySearch(true);
+      setLoading(false);
       console.log('No results for the searched author');
     }
   };
@@ -101,7 +110,7 @@ function App() {
           <Home handleQuickSearch={handleQuickSearch} />
         </Route>
         <Route exact path="/search">
-          <Search handleSearchForm={handleSearchForm} />
+          <Search handleSearchForm={handleSearchForm} loading={loading} />
         </Route>
         <Route exact path="/graph">
           <Graph
@@ -116,6 +125,7 @@ function App() {
             handleQuickSearch={handleQuickSearch}
             killGraph={killGraph}
             emptySearch={emptySearch}
+            loading={loading}
           />
         </Route>
         <Route exact path="/list">

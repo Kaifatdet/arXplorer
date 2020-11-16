@@ -64,3 +64,9 @@
 #search-redirect-link:hover {
   text-decoration: underline;
 }
+
+.graph-loading-widget {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+}

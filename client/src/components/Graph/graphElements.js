@@ -17,7 +17,7 @@ export const nodeElement = (selection, data, cb) => {
     .selectAll('circle')
     .data(data)
     .join('circle')
-    .attr('r', (d) => Math.max(Math.sqrt(d.weight) * 2, 5))
+    .attr('r', (d) => Math.min(Math.max(Math.sqrt(d.weight) * 2, 5), 25))
     .attr('fill', cb())
     .attr('stroke', 'black')
     .attr('stroke-width', 0.3);

@@ -9,6 +9,7 @@ import TinySearchBar from '../TinySearchBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import LoadingSpinner from '../../styleComponents/LoadingSpinner';
 
 function Graph({
   graphData,
@@ -22,6 +23,7 @@ function Graph({
   handleQuickSearch,
   killGraph,
   emptySearch,
+  loading,
 }) {
   useEffect(() => {
     const svg = select(svgRef.current);
@@ -91,7 +93,7 @@ function Graph({
       {emptySearch && (
         <div className="empty-search-msg">
           <p className="error-msg">
-            Sorry, could not expand graph because search result was empty!
+            No search luck, try again with another name!
           </p>
         </div>
       )}
@@ -105,6 +107,11 @@ function Graph({
             </Link>{' '}
             page or use the quicksearch below.
           </div>
+        </div>
+      )}
+      {loading && (
+        <div className="graph-loading-widget">
+          <LoadingSpinner />
         </div>
       )}
     </div>

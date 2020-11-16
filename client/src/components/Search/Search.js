@@ -1,28 +1,36 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './Search.css';
 import { subjects } from '../../services/categories';
+import LoadingSpinner from '../../styleComponents/LoadingSpinner.js';
 
-function Search({ handleSearchForm }) {
+function Search({ handleSearchForm, loading }) {
   const init = {
-    author: '',
     title: '',
+    author: '',
     journal: '',
     abstract: '',
   };
   const [fields, setFields] = useState(init);
-  const [toGraph, setToGraph] = useState(false);
+  const [searchSuccess, setSearchSuccess] = useState(true);
 
-  const handleSubmit = (e) => {
+  const history = useHistory();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    handleSearchForm(
+    const res = await handleSearchForm(
       fields.title,
       fields.author,
       fields.journal,
       fields.abstract
     );
     setFields(() => init);
-    setToGraph(() => true);
+    if (res) {
+      setSearchSuccess(true);
+      history.push('/graph');
+    } else {
+      setSearchSuccess(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -35,8 +43,6 @@ function Search({ handleSearchForm }) {
 
   return (
     <>
-      {toGraph && <Redirect to="/graph" />}
-      {/* <h1 className="search-header"></h1> */}
       <div className="search-header">
         <p className="lulz">S</p>
         <p className="lulz">e</p>
@@ -47,63 +53,23 @@ function Search({ handleSearchForm }) {
       </div>
       <div className="search-form-container">
         <form className="search-form" onSubmit={handleSubmit}>
-          <div className="search-title">
-            <label htmlFor="search-input-title" className="search-label-title">
-              Title
-            </label>
-            <input
-              type="text"
-              name="title"
-              className="search-input-title"
-              value={fields.title}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="search-author">
-            <label
-              htmlFor="search-input-author"
-              className="search-label-author"
-            >
-              Author
-            </label>
-            <input
-              type="text"
-              name="author"
-              className="search-input-author"
-              value={fields.author}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="search-journal">
-            <label
-              htmlFor="search-input-journal"
-              className="search-label-journal"
-            >
-              Journal
-            </label>
-            <input
-              type="text"
-              name="journal"
-              className="search-input-journal"
-              value={fields.journal}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="search-abstract">
-            <label
-              htmlFor="search-input-abstract"
-              className="search-label-abstract"
-            >
-              Abstract
-            </label>
-            <input
-              type="text"
-              name="abstract"
-              className="search-input-abstract"
-              value={fields.abstract}
-              onChange={handleChange}
-            />
-          </div>
+          {Object.keys(fields).map((field) => (
+            <div key={field} className={`search-${field}`}>
+              <label
+                htmlFor={`search-input-${field}`}
+                className={`search-label-${field}`}
+              >
+                {field.charAt(0).toUpperCase() + field.slice(1)}
+              </label>
+              <input
+                type="text"
+                name={field}
+                className={`search-input-${field}`}
+                value={fields[field]}
+                onChange={handleChange}
+              />
+            </div>
+          ))}
           <input type="submit" className="search-submit" value="Search" />
         </form>
         <div className="search-filters">
@@ -161,6 +127,16 @@ function Search({ handleSearchForm }) {
           </p>
         </div>
       </div>
+      {loading && (
+        <div className="search-loading-widget">
+          <LoadingSpinner />
+        </div>
+      )}
+      {!searchSuccess && (
+        <h4 className="search-error-msg">
+          No search luck, try to refine your search
+        </h4>
+      )}
     </>
   );
 }

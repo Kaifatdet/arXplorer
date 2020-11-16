@@ -160,7 +160,7 @@
   border: 0;
   width: 80%;
   height: 10%;
-  font-size: large;
+  font-size: larger;
   color: var(--main-bg-light);
   background: -webkit-linear-gradient(310deg, rgb(0, 130, 163), rgb(0, 45, 78));
 }
@@ -168,4 +168,16 @@
 .search-submit:hover {
   background: -webkit-linear-gradient(310deg, rgb(0, 204, 255), rgb(0, 73, 125));
   box-shadow: 0 0 3px 1px #333;
+}
+
+.search-error-msg {
+ margin: 1.5rem 0;
+ text-align: center; 
+ font-weight: normal;
+}
+
+.search-loading-widget {
+  position: absolute;
+  top: 40%;
+  left: 50%;
 }

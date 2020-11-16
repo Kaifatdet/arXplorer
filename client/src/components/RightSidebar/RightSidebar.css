@@ -130,6 +130,11 @@
   flex-direction: row;
   flex-wrap: wrap;
   font-style: italic;
+  font-size: 1.1rem;
+}
+
+.rsb-article-published {
+  font-size: 1.1rem;
 }
 
 .rsb-icon-close {
