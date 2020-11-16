@@ -24,6 +24,7 @@ function App() {
   const [selectedArticle, setSelectedArticle] = useState('');
   const [emptySearch, setEmptySearch] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [tooLarge, setTooLarge] = useState(false);
 
   const handleSearchForm = async (title, author, journal, abstract) => {
     const query = queryPathBuilder(title, author, journal, abstract);
@@ -31,18 +32,25 @@ function App() {
     try {
       // eslint-disable-next-line no-unused-vars
       const [dict, data, metadata, articles] = await fetchGraphData(query);
-      setAuthorDict(() => dict);
-      setGraphData((init) => {
-        return {
-          ...init,
-          ...data,
-        };
-      });
-      setArticleList(articles);
+      if (data.links.length > 1000) {
+        setTooLarge(true);
+        setTimeout(() => setTooLarge(false), 3000);
+      } else {
+        setAuthorDict(() => dict);
+        setGraphData((init) => {
+          return {
+            ...init,
+            ...data,
+          };
+        });
+        setArticleList(articles);
+      }
       setLoading(false);
       return true;
     } catch (err) {
+      setEmptySearch(true);
       setLoading(false);
+      setTimeout(() => setEmptySearch(false), 5000);
       return false;
     }
   };
@@ -68,12 +76,18 @@ function App() {
       const updatedArticles = await updateArticlesList(articleList, articles);
       setEmptySearch(false);
       setLoading(false);
-      setGraphData(updatedData);
-      setAuthorDict(updatedDict);
-      setArticleList(updatedArticles);
+      if (updatedData.links.length > 1000) {
+        setTooLarge(true);
+        setTimeout(() => setTooLarge(false), 3000);
+      } else {
+        setGraphData(updatedData);
+        setAuthorDict(updatedDict);
+        setArticleList(updatedArticles);
+      }
     } catch (err) {
       setEmptySearch(true);
       setLoading(false);
+      setTimeout(() => setEmptySearch(false), 5000);
     }
   };
 
@@ -112,6 +126,8 @@ function App() {
             killGraph={killGraph}
             emptySearch={emptySearch}
             loading={loading}
+            tooLarge={tooLarge}
+            setTooLarge={setTooLarge}
           />
         </Route>
         <Route exact path="/list">

@@ -51,7 +51,7 @@ const drawGraph = (
   const nodes = data.nodes.map((d) => Object.create(d));
   const links = data.links.map((d) => Object.create(d));
   const categories = extractCategories(nodes);
-  console.log('num nodes', nodes.length, 'num links', links.length);
+
   const simulation = forceSimulation(nodes)
     .force(
       'link',

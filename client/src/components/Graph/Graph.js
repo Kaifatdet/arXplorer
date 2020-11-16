@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './Graph.css';
 import drawGraph from './drawGraph';
 import { select } from 'd3';
@@ -8,8 +8,7 @@ import RightSidebar from '../RightSidebar';
 import TinySearchBar from '../TinySearchBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-import LoadingSpinner from '../../styleComponents/LoadingSpinner';
+import GraphErrorHandler from '../GraphErrorHandler';
 
 function Graph({
   graphData,
@@ -23,12 +22,17 @@ function Graph({
   killGraph,
   emptySearch,
   loading,
+  tooLarge,
+  setTooLarge,
 }) {
+  const [emptyGraph, setEmptyGraph] = useState(true);
+
   useEffect(() => {
     const svg = select(svgRef.current);
-    graphData.links &&
-      graphData.links.length < 1000 &&
-      drawGraph(svg, graphData, dimensions, handleClick, extractCategories);
+
+    drawGraph(svg, graphData, dimensions, handleClick, extractCategories);
+
+    graphData.links && setEmptyGraph(false);
   }, [graphData]);
 
   const svgRef = useRef();
@@ -60,6 +64,8 @@ function Graph({
 
   const handleClean = () => {
     killGraph();
+    setEmptyGraph(true);
+    setTooLarge(false);
   };
 
   return (
@@ -86,39 +92,12 @@ function Graph({
           <p className="kill-text">Are you sure you want to clear graph?</p>
         </div>
       )}
-      {emptySearch && (
-        <div className="empty-search-msg">
-          <p className="error-msg">
-            No search luck, try again with another name!
-          </p>
-        </div>
-      )}
-      {!graphData.nodes && (
-        <div className="graph-empty-placeholder">
-          <div className="empty-message">
-            There is currently no articles to show on the graph - please go to
-            the{' '}
-            <Link to="/search" id="search-redirect-link">
-              search
-            </Link>{' '}
-            page or use the quicksearch below.
-          </div>
-        </div>
-      )}
-      {loading && (
-        <div className="graph-loading-widget">
-          <LoadingSpinner />
-        </div>
-      )}
-      {graphData.nodes && graphData.links.length > 1000 && (
-        <div className="graph-too-large">
-          <h3 className="too-large-msg">
-            Graph is too large after latest search. Please shrink/clear the
-            graph or specify your search further
-          </h3>
-        </div>
-      )}
-      ;
+      <GraphErrorHandler
+        emptySearch={emptySearch}
+        loading={loading}
+        tooLarge={tooLarge}
+        emptyGraph={emptyGraph}
+      />
     </div>
   );
 }

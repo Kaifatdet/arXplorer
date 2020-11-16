@@ -1,0 +1,25 @@
+.empty-message {
+  position: relative;
+  left: -50%;
+  font-size: 1.4rem;
+}
+
+.graph-loading-widget {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+}
+
+.graph-too-large {
+  text-align: center;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+}
+
+.too-large-msg {
+  position: relative;
+  font-size: 2rem;
+  left: -50%;
+  font-size: x-large;
+}
