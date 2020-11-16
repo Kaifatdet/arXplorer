@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
 import './RightSidebar.css';
+import { getArticleId } from '../../services/dataHelpers';
 
 function RightSidebar({
   selectedAuthor,
@@ -106,13 +107,9 @@ function RightSidebar({
           ? details.articles.map((ar) => {
               return (
                 <div
-                  key={ar.id[0].replace('http://arxiv.org/abs/', '')}
+                  key={getArticleId(ar)}
                   className="rsb-list-article"
-                  onClick={() =>
-                    handleArticleClick(
-                      ar.id[0].replace('http://arxiv.org/abs/', '')
-                    )
-                  }
+                  onClick={() => handleArticleClick(getArticleId(ar))}
                 >
                   <div className="rsb-article-title">{ar.title}</div>
                   <div className="rsb-article-authors">

@@ -17,7 +17,7 @@ export const nodeElement = (selection, data, cb) => {
     .selectAll('circle')
     .data(data)
     .join('circle')
-    .attr('r', (d) => Math.min(Math.max(Math.sqrt(d.weight) * 2, 5), 25))
+    .attr('r', (d) => Math.min(Math.max(Math.sqrt(d.weight) * 2, 5), 20))
     .attr('fill', cb())
     .attr('stroke', 'black')
     .attr('stroke-width', 0.3);
@@ -71,7 +71,7 @@ export const sizeLegendCircleElement = (selection, data) => {
     .selectAll('legend-circle')
     .data(data)
     .join('circle')
-    .attr('r', (d) => Math.sqrt(d.weight) * 3)
+    .attr('r', (d) => Math.min(Math.max(Math.sqrt(d.weight) * 2, 5), 20))
     .attr('stroke', '#000')
     .attr('stroke-width', 0.3)
     .attr('fill', '#a6cee3');

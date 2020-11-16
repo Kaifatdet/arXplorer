@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import './ArticlesList.css';
 import { categoriesDict } from '../../services/categories';
 import { Link, useHistory } from 'react-router-dom';
-import { sortArticleList } from '../../services/dataHelpers';
+import { sortArticleList, getArticleId } from '../../services/dataHelpers';
 
 function ArticlesList({
   articleList,
@@ -15,7 +15,7 @@ function ArticlesList({
 }) {
   const [filteredList, setFilteredList] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [sortOrder, setSortOrder] = useState('');
+  const [sortOrder, setSortOrder] = useState('newest');
   const history = useHistory();
 
   useEffect(() => {
@@ -25,9 +25,7 @@ function ArticlesList({
         selectedArticle
           ? sortArticleList([
               ...authorDict[selectedAuthor].articles.filter(
-                (ar) =>
-                  ar.id[0].replace('http://arxiv.org/abs/', '') ===
-                  selectedArticle
+                (ar) => getArticleId(ar) === selectedArticle
               ),
             ])
           : sortArticleList([...authorDict[selectedAuthor].articles])
@@ -46,7 +44,7 @@ function ArticlesList({
         return catDict;
       });
     }
-  }, [selectedArticle]);
+  }, [selectedArticle, selectedAuthor]);
 
   if (articleList.length === 0) {
     return (
@@ -67,7 +65,7 @@ function ArticlesList({
     setFilteredList(() => {
       return e.target.value === 'newest'
         ? sortArticleList([...filteredList])
-        : sortArticleList([...filteredList], false);
+        : sortArticleList([...filteredList], 'oldest');
     });
   };
 
@@ -232,10 +230,7 @@ function ArticlesList({
       </div>
       {filteredList.length > 0 && articleList.length > 0 ? (
         filteredList.map((ar) => (
-          <div
-            key={ar.id[0].replace('http://arxiv.org/abs/', '')}
-            className="list-article"
-          >
+          <div key={getArticleId(ar)} className="list-article">
             <div className="list-article-title">{ar.title[0]}</div>
             <div className="list-article-authors">
               <strong>Authors: </strong>
@@ -264,10 +259,7 @@ function ArticlesList({
               <div className="list-article-link">
                 <a
                   className="arxiv-link"
-                  href={`http://arxiv.org/abs/${ar.id[0].replace(
-                    'http://arxiv.org/abs/',
-                    ''
-                  )}`}
+                  href={`http://arxiv.org/abs/${getArticleId(ar)}`}
                 >
                   See article on arXiv.org
                 </a>

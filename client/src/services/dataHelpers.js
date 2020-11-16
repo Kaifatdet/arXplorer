@@ -3,7 +3,7 @@ const { categoriesDict } = require('./categories');
 export function createAuthorDict(articles) {
   let dict = {};
   articles.forEach((article) => {
-    const aID = article.id[0].replace('http://arxiv.org/abs/', '');
+    const aID = getArticleId(article);
     const collabs = article.author.map((auth) => auth.name).flat();
     const categories = article.category
       .map((cat) => {
@@ -22,17 +22,18 @@ export function createAuthorDict(articles) {
               (au) => !dict[author].collabs.includes(au) && au !== author
             )
           );
-          categories.forEach((cat) => {
-            const main_cat = dict[author].main_cat;
-            dict[author].categories[cat]
-              ? dict[author].categories[cat]++
-              : (dict[author].categories[cat] = 1);
-            if (
-              dict[author].categories[cat] > dict[author].categories[main_cat]
-            ) {
-              dict[author].main_cat = cat;
-            }
-          });
+          setCategoryProperties(dict, author, categories);
+          // categories.forEach((cat) => {
+          //   const main_cat = dict[author].main_cat;
+          //   dict[author].categories[cat]
+          //     ? dict[author].categories[cat]++
+          //     : (dict[author].categories[cat] = 1);
+          //   if (
+          //     dict[author].categories[cat] > dict[author].categories[main_cat]
+          //   ) {
+          //     dict[author].main_cat = cat;
+          //   }
+          // });
         }
       } else {
         dict[author] = {
@@ -69,23 +70,26 @@ export function createNodesFromDict(dict) {
 export function createLinksFromDict(dict) {
   const links = [];
   for (const author in dict) {
-    const tempLinks = dict[author].collabs.map((co) => {
-      return { source: author, target: co };
-    });
-    tempLinks.forEach((el) => {
-      if (
-        links.filter(
-          (li) =>
-            (li.source === el.source && li.target === el.target) ||
-            (li.source === el.target && li.target === el.source)
-        ).length === 0
-      ) {
-        links.push(el);
-      }
-    });
+    dict[author].collabs
+      .map((co) => ({
+        source: author,
+        target: co,
+      }))
+      .forEach((el) => {
+        if (links.filter((li) => linkExists(li, el)).length === 0) {
+          links.push(el);
+        }
+      });
   }
   return links;
 }
+
+const linkExists = (arrOne, arrTwo) => {
+  return (
+    (arrOne.source === arrTwo.source && arrOne.target === arrTwo.target) ||
+    (arrOne.source === arrTwo.target && arrOne.target === arrTwo.source)
+  );
+};
 
 export function updateAuthorDict(oldDict, newDict) {
   let dict = Object.assign({}, oldDict);
@@ -94,29 +98,13 @@ export function updateAuthorDict(oldDict, newDict) {
       dict[key] = newDict[key];
     } else {
       newDict[key].articles.forEach((ar) => {
-        const aID = ar.id[0].replace('http://arxiv.org/abs/', '');
+        const aID = getArticleId(ar);
         if (!dict[key].ids.includes(aID)) {
           dict[key].ids.push(aID);
           dict[key].articles.push(ar);
 
-          const categories = ar.category
-            .map((cat) => {
-              if (categoriesDict[cat.$.term]) return cat.$.term;
-            })
-            .flat()
-            .filter((cat) => cat !== undefined);
-
-          categories.forEach((cat) => {
-            const main_cat = dict[key].main_cat;
-            if (dict[key].categories[cat]) {
-              dict[key].categories[cat]++;
-              if (dict[key].categories[cat] > dict[key].categories[main_cat]) {
-                dict[key].main_cat = cat;
-              }
-            } else {
-              dict[key].categories[cat] = 1;
-            }
-          });
+          const categories = getValidCategoriesFromArticle(ar);
+          setCategoryProperties(dict, key, categories);
         }
       });
       newDict[key].collabs.forEach((col) => {
@@ -125,6 +113,29 @@ export function updateAuthorDict(oldDict, newDict) {
     }
   }
   return dict;
+}
+
+function getValidCategoriesFromArticle(array) {
+  return array.category
+    .map((cat) => {
+      if (categoriesDict[cat.$.term]) return cat.$.term;
+    })
+    .flat()
+    .filter((cat) => cat !== undefined);
+}
+
+function setCategoryProperties(dict, key, categoriesArray) {
+  categoriesArray.forEach((cat) => {
+    const main_cat = dict[key].main_cat;
+    if (dict[key].categories[cat]) {
+      dict[key].categories[cat]++;
+      if (dict[key].categories[cat] > dict[key].categories[main_cat]) {
+        dict[key].main_cat = cat;
+      }
+    } else {
+      dict[key].categories[cat] = 1;
+    }
+  });
 }
 
 function calculateGroupsFromCategories(dict) {
@@ -153,3 +164,6 @@ export const sortArticleList = (arr, order = 'newest') => {
     ? [...arr].sort((a, b) => new Date(b.published) - new Date(a.published))
     : [...arr].sort((a, b) => new Date(a.published) - new Date(b.published));
 };
+
+export const getArticleId = (article) =>
+  article.id[0].replace('http://arxiv.org/abs/', '');
