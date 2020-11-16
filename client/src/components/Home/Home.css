@@ -38,6 +38,7 @@
   vertical-align: middle;
   margin-top: 2em;
   transition: all .2s ease-in-out;
+  flex: 1;
 }
 
 #search-icon {
@@ -55,10 +56,16 @@
 .component-description {
   text-align: center;
   font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
 }
 
 .description-header {
-  margin-bottom: 1rem;
+  margin-top: 2rem;
+  /* align-self: flex-start; */
 }
 
 .intro-tinysearch {

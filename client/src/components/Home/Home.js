@@ -35,10 +35,10 @@ function Home({ handleQuickSearch }) {
               Search for your favorite authors
             </h3>
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat
-              commodi dignissimos unde culpa sint modi sapiente velit laborum
-              provident dolorum! Nobis odio voluptas ea esse, labore architecto
-              neque rem omnis?
+              The search feature allows you to directly query the vast arXiv
+              library for all the papers submitted by your favorite authors and
+              their collaborators. Go to the search tab or enter an author below
+              to get started.
             </p>
           </div>
         </div>
@@ -56,13 +56,13 @@ function Home({ handleQuickSearch }) {
           </svg>
           <div className="component-description">
             <h3 className="description-header">
-              Explore on the interactive graph
+              Explore with the interactive graph
             </h3>
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat
-              commodi dignissimos unde culpa sint modi sapiente velit laborum
-              provident dolorum! Nobis odio voluptas ea esse, labore architecto
-              neque rem omnis?
+              The interactive graph makes it easy to explore and visualise
+              author relations, articles and subject clusters. Simply traverse
+              your way through the academic landscape by expanding or shrinking
+              the graph!
             </p>
           </div>
         </div>
@@ -83,10 +83,10 @@ function Home({ handleQuickSearch }) {
               Preview and filter articles in the list
             </h3>
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat
-              commodi dignissimos unde culpa sint modi sapiente velit laborum
-              provident dolorum! Nobis odio voluptas ea esse, labore architecto
-              neque rem omnis?
+              While the graph is great for searching and visualising high level
+              features, you sometimes want a closer look. No worries, I have you
+              covered - just go to the list whenever you feel the urge for
+              details.
             </p>
           </div>
         </div>
