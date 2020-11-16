@@ -26,7 +26,9 @@ function Graph({
 }) {
   useEffect(() => {
     const svg = select(svgRef.current);
-    drawGraph(svg, graphData, dimensions, handleClick, extractCategories);
+    graphData.links &&
+      graphData.links.length < 1000 &&
+      drawGraph(svg, graphData, dimensions, handleClick, extractCategories);
   }, [graphData]);
 
   const svgRef = useRef();
@@ -108,6 +110,15 @@ function Graph({
           <LoadingSpinner />
         </div>
       )}
+      {graphData.nodes && graphData.links.length > 1000 && (
+        <div className="graph-too-large">
+          <h3 className="too-large-msg">
+            Graph is too large after latest search. Please shrink/clear the
+            graph or specify your search further
+          </h3>
+        </div>
+      )}
+      ;
     </div>
   );
 }
