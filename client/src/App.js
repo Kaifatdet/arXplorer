@@ -41,7 +41,6 @@ function App() {
       setLoading(false);
       return true;
     } catch (err) {
-      console.log('No results for the given search');
       setLoading(false);
       return false;
     }
@@ -74,20 +73,7 @@ function App() {
     } catch (err) {
       setEmptySearch(true);
       setLoading(false);
-      console.log('No results for the searched author');
     }
-  };
-
-  const handleSidebarAuthorRedirect = (author) => {
-    setSelectedAuthor(author);
-  };
-
-  const selectAuthor = (author) => {
-    setSelectedAuthor(author);
-  };
-
-  const resetSelectedAuthor = () => {
-    setSelectedAuthor('');
   };
 
   const removeSelectedAuthor = (author) => {
@@ -118,9 +104,8 @@ function App() {
             handleGraphExpand={handleGraphExpand}
             authorDict={authorDict}
             selectedAuthor={selectedAuthor}
-            selectAuthor={selectAuthor}
-            resetSelectedAuthor={resetSelectedAuthor}
-            handleSidebarAuthorRedirect={handleSidebarAuthorRedirect}
+            // selectAuthor={selectAuthor}
+            setSelectedAuthor={setSelectedAuthor}
             removeSelectedAuthor={removeSelectedAuthor}
             handleQuickSearch={handleQuickSearch}
             killGraph={killGraph}
@@ -133,8 +118,7 @@ function App() {
             authorDict={authorDict}
             articleList={articleList}
             selectedAuthor={selectedAuthor}
-            selectAuthor={selectAuthor}
-            resetSelectedAuthor={resetSelectedAuthor}
+            setSelectedAuthor={setSelectedAuthor}
           />
         </Route>
       </Switch>

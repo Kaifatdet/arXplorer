@@ -10,9 +10,7 @@ function RightSidebar({
   selectedAuthor,
   handleExpandClick,
   authorDict,
-  toggleSelected,
-  handleSidebarAuthorRedirect,
-  resetSelectedAuthor,
+  setSelectedAuthor,
   removeSelectedAuthor,
 }) {
   const [details, setDetails] = useState({});
@@ -20,8 +18,7 @@ function RightSidebar({
 
   useEffect(() => {
     if (selectedAuthor) {
-      let selectedDetails = authorDict[selectedAuthor];
-      setDetails(selectedDetails);
+      setDetails(authorDict[selectedAuthor]);
       setOpen(true);
     }
   }, [selectedAuthor]);
@@ -31,9 +28,8 @@ function RightSidebar({
   };
 
   const toggleSidebar = () => {
-    toggleSelected();
     setOpen(false);
-    resetSelectedAuthor();
+    setSelectedAuthor('');
   };
 
   const renderList = () => {
@@ -41,12 +37,16 @@ function RightSidebar({
   };
 
   const handleAuthorClick = () => {
-    handleSidebarAuthorRedirect(selectedAuthor);
+    setSelectedAuthor(selectedAuthor);
   };
 
   const deleteHandler = () => {
     removeSelectedAuthor(selectedAuthor);
     setOpen(false);
+  };
+
+  const handleArticleClick = (e) => {
+    console.log(e);
   };
 
   return (
@@ -104,7 +104,11 @@ function RightSidebar({
         {renderList()
           ? details.articles.map((ar) => {
               return (
-                <div key={ar.id} className="rsb-list-article">
+                <div
+                  key={ar.id}
+                  className="rsb-list-article"
+                  onClick={handleArticleClick}
+                >
                   <div className="rsb-article-title">{ar.title}</div>
                   <div className="rsb-article-authors">
                     {ar.author.map((au) => au.name).join(', ')}

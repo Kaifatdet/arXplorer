@@ -1,18 +1,15 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import './ArticlesList.css';
 import { categoriesDict } from '../../services/categories';
 import { Link, useHistory } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { sortArticleList } from '../../services/dataHelpers';
 
 function ArticlesList({
   articleList,
   selectedAuthor,
   authorDict,
-  resetSelectedAuthor,
+  setSelectedAuthor,
 }) {
   const [filteredList, setFilteredList] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -104,7 +101,7 @@ function ArticlesList({
   };
 
   const handleResetAuthor = () => {
-    resetSelectedAuthor();
+    setSelectedAuthor('');
   };
 
   return (

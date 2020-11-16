@@ -16,9 +16,7 @@ function Graph({
   handleGraphExpand,
   authorDict,
   selectedAuthor,
-  selectAuthor,
-  resetSelectedAuthor,
-  handleSidebarAuthorRedirect,
+  setSelectedAuthor,
   removeSelectedAuthor,
   handleQuickSearch,
   killGraph,
@@ -37,15 +35,11 @@ function Graph({
   };
 
   const handleClick = (author) => {
-    selectAuthor(author);
+    setSelectedAuthor(author);
   };
 
   const handleExpandClick = () => {
     handleGraphExpand(selectedAuthor);
-  };
-
-  const toggleSelected = () => {
-    resetSelectedAuthor();
   };
 
   const extractCategories = (data) => {
@@ -72,11 +66,9 @@ function Graph({
       </div>
       <RightSidebar
         selectedAuthor={selectedAuthor}
+        setSelectedAuthor={setSelectedAuthor}
         handleExpandClick={handleExpandClick}
         authorDict={authorDict}
-        toggleSelected={toggleSelected}
-        handleSidebarAuthorRedirect={handleSidebarAuthorRedirect}
-        resetSelectedAuthor={resetSelectedAuthor}
         removeSelectedAuthor={removeSelectedAuthor}
       />
       <TinySearchBar handleQuickSearch={handleQuickSearch} />
