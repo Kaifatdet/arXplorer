@@ -171,3 +171,13 @@ h4 {
   fill: url(#icon-blue-gradient) #fff;
   transform: scale(1.1);
 }
+
+.list-clear-article {
+  transition: all .2s ease-in-out;
+}
+
+.list-clear-article:hover {
+  cursor: default;
+  translate: scale(1.1);
+  text-decoration: underline;
+}

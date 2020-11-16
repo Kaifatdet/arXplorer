@@ -34,10 +34,6 @@ function ArticlesList({
       );
     }
 
-    if (selectedArticle) {
-      console.log('selected article', selectedArticle);
-    }
-
     if (articleList.length > 0) {
       setCategories(() => {
         let catDict = {};
@@ -50,7 +46,7 @@ function ArticlesList({
         return catDict;
       });
     }
-  }, []);
+  }, [selectedArticle]);
 
   if (articleList.length === 0) {
     return (
@@ -115,6 +111,10 @@ function ArticlesList({
 
   const handleResetAuthor = () => {
     setSelectedAuthor('');
+    setSelectedArticle('');
+  };
+
+  const clearSelectedArticle = () => {
     setSelectedArticle('');
   };
 
@@ -286,6 +286,11 @@ function ArticlesList({
           >
             Sorry, you filtered too hard
           </h1>
+        </div>
+      )}
+      {selectedArticle && (
+        <div className="list-clear-article" onClick={clearSelectedArticle}>
+          <h3>Show all articles by {selectedAuthor}</h3>
         </div>
       )}
     </div>
