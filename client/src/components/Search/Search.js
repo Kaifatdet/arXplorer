@@ -11,7 +11,23 @@ function Search({ handleSearchForm, loading }) {
     journal: '',
     abstract: '',
   };
+
+  const filterInit = {
+    cs: false,
+    physics: false,
+    math: false,
+    eess: false,
+    econ: false,
+    'q-bio': false,
+    'q-fin': false,
+    stat: false,
+    'date-from': '',
+    'date-to': '',
+  };
+
   const [fields, setFields] = useState(init);
+  // eslint-disable-next-line no-unused-vars
+  const [filters, setFilters] = useState(filterInit);
   const [searchSuccess, setSearchSuccess] = useState(true);
 
   const history = useHistory();
@@ -22,9 +38,11 @@ function Search({ handleSearchForm, loading }) {
       fields.title,
       fields.author,
       fields.journal,
-      fields.abstract
+      fields.abstract,
+      filters
     );
     setFields(() => init);
+    setFilters(() => init);
     if (res) {
       setSearchSuccess(true);
       history.push('/graph');
@@ -35,6 +53,22 @@ function Search({ handleSearchForm, loading }) {
 
   const handleChange = (e) => {
     setFields((prev) => {
+      const newState = { ...prev };
+      newState[e.target.name] = e.target.value;
+      return newState;
+    });
+  };
+
+  const handleFilters = (e) => {
+    setFilters((prev) => {
+      const newState = { ...prev };
+      newState[e.target.value] = !newState[e.target.value];
+      return newState;
+    });
+  };
+
+  const handleDatePicker = (e) => {
+    setFilters((prev) => {
       const newState = { ...prev };
       newState[e.target.name] = e.target.value;
       return newState;
@@ -85,6 +119,7 @@ function Search({ handleSearchForm, loading }) {
                   className="date-picker"
                   name="date-from"
                   id="date-from"
+                  onChange={handleDatePicker}
                 />
               </div>
               <div>
@@ -97,6 +132,7 @@ function Search({ handleSearchForm, loading }) {
                   className="date-picker"
                   name="date-to"
                   id="date-from"
+                  onChange={handleDatePicker}
                 />
               </div>
             </div>
@@ -106,25 +142,18 @@ function Search({ handleSearchForm, loading }) {
             {Object.keys(subjects).map((cat) => (
               <div key={cat} className="subject-container">
                 <label className="switch">
-                  <input id="checkbox" type="checkbox" value={cat} />
+                  <input
+                    id="checkbox"
+                    type="checkbox"
+                    value={cat}
+                    onChange={handleFilters}
+                  />
                   <span className="slider round"></span>
                 </label>
                 <label htmlFor={cat}>{subjects[cat]}</label>
               </div>
             ))}
           </div>
-          <div className="search-filter-strict">
-            <h3>Search fuzzy</h3>
-            <label className="switch">
-              <input id="checkbox" type="checkbox" />
-              <span className="slider round"></span>
-            </label>
-          </div>
-          <p style={{ marginBottom: '1.5rem', fontSize: '1rem' }}>
-            If fuzzy search is checked, the search will look for first name OR
-            last name (in the case of an author search). It is recommended to do
-            strict searches.
-          </p>
         </div>
       </div>
       {loading && (

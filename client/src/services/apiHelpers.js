@@ -1,32 +1,28 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
 const { parseString } = require('xml2js');
 const BASE_URL = 'http://export.arxiv.org/api/';
 
+const queryPositions = { 0: 'ti', 1: 'au', 2: 'jr', 3: 'abs' };
+
 export function queryPathBuilder(
   title = '',
   author = '',
   journal = '',
-  abstract = ''
+  abstract = '',
+  filters = {}
 ) {
-  let queryUrl = BASE_URL + 'query' + '?search_query=';
-  if (title && author) {
-    queryUrl += `ti:%22${title.replace(/\s/g, '+')}%22`;
-    queryUrl += '+AND+';
-    queryUrl += `au:%22${author.replace(/\s/g, '+')}%22`;
-  } else if (title) {
-    queryUrl += `ti:%22${title.replace(/\s/g, '+')}%22`;
-  } else if (author) {
-    queryUrl += `au:%22${author.replace(/\s/g, '+')}%22`;
-  } else if (journal) {
-    queryUrl += `jr:%22${journal.replace(/\s/g, '+')}%22`;
-  } else if (abstract) {
-    queryUrl += `abs:%22${abstract.replace(/\s/g, '+')}%22`;
-  } else {
-    return false;
-  }
+  let queryUrl = BASE_URL + 'query?search_query=';
+  queryUrl += [...arguments]
+    .slice(0, 4)
+    .map(
+      (arg, i) => arg && `${queryPositions[i]}:%22${arg.replace(/\s/g, '+')}%22`
+    )
+    .filter((a) => a !== '')
+    .join('+AND+');
   queryUrl += '&start=0&max_results=25';
-  return queryUrl;
+  return [queryUrl, filters];
 }
 
 export function parseResponse(res) {

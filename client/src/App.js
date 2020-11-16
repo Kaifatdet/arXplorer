@@ -26,15 +26,28 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [tooLarge, setTooLarge] = useState(false);
 
-  const handleSearchForm = async (title, author, journal, abstract) => {
-    const query = queryPathBuilder(title, author, journal, abstract);
+  const handleSearchForm = async (
+    title,
+    author,
+    journal,
+    abstract,
+    filters
+  ) => {
+    const [query, searchFilters] = queryPathBuilder(
+      title,
+      author,
+      journal,
+      abstract,
+      filters
+    );
     setLoading(true);
+    console.log(searchFilters);
     try {
       // eslint-disable-next-line no-unused-vars
       const [dict, data, metadata, articles] = await fetchGraphData(query);
       if (data.links.length > 1000) {
         setTooLarge(true);
-        setTimeout(() => setTooLarge(false), 3000);
+        setTimeout(() => setTooLarge(false), 5000);
       } else {
         setAuthorDict(() => dict);
         setGraphData((init) => {
@@ -64,7 +77,8 @@ function App() {
   };
 
   const handleGraphExpand = async (author) => {
-    const query = queryPathBuilder('', author);
+    // eslint-disable-next-line no-unused-vars
+    const [query, _] = queryPathBuilder('', author);
     setLoading(true);
     try {
       // eslint-disable-next-line no-unused-vars
@@ -78,7 +92,7 @@ function App() {
       setLoading(false);
       if (updatedData.links.length > 1000) {
         setTooLarge(true);
-        setTimeout(() => setTooLarge(false), 3000);
+        setTimeout(() => setTooLarge(false), 5000);
       } else {
         setGraphData(updatedData);
         setAuthorDict(updatedDict);
