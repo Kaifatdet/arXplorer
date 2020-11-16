@@ -8,6 +8,7 @@ import RightSidebar from '../RightSidebar';
 import TinySearchBar from '../TinySearchBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 function Graph({
   graphData,
@@ -20,6 +21,7 @@ function Graph({
   removeSelectedAuthor,
   handleQuickSearch,
   killGraph,
+  emptySearch,
 }) {
   useEffect(() => {
     const svg = select(svgRef.current);
@@ -64,7 +66,7 @@ function Graph({
   return (
     <div className="graph-container">
       <div className="data-container">
-        <svg ref={svgRef}></svg>
+        <svg ref={svgRef} className="graph-svg"></svg>
       </div>
       <RightSidebar
         selectedAuthor={selectedAuthor}
@@ -84,6 +86,25 @@ function Graph({
             onClick={handleClean}
           />
           <p className="kill-text">Are you sure you want to clear graph?</p>
+        </div>
+      )}
+      {emptySearch && (
+        <div className="empty-search-msg">
+          <p className="error-msg">
+            Sorry, could not expand graph because search result was empty!
+          </p>
+        </div>
+      )}
+      {!graphData.nodes && (
+        <div className="graph-empty-placeholder">
+          <div className="empty-message">
+            There is currently no articles to show on the graph - please go to
+            the{' '}
+            <Link to="/search" id="search-redirect-link">
+              search
+            </Link>{' '}
+            page or use the quicksearch below.
+          </div>
         </div>
       )}
     </div>

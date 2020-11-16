@@ -32,8 +32,8 @@
 .rsb-details {
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
-  margin-bottom: 10px;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
 }
 
 .rsb-author {
@@ -41,7 +41,7 @@
   align-self: flex-start;
   font-size: xx-large;
   text-decoration: underline;
-  margin-bottom: 5px;
+  margin-bottom: 0.5rem;
   transition: all .2s ease-in-out;
 }
 
@@ -61,6 +61,7 @@
   text-decoration: none;
   color: var(--main-creme);
   font-style: italic;
+  font-size: 1.2rem;
 }
 
 .rsb-buttons-container {
@@ -121,6 +122,7 @@
 
 .rsb-article-title {
   font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .rsb-article-authors {
@@ -141,3 +143,27 @@
   transform: scale(1.1);
 }
 
+.list-total-numbers {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 20vw;
+}
+
+.num-articles {
+  min-width: 50%;
+}
+
+.empty-search-msg {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  text-align: center;
+  width: 30vw;
+  font-size: 1.4rem;
+}
+
+.error-msg {
+  position: relative;
+  left: -50%
+}

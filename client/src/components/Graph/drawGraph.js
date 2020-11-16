@@ -107,11 +107,11 @@ const drawGraph = (
     text.attr('x', (d) => d.x).attr('y', (d) => d.y - Math.sqrt(d.weight) - 15);
 
     categoryLegendCircle
-      .attr('cx', -width * 0.1)
+      .attr('cx', -width * 0.05)
       .attr('cy', (d) => height - d.group * 30);
     categoryLegendText
-      .attr('x', -width * 0.1 + 15)
-      .attr('y', (d) => height - d.group * 30 + 3);
+      .attr('x', -width * 0.05 + 15)
+      .attr('y', (d) => height - d.group * 30 + 5);
 
     sizeLegendCircle
       .attr('cx', (d) => width * 0.38 + d.id * width * 0.12)
@@ -121,7 +121,7 @@ const drawGraph = (
         'x',
         (d) => width * 0.38 + d.id * width * 0.12 + Math.sqrt(d.weight) + 15
       )
-      .attr('y', height - height * 0.05 + 4);
+      .attr('y', height - height * 0.05 + 5);
   });
 };
 

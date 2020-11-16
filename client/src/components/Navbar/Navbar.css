@@ -1,7 +1,6 @@
 .nav-container {
   background-color: var(--main-bg-dark);
   padding: 0.1rem; 
-  /* margin-bottom: 15px; */
   box-shadow: 0 0 5px 1px rgba(30, 30, 30, 0.3);
 }
 

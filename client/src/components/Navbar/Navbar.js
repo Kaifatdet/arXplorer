@@ -1,23 +1,68 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
   return (
     <nav className="nav-container">
       <div className="nav-list">
-        <Link className="nav-link" id="home" to="/">
+        <NavLink
+          className="nav-link"
+          id="home"
+          exact
+          to="/"
+          activeStyle={{
+            background:
+              '-webkit-linear-gradient(270deg, rgb(17, 255, 0), rgb(1, 60, 18))',
+            '-webkit-background-clip': 'text',
+            '-webkit-text-fill-color': 'transparent',
+            transform: 'scale(1.1)',
+          }}
+        >
           Home
-        </Link>
-        <Link className="nav-link" id="search" to="/search">
+        </NavLink>
+        <NavLink
+          className="nav-link"
+          id="search"
+          to="/search"
+          activeStyle={{
+            background:
+              '-webkit-linear-gradient(270deg, rgb(0, 255, 255), rgb(0, 73, 125))',
+            '-webkit-background-clip': 'text',
+            '-webkit-text-fill-color': 'transparent',
+            transform: 'scale(1.1)',
+          }}
+        >
           Search
-        </Link>
-        <Link className="nav-link" id="graph" to="/graph">
+        </NavLink>
+        <NavLink
+          className="nav-link"
+          id="graph"
+          to="/graph"
+          activeStyle={{
+            background:
+              '-webkit-linear-gradient(270deg, rgb(255, 187, 0), rgb(166, 1, 1))',
+            '-webkit-background-clip': 'text',
+            '-webkit-text-fill-color': 'transparent',
+            transform: 'scale(1.1)',
+          }}
+        >
           Graph
-        </Link>
-        <Link className="nav-link" id="list" to="/list">
+        </NavLink>
+        <NavLink
+          className="nav-link"
+          id="list"
+          to="/list"
+          activeStyle={{
+            background:
+              '-webkit-linear-gradient(270deg, rgb(255, 0, 242), rgb(34, 0, 62))',
+            '-webkit-background-clip': 'text',
+            '-webkit-text-fill-color': 'transparent',
+            transform: 'scale(1.1)',
+          }}
+        >
           List
-        </Link>
+        </NavLink>
       </div>
     </nav>
   );

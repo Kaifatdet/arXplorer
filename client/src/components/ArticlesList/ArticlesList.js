@@ -44,11 +44,14 @@ function ArticlesList({
 
   if (articleList.length === 0) {
     return (
-      <div className="no-articles">
-        No articles to show yet, please perform a{' '}
-        <Link to="/search" className="redirect">
-          search
-        </Link>
+      <div className="graph-empty-placeholder">
+        <div className="empty-message">
+          There is currently no articles to show on the list - please go to the{' '}
+          <Link to="/search" id="search-redirect-link">
+            search
+          </Link>{' '}
+          page.
+        </div>
       </div>
     );
   }
@@ -207,53 +210,73 @@ function ArticlesList({
             </select>
           </div>
         </div>
+        <div className="list-total-numbers">
+          <p className="num-articles">
+            Total # of articles: {articleList.length}
+          </p>
+          <p className="num-articles">
+            Currently showing: {filteredList.length}
+          </p>
+        </div>
       </div>
-      {filteredList.length > 0
-        ? filteredList.map((ar) => (
-            <div
-              key={ar.id[0].replace('http://arxiv.org/abs/', '')}
-              className="list-article"
-            >
-              <div className="list-article-title">{ar.title[0]}</div>
-              <div className="list-article-authors">
-                <strong>Authors: </strong>
-                {ar.author.map((au) => au.name).join(', ')}
+      {filteredList.length > 0 && articleList.length > 0 ? (
+        filteredList.map((ar) => (
+          <div
+            key={ar.id[0].replace('http://arxiv.org/abs/', '')}
+            className="list-article"
+          >
+            <div className="list-article-title">{ar.title[0]}</div>
+            <div className="list-article-authors">
+              <strong>Authors: </strong>
+              {ar.author.map((au) => au.name).join(', ')}
+            </div>
+            <div className="list-article-abstract">
+              <strong>Abstract: </strong>
+              {ar.summary[0].replace(/[\n]+/g, ' ')}
+            </div>
+            <div className="list-article-published">
+              <strong>Published: </strong>
+              {dayjs(ar.published[0]).format('MMM YYYY')}
+            </div>
+            <div className="list-bottom">
+              <div className="list-article-categories">
+                <strong>Categories: </strong>
+                {ar.category
+                  .map((au) => {
+                    if (categoriesDict[au.$.term]) {
+                      return categoriesDict[au.$.term];
+                    }
+                  })
+                  .filter((el) => el !== undefined)
+                  .join(', ')}
               </div>
-              <div className="list-article-abstract">
-                <strong>Abstract: </strong>
-                {ar.summary[0].replace(/[\n]+/g, ' ')}
-              </div>
-              <div className="list-article-published">
-                <strong>Published: </strong>
-                {dayjs(ar.published[0]).format('MMM YYYY')}
-              </div>
-              <div className="list-bottom">
-                <div className="list-article-categories">
-                  <strong>Categories: </strong>
-                  {ar.category
-                    .map((au) => {
-                      if (categoriesDict[au.$.term]) {
-                        return categoriesDict[au.$.term];
-                      }
-                    })
-                    .filter((el) => el !== undefined)
-                    .join(', ')}
-                </div>
-                <div className="list-article-link">
-                  <a
-                    className="arxiv-link"
-                    href={`http://arxiv.org/abs/${ar.id[0].replace(
-                      'http://arxiv.org/abs/',
-                      ''
-                    )}`}
-                  >
-                    See article on arXiv.org
-                  </a>
-                </div>
+              <div className="list-article-link">
+                <a
+                  className="arxiv-link"
+                  href={`http://arxiv.org/abs/${ar.id[0].replace(
+                    'http://arxiv.org/abs/',
+                    ''
+                  )}`}
+                >
+                  See article on arXiv.org
+                </a>
               </div>
             </div>
-          ))
-        : 'No articles are matching filters'}
+          </div>
+        ))
+      ) : (
+        <div>
+          <h1
+            style={{
+              fontStyle: 'italic',
+              fontWeight: 'normal',
+              marginBottom: '1rem',
+            }}
+          >
+            Sorry, you filtered too hard
+          </h1>
+        </div>
+      )}
     </div>
   );
 }

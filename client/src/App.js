@@ -21,6 +21,7 @@ function App() {
   const [graphData, setGraphData] = useState({});
   const [articleList, setArticleList] = useState([]);
   const [selectedAuthor, setSelectedAuthor] = useState('');
+  const [emptySearch, setEmptySearch] = useState(false);
 
   const handleSearchForm = async (title, author, journal, abstract) => {
     const query = queryPathBuilder(title, author, journal, abstract);
@@ -58,10 +59,12 @@ function App() {
         dict
       );
       const updatedArticles = await updateArticlesList(articleList, articles);
+      setEmptySearch(false);
       setGraphData(updatedData);
       setAuthorDict(updatedDict);
       setArticleList(updatedArticles);
     } catch (err) {
+      setEmptySearch(true);
       console.log('No results for the searched author');
     }
   };
@@ -112,6 +115,7 @@ function App() {
             removeSelectedAuthor={removeSelectedAuthor}
             handleQuickSearch={handleQuickSearch}
             killGraph={killGraph}
+            emptySearch={emptySearch}
           />
         </Route>
         <Route exact path="/list">
