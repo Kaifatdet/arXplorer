@@ -5,12 +5,7 @@ export function createAuthorDict(articles) {
   articles.forEach((article) => {
     const aID = getArticleId(article);
     const collabs = article.author.map((auth) => auth.name).flat();
-    const categories = article.category
-      .map((cat) => {
-        if (categoriesDict[cat.$.term]) return cat.$.term;
-      })
-      .flat()
-      .filter((cat) => cat !== undefined);
+    const categories = getValidCategoriesFromArticle(article);
 
     collabs.forEach((author) => {
       if (dict[author]) {
@@ -23,17 +18,6 @@ export function createAuthorDict(articles) {
             )
           );
           setCategoryProperties(dict, author, categories);
-          // categories.forEach((cat) => {
-          //   const main_cat = dict[author].main_cat;
-          //   dict[author].categories[cat]
-          //     ? dict[author].categories[cat]++
-          //     : (dict[author].categories[cat] = 1);
-          //   if (
-          //     dict[author].categories[cat] > dict[author].categories[main_cat]
-          //   ) {
-          //     dict[author].main_cat = cat;
-          //   }
-          // });
         }
       } else {
         dict[author] = {
