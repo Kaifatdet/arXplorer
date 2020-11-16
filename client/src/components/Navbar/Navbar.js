@@ -14,8 +14,8 @@ function Navbar() {
           activeStyle={{
             background:
               '-webkit-linear-gradient(270deg, rgb(17, 255, 0), rgb(1, 60, 18))',
-            '-webkit-background-clip': 'text',
-            '-webkit-text-fill-color': 'transparent',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
             transform: 'scale(1.1)',
           }}
         >
@@ -28,8 +28,8 @@ function Navbar() {
           activeStyle={{
             background:
               '-webkit-linear-gradient(270deg, rgb(0, 255, 255), rgb(0, 73, 125))',
-            '-webkit-background-clip': 'text',
-            '-webkit-text-fill-color': 'transparent',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
             transform: 'scale(1.1)',
           }}
         >
@@ -42,8 +42,8 @@ function Navbar() {
           activeStyle={{
             background:
               '-webkit-linear-gradient(270deg, rgb(255, 187, 0), rgb(166, 1, 1))',
-            '-webkit-background-clip': 'text',
-            '-webkit-text-fill-color': 'transparent',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
             transform: 'scale(1.1)',
           }}
         >
@@ -56,8 +56,8 @@ function Navbar() {
           activeStyle={{
             background:
               '-webkit-linear-gradient(270deg, rgb(255, 0, 242), rgb(34, 0, 62))',
-            '-webkit-background-clip': 'text',
-            '-webkit-text-fill-color': 'transparent',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
             transform: 'scale(1.1)',
           }}
         >

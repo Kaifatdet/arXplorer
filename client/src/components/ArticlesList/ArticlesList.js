@@ -10,19 +10,32 @@ function ArticlesList({
   selectedAuthor,
   authorDict,
   setSelectedAuthor,
+  selectedArticle,
+  setSelectedArticle,
 }) {
   const [filteredList, setFilteredList] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [sortOrder, setSortOrder] = useState([]);
+  const [sortOrder, setSortOrder] = useState('');
   const history = useHistory();
 
   useEffect(() => {
     setFilteredList(() => sortArticleList([...articleList]));
-
     if (authorDict[selectedAuthor]) {
       setFilteredList(() =>
-        sortArticleList([...authorDict[selectedAuthor].articles])
+        selectedArticle
+          ? sortArticleList([
+              ...authorDict[selectedAuthor].articles.filter(
+                (ar) =>
+                  ar.id[0].replace('http://arxiv.org/abs/', '') ===
+                  selectedArticle
+              ),
+            ])
+          : sortArticleList([...authorDict[selectedAuthor].articles])
       );
+    }
+
+    if (selectedArticle) {
+      console.log('selected article', selectedArticle);
     }
 
     if (articleList.length > 0) {
@@ -102,6 +115,7 @@ function ArticlesList({
 
   const handleResetAuthor = () => {
     setSelectedAuthor('');
+    setSelectedArticle('');
   };
 
   return (

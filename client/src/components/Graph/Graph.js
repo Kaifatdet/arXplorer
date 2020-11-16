@@ -17,6 +17,7 @@ function Graph({
   authorDict,
   selectedAuthor,
   setSelectedAuthor,
+  setSelectedArticle,
   removeSelectedAuthor,
   handleQuickSearch,
   killGraph,
@@ -70,6 +71,7 @@ function Graph({
         handleExpandClick={handleExpandClick}
         authorDict={authorDict}
         removeSelectedAuthor={removeSelectedAuthor}
+        setSelectedArticle={setSelectedArticle}
       />
       <TinySearchBar handleQuickSearch={handleQuickSearch} />
       {Object.keys(graphData).length > 0 && (

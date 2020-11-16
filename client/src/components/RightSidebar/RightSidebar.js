@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
-// simport { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './RightSidebar.css';
-// import deleteSvg from '../../svgs/deleteSvg.svg';
 
 function RightSidebar({
   selectedAuthor,
   handleExpandClick,
   authorDict,
   setSelectedAuthor,
+  setSelectedArticle,
   removeSelectedAuthor,
 }) {
   const [details, setDetails] = useState({});
   const [open, setOpen] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     if (selectedAuthor) {
@@ -30,6 +29,7 @@ function RightSidebar({
   const toggleSidebar = () => {
     setOpen(false);
     setSelectedAuthor('');
+    setSelectedArticle('');
   };
 
   const renderList = () => {
@@ -38,15 +38,20 @@ function RightSidebar({
 
   const handleAuthorClick = () => {
     setSelectedAuthor(selectedAuthor);
+    setSelectedArticle('');
+    history.push('/list');
   };
 
   const deleteHandler = () => {
     removeSelectedAuthor(selectedAuthor);
+    setSelectedArticle('');
     setOpen(false);
   };
 
-  const handleArticleClick = (e) => {
-    console.log(e);
+  const handleArticleClick = (id) => {
+    setSelectedArticle(id);
+    setSelectedAuthor(selectedAuthor);
+    history.push('/list');
   };
 
   return (
@@ -90,14 +95,10 @@ function RightSidebar({
       </div>
       <div className="rsb-details">
         <div className="rsb-author" onClick={handleAuthorClick}>
-          <Link className="rsb-author" to="/list">
-            {selectedAuthor}
-          </Link>
+          {selectedAuthor}
         </div>
-        <div className="rsb-small-link">
-          <Link to="/list" id="redirect-link">
-            show details
-          </Link>
+        <div className="rsb-small-link" onClick={handleAuthorClick}>
+          show details
         </div>
       </div>
       <div className="rsb-list">
@@ -105,9 +106,13 @@ function RightSidebar({
           ? details.articles.map((ar) => {
               return (
                 <div
-                  key={ar.id}
+                  key={ar.id[0].replace('http://arxiv.org/abs/', '')}
                   className="rsb-list-article"
-                  onClick={handleArticleClick}
+                  onClick={() =>
+                    handleArticleClick(
+                      ar.id[0].replace('http://arxiv.org/abs/', '')
+                    )
+                  }
                 >
                   <div className="rsb-article-title">{ar.title}</div>
                   <div className="rsb-article-authors">

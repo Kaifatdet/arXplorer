@@ -21,6 +21,7 @@ function App() {
   const [graphData, setGraphData] = useState({});
   const [articleList, setArticleList] = useState([]);
   const [selectedAuthor, setSelectedAuthor] = useState('');
+  const [selectedArticle, setSelectedArticle] = useState('');
   const [emptySearch, setEmptySearch] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -104,8 +105,8 @@ function App() {
             handleGraphExpand={handleGraphExpand}
             authorDict={authorDict}
             selectedAuthor={selectedAuthor}
-            // selectAuthor={selectAuthor}
             setSelectedAuthor={setSelectedAuthor}
+            setSelectedArticle={setSelectedArticle}
             removeSelectedAuthor={removeSelectedAuthor}
             handleQuickSearch={handleQuickSearch}
             killGraph={killGraph}
@@ -119,6 +120,8 @@ function App() {
             articleList={articleList}
             selectedAuthor={selectedAuthor}
             setSelectedAuthor={setSelectedAuthor}
+            selectedArticle={selectedArticle}
+            setSelectedArticle={setSelectedArticle}
           />
         </Route>
       </Switch>
