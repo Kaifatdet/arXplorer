@@ -135,7 +135,7 @@ function Search({ handleSearchForm }) {
               </div>
             </div>
           </div>
-          <h3>Subject</h3>
+          <h3 style={{ marginTop: '1rem' }}>Subject</h3>
           <div className="search-filter-categories">
             {Object.keys(subjects).map((cat) => (
               <div key={cat} className="subject-container">

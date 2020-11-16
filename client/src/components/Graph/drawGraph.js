@@ -57,8 +57,8 @@ const drawGraph = (
       'link',
       forceLink(links).id((d) => d.id)
     )
-    .force('charge', forceManyBody().distanceMax(150))
-    .force('collision', forceCollide().strength(0.8))
+    .force('charge', forceManyBody())
+    .force('collision', forceCollide())
     .force('center', forceCenter(width / 2, height / 2));
 
   const link = linkElement(svg, links);
@@ -107,10 +107,10 @@ const drawGraph = (
     text.attr('x', (d) => d.x).attr('y', (d) => d.y - Math.sqrt(d.weight) - 15);
 
     categoryLegendCircle
-      .attr('cx', -width * 0.05)
+      .attr('cx', -width * 0.1)
       .attr('cy', (d) => height - d.group * 30);
     categoryLegendText
-      .attr('x', -width * 0.05 + 15)
+      .attr('x', -width * 0.1 + 15)
       .attr('y', (d) => height - d.group * 30 + 3);
 
     sizeLegendCircle
