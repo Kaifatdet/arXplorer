@@ -45,14 +45,6 @@
   display: block;
 }
 
-.graph-empty-placeholder {
-  position: absolute;
-  top: 10rem;
-  left: 50%;
-  width: 20vw;
-  text-align: center;
-}
-
 #search-redirect-link {
   text-decoration: none;
   color: rgb(0, 179, 255);

@@ -1,3 +1,11 @@
+.graph-empty-placeholder {
+  position: absolute;
+  top: 15rem;
+  left: 50%;
+  width: 20vw;
+  text-align: center;
+}
+
 .empty-message {
   position: relative;
   left: -50%;
