@@ -2,7 +2,7 @@
 'use strict';
 
 const { parseString } = require('xml2js');
-const BASE_URL = 'http://export.arxiv.org/api/';
+const BASE_URL = 'https://export.arxiv.org/api/';
 
 const queryPositions = { 0: 'ti', 1: 'au', 2: 'jr', 3: 'abs' };
 
