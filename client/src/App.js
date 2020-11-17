@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './App.css';
 import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
@@ -42,7 +43,6 @@ function App() {
     );
     setLoading(true);
     try {
-      // eslint-disable-next-line no-unused-vars
       const [dict, data, metadata, articles] = await fetchGraphData(
         query,
         searchFilters
@@ -79,11 +79,9 @@ function App() {
   };
 
   const handleGraphExpand = async (author) => {
-    // eslint-disable-next-line no-unused-vars
     const [query, _] = queryPathBuilder('', author);
     setLoading(true);
     try {
-      // eslint-disable-next-line no-unused-vars
       const [dict, data, metadata, articles] = await fetchGraphData(query);
       const [updatedDict, updatedData] = await updateAuthorData(
         authorDict,

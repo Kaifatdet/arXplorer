@@ -42,23 +42,6 @@ export function createAuthorDict(articles, filters = {}) {
   return dict;
 }
 
-function filterArticleByDate(article, filters) {
-  if (!filters['date-from'] || !filters['date-to']) return true;
-  const articleDate = new Date(article.published);
-  return articleDate > filters['date-from'] && articleDate < filters['date-to'];
-}
-
-function filterArticleBySubject(article, filters) {
-  const subjects = Object.keys(filters).filter((cat) => filters[cat] === true);
-  if (subjects.length === 0) return true;
-  return (
-    article.category.filter((arCat) => {
-      const i = arCat.$.term.indexOf('.');
-      return subjects.includes(arCat.$.term.slice(0, i));
-    }).length > 0
-  );
-}
-
 export function createNodesFromDict(dict) {
   const nodes = [];
   const colorDict = calculateGroupsFromCategories(dict);
@@ -123,6 +106,35 @@ export function updateAuthorDict(oldDict, newDict) {
   return dict;
 }
 
+export function addNewArticles(prev, newList) {
+  let toAdd = [];
+  newList.forEach((ar) => {
+    prev.filter((old) => old.id[0] === ar.id[0]).length === 0 && toAdd.push(ar);
+  });
+  return [...prev, ...toAdd];
+}
+
+export const sortArticleList = (arr, order = 'newest') => {
+  return order === 'newest'
+    ? [...arr].sort((a, b) => new Date(b.published) - new Date(a.published))
+    : [...arr].sort((a, b) => new Date(a.published) - new Date(b.published));
+};
+
+export const getArticleId = (article) =>
+  article.id[0].replace('http://arxiv.org/abs/', '');
+
+export const parseGreekLetters = (str) => {
+  const parsedStr = str
+    .replace(/(\\emph)/g, '')
+    .replace(/(\\mathsf)/g, '')
+    .replace(/(\$\\)/g, '&')
+    .replace(/\$/g, ';')
+    .replace(/\{|\}/g, '')
+    .replace(/(;*;)/g, '')
+    .replace(/\^/g, '&sup');
+  return htmlEntities.decode(parsedStr);
+};
+
 function getValidCategoriesFromArticle(array) {
   return array.category
     .map((cat) => {
@@ -159,31 +171,19 @@ function calculateGroupsFromCategories(dict) {
   return cats;
 }
 
-export function addNewArticles(prev, newList) {
-  let toAdd = [];
-  newList.forEach((ar) => {
-    prev.filter((old) => old.id[0] === ar.id[0]).length === 0 && toAdd.push(ar);
-  });
-  return [...prev, ...toAdd];
+function filterArticleByDate(article, filters) {
+  if (!filters['date-from'] || !filters['date-to']) return true;
+  const articleDate = new Date(article.published);
+  return articleDate > filters['date-from'] && articleDate < filters['date-to'];
 }
 
-export const sortArticleList = (arr, order = 'newest') => {
-  return order === 'newest'
-    ? [...arr].sort((a, b) => new Date(b.published) - new Date(a.published))
-    : [...arr].sort((a, b) => new Date(a.published) - new Date(b.published));
-};
-
-export const getArticleId = (article) =>
-  article.id[0].replace('http://arxiv.org/abs/', '');
-
-export const parseGreekLetters = (str) => {
-  const parsedStr = str
-    .replace(/(\\emph)/g, '')
-    .replace(/(\\mathsf)/g, '')
-    .replace(/(\$\\)/g, '&')
-    .replace(/\$/g, ';')
-    .replace(/\{|\}/g, '')
-    .replace(/(;*;)/g, '')
-    .replace(/\^/g, '&sup');
-  return htmlEntities.decode(parsedStr);
-};
+function filterArticleBySubject(article, filters) {
+  const subjects = Object.keys(filters).filter((cat) => filters[cat] === true);
+  if (subjects.length === 0) return true;
+  return (
+    article.category.filter((arCat) => {
+      const i = arCat.$.term.indexOf('.');
+      return subjects.includes(arCat.$.term.slice(0, i));
+    }).length > 0
+  );
+}
