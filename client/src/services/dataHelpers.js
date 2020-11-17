@@ -2,39 +2,61 @@ const { categoriesDict } = require('./categories');
 const { Html5Entities } = require('html-entities');
 const htmlEntities = new Html5Entities();
 
-export function createAuthorDict(articles) {
+export function createAuthorDict(articles, filters = {}) {
   let dict = {};
   articles.forEach((article) => {
-    const aID = getArticleId(article);
-    const collabs = article.author.map((auth) => auth.name).flat();
-    const categories = getValidCategoriesFromArticle(article);
+    if (
+      filterArticleByDate(article, filters) &&
+      filterArticleBySubject(article, filters)
+    ) {
+      const aID = getArticleId(article);
+      const collabs = article.author.map((auth) => auth.name).flat();
+      const categories = getValidCategoriesFromArticle(article);
 
-    collabs.forEach((author) => {
-      if (dict[author]) {
-        if (!dict[author].ids.includes(aID)) {
-          dict[author].ids.push(aID);
-          dict[author].articles.push(article);
-          dict[author].collabs.push(
-            ...collabs.filter(
-              (au) => !dict[author].collabs.includes(au) && au !== author
-            )
-          );
-          setCategoryProperties(dict, author, categories);
+      collabs.forEach((author) => {
+        if (dict[author]) {
+          if (!dict[author].ids.includes(aID)) {
+            dict[author].ids.push(aID);
+            dict[author].articles.push(article);
+            dict[author].collabs.push(
+              ...collabs.filter(
+                (au) => !dict[author].collabs.includes(au) && au !== author
+              )
+            );
+            setCategoryProperties(dict, author, categories);
+          }
+        } else {
+          dict[author] = {
+            collabs: [...collabs.filter((au) => au !== author)],
+            ids: [aID],
+            articles: [article],
+            expanded: false,
+            main_cat: categories[0],
+            categories: {},
+          };
+          categories.forEach((cat) => (dict[author].categories[cat] = 1));
         }
-      } else {
-        dict[author] = {
-          collabs: [...collabs.filter((au) => au !== author)],
-          ids: [aID],
-          articles: [article],
-          expanded: false,
-          main_cat: categories[0],
-          categories: {},
-        };
-        categories.forEach((cat) => (dict[author].categories[cat] = 1));
-      }
-    });
+      });
+    }
   });
   return dict;
+}
+
+function filterArticleByDate(article, filters) {
+  if (!filters['date-from'] || !filters['date-to']) return true;
+  const articleDate = new Date(article.published);
+  return articleDate > filters['date-from'] && articleDate < filters['date-to'];
+}
+
+function filterArticleBySubject(article, filters) {
+  const subjects = Object.keys(filters).filter((cat) => filters[cat] === true);
+  if (subjects.length === 0) return true;
+  return (
+    article.category.filter((arCat) => {
+      const i = arCat.$.term.indexOf('.');
+      return subjects.includes(arCat.$.term.slice(0, i));
+    }).length > 0
+  );
 }
 
 export function createNodesFromDict(dict) {

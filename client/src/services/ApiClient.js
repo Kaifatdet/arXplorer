@@ -21,10 +21,10 @@ async function fetchRequest(queryPath) {
   return parsed;
 }
 
-export async function fetchGraphData(query) {
+export async function fetchGraphData(query, filters) {
   const [articles, metadata] = await fetchRequest(query);
   if (articles) {
-    const dict = createAuthorDict(articles);
+    const dict = createAuthorDict(articles, filters);
     const nodes = createNodesFromDict(dict);
     const links = createLinksFromDict(dict);
     return [dict, { nodes, links }, metadata, articles];

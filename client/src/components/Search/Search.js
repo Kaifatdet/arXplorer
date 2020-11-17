@@ -4,7 +4,7 @@ import './Search.css';
 import { subjects } from '../../services/categories';
 import LoadingSpinner from '../../styleComponents/LoadingSpinner.js';
 
-function Search({ handleSearchForm, loading }) {
+function Search({ handleSearchForm, loading, setSelectedAuthor }) {
   const init = {
     title: '',
     author: '',
@@ -26,7 +26,6 @@ function Search({ handleSearchForm, loading }) {
   };
 
   const [fields, setFields] = useState(init);
-  // eslint-disable-next-line no-unused-vars
   const [filters, setFilters] = useState(filterInit);
   const [searchSuccess, setSearchSuccess] = useState(true);
 
@@ -34,6 +33,7 @@ function Search({ handleSearchForm, loading }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSelectedAuthor('');
     const res = await handleSearchForm(
       fields.title,
       fields.author,
@@ -70,7 +70,7 @@ function Search({ handleSearchForm, loading }) {
   const handleDatePicker = (e) => {
     setFilters((prev) => {
       const newState = { ...prev };
-      newState[e.target.name] = e.target.value;
+      newState[e.target.name] = new Date(e.target.value);
       return newState;
     });
   };

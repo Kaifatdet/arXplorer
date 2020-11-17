@@ -41,10 +41,12 @@ function App() {
       filters
     );
     setLoading(true);
-    console.log(searchFilters);
     try {
       // eslint-disable-next-line no-unused-vars
-      const [dict, data, metadata, articles] = await fetchGraphData(query);
+      const [dict, data, metadata, articles] = await fetchGraphData(
+        query,
+        searchFilters
+      );
       if (data.links.length > 1000) {
         setTooLarge(true);
         setTimeout(() => setTooLarge(false), 5000);
@@ -125,7 +127,11 @@ function App() {
           <Home handleQuickSearch={handleQuickSearch} />
         </Route>
         <Route exact path="/search">
-          <Search handleSearchForm={handleSearchForm} loading={loading} />
+          <Search
+            handleSearchForm={handleSearchForm}
+            loading={loading}
+            setSelectedAuthor={setSelectedAuthor}
+          />
         </Route>
         <Route exact path="/graph">
           <Graph
