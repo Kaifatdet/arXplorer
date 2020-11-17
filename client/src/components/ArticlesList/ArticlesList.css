@@ -70,7 +70,7 @@ h4 {
   justify-content: space-evenly;
   align-items: center;
   margin-bottom: 10px;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .filter-selectors {
@@ -85,6 +85,7 @@ h4 {
 
 .filter-search {
   width: 60%;
+  font-size: 1.2rem;
   border-radius: 3px;
   border: 0px;
   padding: 5px;
@@ -110,9 +111,13 @@ h4 {
   margin-left: 0.5rem;
   min-width: 10rem;
   border-radius: 3px;
-  text-align: center;
+  padding-left: 0.5rem;
   font-size: 1.1em;
   font-family: 'Quicksand';
+}
+
+.list-article {
+  font-size: 1.1rem;
 }
 
 .list-article-title,
@@ -124,7 +129,7 @@ h4 {
 
 .list-article-title {
   font-weight: bold;
-  font-size: x-large;
+  font-size: 1.4rem;
 }
 
 .list-article-authors {
@@ -152,7 +157,7 @@ h4 {
 .no-articles {
   text-align: center;
   font-size: x-large;
-  margin-top: 15px;
+  margin-top: 1.5rem;
 }
 
 .redirect {

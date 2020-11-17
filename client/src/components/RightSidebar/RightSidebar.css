@@ -115,6 +115,7 @@
   border-radius: 3px;
   color: var(--main-light);
   transition: all 0.2s ease-in-out;
+  font-size: 1rem;
 }
 
 .rsb-list-article:hover {
@@ -123,7 +124,7 @@
 
 .rsb-article-title {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .rsb-article-authors {
@@ -131,11 +132,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   font-style: italic;
-  font-size: 1.1rem;
-}
-
-.rsb-article-published {
-  font-size: 1.1rem;
+  ;
 }
 
 .rsb-icon-close {

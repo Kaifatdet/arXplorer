@@ -15,7 +15,7 @@
 .nav-link {
   text-decoration: none;
   color: var(--main-light);
-  font-size: x-large;
+  font-size: 1.2rem;
   height: 100%;
   padding: 0.5rem;
   transition: all .2s ease-in-out;
