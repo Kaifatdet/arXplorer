@@ -92,12 +92,12 @@ export function createLinksFromDict(dict) {
   return links;
 }
 
-const linkExists = (arrOne, arrTwo) => {
+function linkExists(arrOne, arrTwo) {
   return (
     (arrOne.source === arrTwo.source && arrOne.target === arrTwo.target) ||
     (arrOne.source === arrTwo.target && arrOne.target === arrTwo.source)
   );
-};
+}
 
 export function updateAuthorDict(oldDict, newDict) {
   let dict = Object.assign({}, oldDict);
@@ -187,3 +187,54 @@ export const parseGreekLetters = (str) => {
     .replace(/\^/g, '&sup');
   return htmlEntities.decode(parsedStr);
 };
+
+export function deleteAuthorsFromDict(dict, links, author) {
+  const newDict = Object.assign({}, dict);
+  const linksPointingFrom = links
+    .filter((link) => link.target === author)
+    .map((old) => old.source);
+  const oldIds = newDict[author].ids;
+
+  linksPointingFrom.forEach((ol) => {
+    newDict[ol].articles = removeArticlesFromOldAuthor(newDict, oldIds, ol);
+    // console.log('articles', newDict[ol].articles);
+    newDict[ol].ids = removeIdsFromOldAuthor(newDict, oldIds, ol);
+    // console.log('id', newDict[ol].ids);
+    newDict[ol].collabs = removeCollabFromOldAuthor(newDict, ol, author);
+    // console.log('collabs', removeCollabFromOldAuthor(newDict, ol, author));
+    // console.log('collabs', newDict[ol].collabs);
+  });
+
+  newDict[author].collabs.forEach((au) => {
+    !linksPointingFrom.includes(au) && delete newDict[au];
+  });
+  delete newDict[author];
+
+  return newDict;
+}
+
+function removeArticlesFromOldAuthor(dict, articleIds, oldAuthor) {
+  return dict[oldAuthor].articles
+    .map((ar) => !articleIds.includes(getArticleId(ar)) && ar)
+    .filter((el) => el !== false);
+}
+
+function removeIdsFromOldAuthor(dict, articleIds, oldAuthor) {
+  return dict[oldAuthor].ids
+    .map((id) => !articleIds.includes(id) && id)
+    .filter((el) => el !== false);
+}
+
+function removeCollabFromOldAuthor(dict, old, authorToRemove) {
+  return dict[old].collabs
+    .map((co) => {
+      console.log(co, authorToRemove);
+      if (co !== authorToRemove) return co;
+      // !co === authorToRemove && co;
+    })
+    .filter((el) => el !== false);
+}
+
+// function recursiveDeleting(author) {
+//   if
+// }

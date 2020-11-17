@@ -10,11 +10,13 @@ import ArticlesList from './components/ArticlesList';
 
 import {
   fetchGraphData,
-  removeAuthorFromGraph,
+  // removeAuthorFromGraph,
   updateArticlesList,
   updateAuthorData,
+  shrinkGraph,
 } from './services/ApiClient';
 import { queryPathBuilder } from './services/apiHelpers';
+// import { shrinkGraph } from './services/dataHelpers';
 
 function App() {
   const [authorDict, setAuthorDict] = useState({});
@@ -107,9 +109,15 @@ function App() {
     }
   };
 
+  // const removeSelectedAuthor = (author) => {
+  // setGraphData(() => removeAuthorFromGraph(graphData, author));
+  // setSelectedAuthor('');
+  // };
   const removeSelectedAuthor = (author) => {
-    setGraphData(() => removeAuthorFromGraph(graphData, author));
-    setSelectedAuthor('');
+    const [dict, data] = shrinkGraph(authorDict, graphData.links, author);
+    console.log('delDict', dict, 'data', data);
+    // setGraphData(data);
+    // setAuthorDict(dict);
   };
 
   const killGraph = () => {
