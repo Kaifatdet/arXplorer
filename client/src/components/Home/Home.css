@@ -11,7 +11,6 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
-  /* height: 40vh; */
   margin-bottom: 5rem;
 }
 
@@ -41,7 +40,7 @@
 }
 
 .home-icon {
-  height: 15rem;
+  height: 10rem;
   width: 100%;
 }
 
@@ -59,7 +58,7 @@
 
 .component-description {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -68,7 +67,6 @@
 
 .description-header {
   margin: 2rem 0 2rem 0;
-  /* align-self: flex-start; */
 }
 
 .intro-tinysearch {
