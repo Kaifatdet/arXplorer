@@ -75,13 +75,22 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
     });
   };
 
+  const surprise = () => {
+    const appClass = document.getElementsByClassName('App')[0].classList;
+    appClass.length === 1
+      ? appClass.add('wrapper')
+      : appClass.remove('wrapper');
+  };
+
   return (
     <>
       <div className="search-header">
         <p className="lulz">S</p>
         <p className="lulz">e</p>
         <p className="lulz">a</p>
-        <p className="lulz">r</p>
+        <p className="lulz" onClick={surprise}>
+          r
+        </p>
         <p className="lulz">c</p>
         <p className="lulz">h</p>
       </div>
