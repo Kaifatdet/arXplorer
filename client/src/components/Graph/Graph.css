@@ -25,12 +25,15 @@
 }
 
 .graph-icon-clean {
-  font-size: 3rem;
+  height: 3rem;
+  width: 3rem;
   color: var(--main-bg-dark);
+  transition: all .2s ease-in-out;
 }
 
 .graph-icon-clean:hover {
-  color: var(--red);
+  fill: url(#icon-red-gradient) #fff;
+  transform: scale(1.1);
 }
 
 .kill-text {
