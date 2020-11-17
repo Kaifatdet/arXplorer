@@ -3,7 +3,11 @@ import dayjs from 'dayjs';
 import './ArticlesList.css';
 import { categoriesDict } from '../../services/categories';
 import { Link, useHistory } from 'react-router-dom';
-import { sortArticleList, getArticleId } from '../../services/dataHelpers';
+import {
+  sortArticleList,
+  getArticleId,
+  parseGreekLetters,
+} from '../../services/dataHelpers';
 
 function ArticlesList({
   articleList,
@@ -231,14 +235,16 @@ function ArticlesList({
       {filteredList.length > 0 && articleList.length > 0 ? (
         filteredList.map((ar) => (
           <div key={getArticleId(ar)} className="list-article">
-            <div className="list-article-title">{ar.title[0]}</div>
+            <div className="list-article-title">
+              {parseGreekLetters(ar.title[0])}
+            </div>
             <div className="list-article-authors">
               <strong>Authors: </strong>
               {ar.author.map((au) => au.name).join(', ')}
             </div>
             <div className="list-article-abstract">
               <strong>Abstract: </strong>
-              {ar.summary[0].replace(/[\n]+/g, ' ')}
+              {parseGreekLetters(ar.summary[0].replace(/[\n]+/g, ' '))}
             </div>
             <div className="list-article-published">
               <strong>Published: </strong>

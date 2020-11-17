@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
 import './RightSidebar.css';
-import { getArticleId } from '../../services/dataHelpers';
+import { getArticleId, parseGreekLetters } from '../../services/dataHelpers';
 
 function RightSidebar({
   selectedAuthor,
@@ -111,7 +111,9 @@ function RightSidebar({
                   className="rsb-list-article"
                   onClick={() => handleArticleClick(getArticleId(ar))}
                 >
-                  <div className="rsb-article-title">{ar.title}</div>
+                  <div className="rsb-article-title">
+                    {parseGreekLetters(ar.title[0])}
+                  </div>
                   <div className="rsb-article-authors">
                     {ar.author.map((au) => au.name).join(', ')}
                   </div>

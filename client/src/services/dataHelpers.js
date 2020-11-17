@@ -1,4 +1,6 @@
 const { categoriesDict } = require('./categories');
+const { Html5Entities } = require('html-entities');
+const htmlEntities = new Html5Entities();
 
 export function createAuthorDict(articles) {
   let dict = {};
@@ -151,3 +153,15 @@ export const sortArticleList = (arr, order = 'newest') => {
 
 export const getArticleId = (article) =>
   article.id[0].replace('http://arxiv.org/abs/', '');
+
+export const parseGreekLetters = (str) => {
+  const parsedStr = str
+    .replace(/(\\emph)/g, '')
+    .replace(/(\\mathsf)/g, '')
+    .replace(/(\$\\)/g, '&')
+    .replace(/\$/g, ';')
+    .replace(/\{|\}/g, '')
+    .replace(/(;*;)/g, '')
+    .replace(/\^/g, '&sup');
+  return htmlEntities.decode(parsedStr);
+};
