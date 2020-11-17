@@ -91,6 +91,7 @@ h4 {
   padding: 5px;
   height: 2rem;
   margin-bottom: 15px;
+  font-family: 'Quicksand';
   color: var(--main-bg-light);
   background-color: var(--main-bg-dark);
 }
