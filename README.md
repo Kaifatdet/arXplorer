@@ -1,4 +1,4 @@
-## arXplorer :pineapple: [![Netlify Status](https://api.netlify.com/api/v1/badges/eb9a0e3e-27de-4fc3-8426-bce3c460ba94/deploy-status)](https://app.netlify.com/sites/arxplorer/deploys)
+## arXplorer :pineapple: [![Netlify Status](https://api.netlify.com/api/v1/badges/eb9a0e3e-27de-4fc3-8426-bce3c460ba94/deploy-status)](https://app.netlify.com/sites/arxplorer/deploys) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 **arXplorer** is a web-app for interatively exploring the large research body at arXiv.org. 
 
