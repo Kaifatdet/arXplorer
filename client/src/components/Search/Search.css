@@ -112,6 +112,7 @@
   border-radius: 3px;
   height: 2rem;
   width: 10rem;
+  padding-left: 1rem;
   color: var(--main-bg-light);
   font-family: 'Quicksand';
   background-image: -webkit-linear-gradient(280deg, rgb(0, 160, 20), rgb(0, 60, 20));

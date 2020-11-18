@@ -94,11 +94,11 @@
 .rsb-delete-btn {
   color: whitesmoke;
   flex: 1;
-  background-color: var(--red);
+  background-color: #F00038;
 }
 
 .rsb-delete-btn:hover {
-  background: -webkit-linear-gradient(300deg, var(--red), #6b0019);
+  background: -webkit-linear-gradient(300deg, #F00038, #6b0019);
 }
 
 .rsb-list {

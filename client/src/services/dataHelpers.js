@@ -75,12 +75,12 @@ export function createLinksFromDict(dict) {
   return links;
 }
 
-const linkExists = (arrOne, arrTwo) => {
+function linkExists(arrOne, arrTwo) {
   return (
     (arrOne.source === arrTwo.source && arrOne.target === arrTwo.target) ||
     (arrOne.source === arrTwo.target && arrOne.target === arrTwo.source)
   );
-};
+}
 
 export function updateAuthorDict(oldDict, newDict) {
   let dict = Object.assign({}, oldDict);

@@ -7,6 +7,7 @@ const {
   createLinksFromDict,
   updateAuthorDict,
   addNewArticles,
+  deleteAuthorsFromDict,
 } = require('./dataHelpers');
 
 const { parseResponse } = require('./apiHelpers');
@@ -49,4 +50,11 @@ export function removeAuthorFromGraph(graphData, author) {
     (link) => link.source !== author && link.target !== author
   );
   return { nodes, links };
+}
+
+export function shrinkGraph(oldDict, oldLinks, author) {
+  const dict = deleteAuthorsFromDict(oldDict, oldLinks, author);
+  const nodes = createNodesFromDict(dict);
+  const links = createLinksFromDict(dict);
+  return [dict, { nodes, links }];
 }

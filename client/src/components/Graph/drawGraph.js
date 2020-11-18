@@ -108,10 +108,11 @@ const drawGraph = (
 
     categoryLegendCircle
       .attr('cx', -width * 0.05)
-      .attr('cy', (d) => height - d.group * 30);
+      // .attr('cy', (d) => height - d.group * 40);
+      .attr('cy', (d) => height - d.group * 0.05 * height);
     categoryLegendText
-      .attr('x', -width * 0.05 + 15)
-      .attr('y', (d) => height - d.group * 30 + 5);
+      .attr('x', -width * 0.05 + 25)
+      .attr('y', (d) => height - d.group * 0.05 * height + 3);
 
     sizeLegendCircle
       .attr('cx', (d) => width * 0.38 + d.id * width * 0.12)
