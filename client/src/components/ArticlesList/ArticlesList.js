@@ -93,10 +93,12 @@ function ArticlesList({
     setFilteredList(() => {
       const filtered = articleList.map((ar) => {
         const tempAuth = ar.author.filter((au) =>
-          au.name[0].toLowerCase().includes(e.target.value)
+          au.name[0].toLowerCase().includes(e.target.value.toLowerCase())
         );
 
-        const tempTitle = ar.title[0].toLowerCase().includes(e.target.value);
+        const tempTitle = ar.title[0]
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase());
 
         if (tempAuth.length > 0 || tempTitle) return ar;
       });
