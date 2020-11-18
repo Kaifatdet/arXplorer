@@ -267,6 +267,8 @@ function ArticlesList({
               <div className="list-article-link">
                 <a
                   className="arxiv-link"
+                  rel="noreferrer"
+                  target="_blank"
                   href={`http://arxiv.org/abs/${getArticleId(ar)}`}
                 >
                   See article on arXiv.org
