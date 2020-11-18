@@ -59,7 +59,7 @@ export const categoryLegendTextElement = (selection, data) => {
     .data(data)
     .join('text')
     .attr('class', 'legend-label')
-    .attr('font-size', '1.4rem')
+    .attr('font-size', '1.2rem')
     .style('fill', 'whitesmoke')
     .text((d) => d.name);
 };
@@ -85,7 +85,7 @@ export const sizeLegendTextElement = (selection, data) => {
     .data(data)
     .join('text')
     .attr('class', 'legend-label')
-    .attr('font-size', '1.4rem')
+    .attr('font-size', '1.2rem')
     .style('fill', 'whitesmoke')
     .text((d) => d.legend);
 };
