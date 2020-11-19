@@ -9,6 +9,9 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -17,7 +20,10 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react'],
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  plugins: ['react',     "@typescript-eslint"
+],
   rules: {
     'react/prop-types': 0,
   },
