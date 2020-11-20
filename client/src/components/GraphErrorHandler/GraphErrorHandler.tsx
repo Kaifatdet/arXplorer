@@ -3,7 +3,19 @@ import './GraphErrorHandler.css';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../../styleComponents/LoadingSpinner';
 
-function GraphErrorHandler({ emptySearch, loading, tooLarge, emptyGraph }) {
+type GraphErrorHandlerProps = {
+  emptySearch: any;
+  loading: any;
+  tooLarge: any;
+  emptyGraph: any;
+};
+
+const GraphErrorHandler: React.FC<GraphErrorHandlerProps> = ({
+  emptySearch,
+  loading,
+  tooLarge,
+  emptyGraph,
+}) => {
   return (
     <>
       {emptySearch && (
@@ -40,6 +52,6 @@ function GraphErrorHandler({ emptySearch, loading, tooLarge, emptyGraph }) {
       )}
     </>
   );
-}
+};
 
 export default GraphErrorHandler;

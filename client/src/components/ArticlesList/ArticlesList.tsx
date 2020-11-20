@@ -8,18 +8,29 @@ import {
   getArticleId,
   parseGreekLetters,
 } from '../../services/dataHelpers';
+import Article from '../../types/Article';
+import Category from '../../types/Category';
 
-function ArticlesList({
+type ArticleListProps = {
+  articleList: Article[];
+  selectedAuthor: string;
+  authorDict: any;
+  setSelectedAuthor: any;
+  selectedArticle: string;
+  setSelectedArticle: any;
+};
+
+const ArticlesList: React.FC<ArticleListProps> = ({
   articleList,
   selectedAuthor,
   authorDict,
   setSelectedAuthor,
   selectedArticle,
   setSelectedArticle,
-}) {
-  const [filteredList, setFilteredList] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [sortOrder, setSortOrder] = useState('newest');
+}) => {
+  const [filteredList, setFilteredList] = useState<[] | any>([]);
+  const [categories, setCategories] = useState<[] | any>([]);
+  const [sortOrder, setSortOrder] = useState<string>('newest');
   const history = useHistory();
 
   useEffect(() => {
@@ -40,7 +51,7 @@ function ArticlesList({
       setCategories(() => {
         let catDict = {};
         articleList.forEach((ar) => {
-          ar.category.forEach((cat) => {
+          ar.category.forEach((cat: Category) => {
             if (!catDict[cat.$.term] && categoriesDict[cat.$.term])
               catDict[cat.$.term] = categoriesDict[cat.$.term];
           });
@@ -297,6 +308,6 @@ function ArticlesList({
       )}
     </div>
   );
-}
+};
 
 export default ArticlesList;
