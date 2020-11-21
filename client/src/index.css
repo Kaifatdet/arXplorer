@@ -195,7 +195,7 @@ code {
   transition: 0.4s;
 }
 
-#checkbox:checked + .slider {
+.checkbox:checked + .slider {
   box-shadow: 0 0 1px 1px #333;
   background-image: -webkit-linear-gradient(
     280deg,
@@ -204,11 +204,11 @@ code {
   );
 }
 
-#checkbox:focus + .slider {
+.checkbox:focus + .slider {
   box-shadow: 0 0 1px #2196f3;
 }
 
-#checkbox:checked + .slider:before {
+.checkbox:checked + .slider:before {
   -webkit-transform: translateX(1.3rem);
   -ms-transform: translateX(1.3rem);
   transform: translateX(1.3rem);
