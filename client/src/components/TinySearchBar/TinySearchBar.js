@@ -19,8 +19,12 @@ function TinySearchBar({ handleQuickSearch }) {
 
   return (
     <form className="tiny-container" onSubmit={handleSubmit}>
+      <label className="search-label" htmlFor="search-bar">
+        Quick Search
+      </label>
       <input
         type="text"
+        id="search-bar"
         name="tiny-search"
         className="tinysearch-input"
         value={search}

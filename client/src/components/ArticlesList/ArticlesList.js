@@ -189,7 +189,9 @@ function ArticlesList({
         </div>
       )}
       <div className="list-filters">
+        <label htmlFor="filter-search">Search</label>
         <input
+          id="filter-search"
           type="text"
           name="filter-search"
           className="filter-search"
@@ -199,8 +201,10 @@ function ArticlesList({
         <h4>Filter articles by:</h4>
         <div className="filter-selectors">
           <div className="date-selector">
-            <p>Published: </p>
+            <label htmlFor="select-date-id">Published: </label>
+            {/* <p>Published: </p> */}
             <select
+              id="select-date-id"
               name="select-date"
               className="select-date select"
               onChange={handleDateFilter}
@@ -210,8 +214,10 @@ function ArticlesList({
             </select>
           </div>
           <div className="category-selector">
-            <p>Categories: </p>
+            <label htmlFor="select-category-id">Categories: </label>
+            {/* <p>Categories: </p> */}
             <select
+              id="select-category-id"
               name="select-category"
               className="select-cat select"
               onChange={handleCategoryFilter}
@@ -227,10 +233,12 @@ function ArticlesList({
         </div>
         <div className="list-total-numbers">
           <p className="num-articles">
-            Total # of articles: {articleList.length}
+            Total # of articles:
+            <br></br> {articleList.length}
           </p>
           <p className="num-articles">
-            Currently showing: {filteredList.length}
+            Currently showing:
+            <br></br> {filteredList.length}
           </p>
         </div>
       </div>
