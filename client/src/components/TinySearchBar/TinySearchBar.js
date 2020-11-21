@@ -23,6 +23,7 @@ function TinySearchBar({ handleQuickSearch }) {
         Quick Search
       </label>
       <input
+        data-testid="tiny-search-bar" //inserted by Jay
         type="text"
         id="search-bar"
         name="tiny-search"
@@ -31,7 +32,11 @@ function TinySearchBar({ handleQuickSearch }) {
         placeholder="Search for author..."
         onChange={handleChange}
       />
-      <button type="submit" className="tinysearch-btn">
+      <button
+        data-testid="tiny-search-button" //isnerted by Jay
+        type="submit"
+        className="tinysearch-btn"
+      >
         Quicksearch
       </button>
     </form>
