@@ -1,18 +1,44 @@
-import React, { useState } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  FunctionComponent,
+  useState,
+} from 'react';
 import { useHistory } from 'react-router-dom';
-import './Search.css';
 import { subjects } from '../../services/categories';
-import LoadingSpinner from '../../styleComponents/LoadingSpinner.js';
+import LoadingSpinner from '../../styleComponents/LoadingSpinner';
+import { QueryFilter } from '../../types';
+import './Search.css';
 
-function Search({ handleSearchForm, loading, setSelectedAuthor }) {
-  const init = {
+interface SearchProps {
+  handleSearchForm: (
+    title: string,
+    author: string,
+    journal: string,
+    abstract: string,
+    filters: QueryFilter
+  ) => Promise<boolean>;
+  loading: boolean;
+  setSelectedAuthor: React.Dispatch<React.SetStateAction<string>>;
+}
+
+interface SearchState {
+  [key: string]: string;
+}
+
+const Search: FunctionComponent<SearchProps> = ({
+  handleSearchForm,
+  loading,
+  setSelectedAuthor,
+}) => {
+  const init: SearchState = {
     title: '',
     author: '',
     journal: '',
     abstract: '',
   };
 
-  const filterInit = {
+  const filterInit: QueryFilter = {
     cs: false,
     physics: false,
     math: false,
@@ -25,13 +51,13 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
     'date-to': '',
   };
 
-  const [fields, setFields] = useState(init);
-  const [filters, setFilters] = useState(filterInit);
+  const [fields, setFields] = useState<SearchState>(init);
+  const [filters, setFilters] = useState<QueryFilter>(filterInit);
   const [searchSuccess, setSearchSuccess] = useState(true);
 
   const history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSelectedAuthor('');
     const res = await handleSearchForm(
@@ -41,8 +67,8 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
       fields.abstract,
       filters
     );
-    setFields(() => init);
-    setFilters(() => init);
+    setFields(init);
+    setFilters(filterInit);
     if (res) {
       setSearchSuccess(true);
       history.push('/graph');
@@ -51,25 +77,28 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFields((prev) => {
-      const newState = { ...prev };
+      const newState: SearchState = { ...prev };
       newState[e.target.name] = e.target.value;
       return newState;
     });
   };
 
-  const handleFilters = (e) => {
+  const handleFilters = (e: ChangeEvent<HTMLInputElement>) => {
     setFilters((prev) => {
-      const newState = { ...prev };
-      newState[e.target.value] = !newState[e.target.value];
+      const newState: any = { ...prev };
+      const { value } = e.target;
+      if (value !== 'date-from' && value !== 'date-from') {
+        newState[e.target.value] = !newState[e.target.value];
+      }
       return newState;
     });
   };
 
-  const handleDatePicker = (e) => {
+  const handleDatePicker = (e: ChangeEvent<HTMLInputElement>) => {
     setFilters((prev) => {
-      const newState = { ...prev };
+      const newState: any = { ...prev };
       newState[e.target.name] = new Date(e.target.value);
       return newState;
     });
@@ -106,7 +135,6 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
               </label>
               <input
                 type="text"
-                id={`search-input-${field}`}
                 name={field}
                 className={`search-input-${field}`}
                 value={fields[field]}
@@ -141,7 +169,7 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
                   type="date"
                   className="date-picker"
                   name="date-to"
-                  id="date-to"
+                  id="date-from"
                   onChange={handleDatePicker}
                 />
               </div>
@@ -149,19 +177,18 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
           </div>
           <h3 style={{ marginTop: '1rem' }}>Subject</h3>
           <div className="search-filter-categories">
-            {Object.keys(subjects).map((cat, i) => (
+            {Object.keys(subjects).map((cat) => (
               <div key={cat} className="subject-container">
                 <label className="switch">
                   <input
-                    id={`checkbox${i}`}
-                    className="checkbox"
+                    id="checkbox"
                     type="checkbox"
                     value={cat}
                     onChange={handleFilters}
                   />
                   <span className="slider round"></span>
                 </label>
-                <label htmlFor={`checkbox${i}`}>{subjects[cat]}</label>
+                <label htmlFor={cat}>{subjects[cat]}</label>
               </div>
             ))}
           </div>
@@ -179,6 +206,6 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
       )}
     </>
   );
-}
+};
 
 export default Search;

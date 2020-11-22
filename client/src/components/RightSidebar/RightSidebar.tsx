@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
-import './RightSidebar.css';
 import { getArticleId, parseGreekLetters } from '../../services/dataHelpers';
+import './RightSidebar.css';
+import { Dictionary, DictionaryAuthorDetails } from '../../types';
+import { FunctionComponent } from 'react';
 
-function RightSidebar({
+interface RightSidebarProps {
+  selectedAuthor: string;
+  handleExpandClick: () => void;
+  authorDict: Dictionary;
+  setSelectedAuthor: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedArticle: React.Dispatch<React.SetStateAction<string>>;
+  removeSelectedAuthor: (author: string) => void;
+}
+
+const RightSidebar: FunctionComponent<RightSidebarProps> = ({
   selectedAuthor,
   handleExpandClick,
   authorDict,
   setSelectedAuthor,
   setSelectedArticle,
   removeSelectedAuthor,
-}) {
-  const [details, setDetails] = useState({});
+}) => {
+  const [details, setDetails] = useState<DictionaryAuthorDetails | null>(null);
   const [open, setOpen] = useState(false);
   const history = useHistory();
 
@@ -34,7 +45,7 @@ function RightSidebar({
   };
 
   const renderList = () => {
-    return selectedAuthor && details['articles'];
+    return selectedAuthor && details?.['articles'];
   };
 
   const handleAuthorClick = () => {
@@ -49,7 +60,7 @@ function RightSidebar({
     setOpen(false);
   };
 
-  const handleArticleClick = (id) => {
+  const handleArticleClick = (id: string) => {
     setSelectedArticle(id);
     setSelectedAuthor(selectedAuthor);
     history.push('/list');
@@ -104,7 +115,7 @@ function RightSidebar({
       </div>
       <div className="rsb-list">
         {renderList()
-          ? details.articles.map((ar) => {
+          ? details?.articles.map((ar) => {
               return (
                 <div
                   key={getArticleId(ar)}
@@ -139,6 +150,6 @@ function RightSidebar({
       </div>
     </div>
   );
-}
+};
 
 export default RightSidebar;

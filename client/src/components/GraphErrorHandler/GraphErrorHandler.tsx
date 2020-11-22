@@ -1,9 +1,21 @@
-import React from 'react';
-import './GraphErrorHandler.css';
+import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../../styleComponents/LoadingSpinner';
+import './GraphErrorHandler.css';
 
-function GraphErrorHandler({ emptySearch, loading, tooLarge, emptyGraph }) {
+interface GraphErrorHandlerProps {
+  emptySearch: boolean;
+  loading: boolean;
+  tooLarge: boolean;
+  emptyGraph: boolean;
+}
+
+const GraphErrorHandler: FunctionComponent<GraphErrorHandlerProps> = ({
+  emptySearch,
+  loading,
+  tooLarge,
+  emptyGraph,
+}) => {
   return (
     <>
       {emptySearch && (
@@ -40,6 +52,6 @@ function GraphErrorHandler({ emptySearch, loading, tooLarge, emptyGraph }) {
       )}
     </>
   );
-}
+};
 
 export default GraphErrorHandler;

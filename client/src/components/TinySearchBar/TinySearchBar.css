@@ -4,7 +4,7 @@
   border-radius: 3px;
   overflow: hidden;
   display: flex;
-  width: 40%;
+  width: 30%;
   box-shadow: 0 0 2px 1px rgba(190, 190, 190, 0.1);
 }
 
@@ -13,7 +13,6 @@
   padding: 0.5rem;
   border: 0;
   font-family: 'Quicksand';
-  width: 20vw;
 }
 
 .tinysearch-input {
@@ -34,9 +33,4 @@
 
 .tinysearch-btn:hover {
   background: -webkit-linear-gradient(290deg, rgb(0, 265, 265), rgb(0, 106, 171));
-}
-
-.search-label {
-margin-right: 10px;
-align-self: center;
 }

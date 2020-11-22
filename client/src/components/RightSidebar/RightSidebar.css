@@ -92,10 +92,9 @@
 }
 
 .rsb-delete-btn {
-  color: black;
+  color: whitesmoke;
   flex: 1;
-  background-color:red;
-  font-size: 14px;
+  background-color: #F00038;
 }
 
 .rsb-delete-btn:hover {

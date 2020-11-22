@@ -1,14 +1,31 @@
-'use strict';
-
-import React, { useRef, useEffect, useState } from 'react';
-import './Graph.css';
-import drawGraph from './drawGraph';
+import React, { useRef, useEffect, useState, FunctionComponent } from 'react';
 import { select } from 'd3';
+import { drawGraph } from './drawGraph';
 import RightSidebar from '../RightSidebar';
 import TinySearchBar from '../TinySearchBar';
 import GraphErrorHandler from '../GraphErrorHandler';
+import { Dictionary, Dimensions, GraphData, GraphNode } from '../../types';
+import './Graph.css';
 
-function Graph({
+interface GraphProps {
+  dimensions: Dimensions;
+  graphData: GraphData | null;
+  handleGraphExpand: (author: string) => Promise<void>;
+  authorDict: Dictionary;
+  selectedAuthor: string;
+  setSelectedAuthor: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedArticle: React.Dispatch<React.SetStateAction<string>>;
+  removeSelectedAuthor: (author: string) => void;
+  handleQuickSearch: (author: string) => void;
+  killGraph: () => void;
+  emptySearch: boolean;
+  loading: boolean;
+  tooLarge: boolean;
+  setTooLarge: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Graph: FunctionComponent<GraphProps> = ({
+  dimensions,
   graphData,
   handleGraphExpand,
   authorDict,
@@ -22,42 +39,25 @@ function Graph({
   loading,
   tooLarge,
   setTooLarge,
-}) {
+}) => {
   const [emptyGraph, setEmptyGraph] = useState(true);
 
+  const svgRef = useRef<SVGSVGElement>(null);
+
   useEffect(() => {
-    const svg = select(svgRef.current);
+    if (!emptyGraph) {
+      const svg = select<SVGSVGElement, GraphNode>(svgRef.current as any);
+      drawGraph(svg, graphData as GraphData, dimensions, handleClick);
+      graphData?.links && setEmptyGraph(false);
+    }
+  }, [graphData, dimensions]);
 
-    drawGraph(svg, graphData, dimensions, handleClick, extractCategories);
-
-    graphData.links && setEmptyGraph(false);
-  }, [graphData]);
-
-  const svgRef = useRef();
-  const dimensions = {
-    width: window.innerWidth,
-    height: window.innerWidth / 2,
-  };
-
-  const handleClick = (author) => {
+  const handleClick = (author: string) => {
     setSelectedAuthor(author);
   };
 
   const handleExpandClick = () => {
     handleGraphExpand(selectedAuthor);
-  };
-
-  const extractCategories = (data) => {
-    let cats = [];
-    data.forEach((n) => {
-      if (cats.filter((el) => el.name === n.cat_name).length === 0) {
-        cats.push({
-          name: n.cat_name,
-          group: n.group,
-        });
-      }
-    });
-    return cats;
   };
 
   const handleClean = () => {
@@ -80,7 +80,7 @@ function Graph({
         setSelectedArticle={setSelectedArticle}
       />
       <TinySearchBar handleQuickSearch={handleQuickSearch} />
-      {Object.keys(graphData).length > 0 && (
+      {graphData && Object.keys(graphData as GraphData).length > 0 && (
         <div className="graph-clean">
           <svg
             className="graph-icon-clean"
@@ -107,6 +107,6 @@ function Graph({
       />
     </div>
   );
-}
+};
 
 export default Graph;

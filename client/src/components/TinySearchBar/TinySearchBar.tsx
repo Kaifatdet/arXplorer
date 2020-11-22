@@ -1,30 +1,35 @@
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { FormEvent, useState } from 'react';
+import { FunctionComponent } from 'react';
+import { ChangeEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import './TinySearchBar.css';
 
-function TinySearchBar({ handleQuickSearch }) {
+interface TinySearchBarProps {
+  handleQuickSearch: (author: string) => void;
+}
+
+const TinySearchBar: FunctionComponent<TinySearchBarProps> = ({
+  handleQuickSearch,
+}) => {
   const [search, setSearch] = useState('');
   const history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     handleQuickSearch(search);
     setSearch('');
     history.push('/graph');
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
   return (
     <form className="tiny-container" onSubmit={handleSubmit}>
-      <label className="search-label" htmlFor="search-bar">
-        Quick Search
-      </label>
       <input
         type="text"
-        id="search-bar"
         name="tiny-search"
         className="tinysearch-input"
         value={search}
@@ -36,6 +41,6 @@ function TinySearchBar({ handleQuickSearch }) {
       </button>
     </form>
   );
-}
+};
 
 export default TinySearchBar;
