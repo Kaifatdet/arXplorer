@@ -6,6 +6,8 @@ import {
   screen,
 } from '@testing-library/react';
 import App from './App';
+import Navbar from './components/Navbar';
+
 import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
@@ -25,8 +27,10 @@ test('displays front page title', () => {
   expect(headingElement).toBeInTheDocument();
   expect(screen.getByTestId('tiny-search-bar')).toBeInTheDocument();
 });
-// describe('test text finding', () => {
 
+// test('Navbar renders correctly', () => {
+//   render(<Navbar />);
+//   expect(screen.getByTestId('navbar').toBeInTheDocument());
 // });
 
 test('loads search page upon click', async () => {
@@ -35,19 +39,3 @@ test('loads search page upon click', async () => {
   const items = await screen.findAllByText('Author');
   expect(items).toHaveLength(1);
 });
-
-// describe('test click', () => {
-
-// });
-
-// test('something else example test.... blah', () => {
-
-// }
-
-// fireEvent(
-//   getByText(container, 'Submit'),
-//   new MouseEvent('click', {
-//     bubbles: true,
-//     cancelable: true,
-//   })
-// )

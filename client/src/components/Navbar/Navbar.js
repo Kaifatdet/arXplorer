@@ -4,7 +4,7 @@ import './Navbar.css';
 
 function Navbar() {
   return (
-    <nav className="nav-container">
+    <nav data-testid="navbar" className="nav-container">
       <div className="nav-list">
         <NavLink
           className="nav-link"
