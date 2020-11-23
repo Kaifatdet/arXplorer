@@ -1,18 +1,44 @@
-import React, { useState } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  FunctionComponent,
+  useState,
+} from 'react';
 import { useHistory } from 'react-router-dom';
-import './Search.css';
 import { subjects } from '../../services/categories';
-import LoadingSpinner from '../../styleComponents/LoadingSpinner.js';
+import LoadingSpinner from '../../styleComponents/LoadingSpinner';
+import { QueryFilter } from '../../types';
+import './Search.css';
 
-function Search({ handleSearchForm, loading, setSelectedAuthor }) {
-  const init = {
+interface SearchProps {
+  handleSearchForm: (
+    title: string,
+    author: string,
+    journal: string,
+    abstract: string,
+    filters: QueryFilter
+  ) => Promise<boolean>;
+  loading: boolean;
+  setSelectedAuthor: React.Dispatch<React.SetStateAction<string>>;
+}
+
+interface SearchState {
+  [key: string]: string;
+}
+
+const Search: FunctionComponent<SearchProps> = ({
+  handleSearchForm,
+  loading,
+  setSelectedAuthor,
+}) => {
+  const init: SearchState = {
     title: '',
     author: '',
     journal: '',
     abstract: '',
   };
 
-  const filterInit = {
+  const filterInit: QueryFilter = {
     cs: false,
     physics: false,
     math: false,
@@ -25,14 +51,21 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
     'date-to': '',
   };
 
-  const [fields, setFields] = useState(init);
-  const [filters, setFilters] = useState(filterInit);
+  const [fields, setFields] = useState<SearchState>(init);
+  const [filters, setFilters] = useState<QueryFilter>(filterInit);
   const [searchSuccess, setSearchSuccess] = useState(true);
 
   const history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const emptyFields = (f: SearchState) => {
+    return Object.values(f).every((el) => !el);
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (emptyFields(fields)) {
+      return undefined;
+    }
     setSelectedAuthor('');
     const res = await handleSearchForm(
       fields.title,
@@ -41,8 +74,8 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
       fields.abstract,
       filters
     );
-    setFields(() => init);
-    setFilters(() => init);
+    setFields(init);
+    setFilters(filterInit);
     if (res) {
       setSearchSuccess(true);
       history.push('/graph');
@@ -51,25 +84,28 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFields((prev) => {
-      const newState = { ...prev };
+      const newState: SearchState = { ...prev };
       newState[e.target.name] = e.target.value;
       return newState;
     });
   };
 
-  const handleFilters = (e) => {
+  const handleFilters = (e: ChangeEvent<HTMLInputElement>) => {
     setFilters((prev) => {
-      const newState = { ...prev };
-      newState[e.target.value] = !newState[e.target.value];
+      const newState: any = { ...prev };
+      const { value } = e.target;
+      if (value !== 'date-from' && value !== 'date-from') {
+        newState[e.target.value] = !newState[e.target.value];
+      }
       return newState;
     });
   };
 
-  const handleDatePicker = (e) => {
+  const handleDatePicker = (e: ChangeEvent<HTMLInputElement>) => {
     setFilters((prev) => {
-      const newState = { ...prev };
+      const newState: any = { ...prev };
       newState[e.target.name] = new Date(e.target.value);
       return newState;
     });
@@ -154,7 +190,6 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
                 <label className="switch">
                   <input
                     id={`checkbox${i}`}
-                    className="checkbox"
                     type="checkbox"
                     value={cat}
                     onChange={handleFilters}
@@ -179,6 +214,6 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
       )}
     </>
   );
-}
+};
 
 export default Search;

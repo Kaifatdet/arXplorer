@@ -194,7 +194,6 @@
   background-image: -webkit-linear-gradient(275deg, rgb(0, 140, 254), rgb(0, 61, 108));
 }
 
-
 @media only screen and (max-width: 960px) {
   .search-form-container {
     width: 95vw;

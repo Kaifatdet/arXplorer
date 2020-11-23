@@ -1,18 +1,23 @@
 'use strict';
 import React from 'react';
+import { FunctionComponent } from 'react';
 import { useHistory } from 'react-router-dom';
 import TinySearchBar from '../TinySearchBar';
 import './Home.css';
 
-function Home({ handleQuickSearch }) {
+interface HomeProps {
+  handleQuickSearch: (author: string) => void;
+}
+
+const Home: FunctionComponent<HomeProps> = ({ handleQuickSearch }) => {
   const history = useHistory();
 
-  const handleRedirect = (path) => {
+  const handleRedirect = (path: string) => {
     history.push('/' + path);
   };
 
   return (
-    <div className="">
+    <div>
       <h1 className="home-title">Ready to arXplore?</h1>
       <div className="home-container">
         <div
@@ -33,9 +38,9 @@ function Home({ handleQuickSearch }) {
             </svg>
           </div>
           <div className="component-description">
-            <h2 className="description-header">
+            <h3 className="description-header">
               Search for your favorite authors
-            </h2>
+            </h3>
             <p>
               The search feature allows you to directly query the vast arXiv
               library for all the papers submitted by your favorite authors and
@@ -103,6 +108,6 @@ function Home({ handleQuickSearch }) {
       <TinySearchBar handleQuickSearch={handleQuickSearch} />
     </div>
   );
-}
+};
 
 export default Home;

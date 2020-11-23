@@ -29,7 +29,6 @@
   width: 3rem;
   color: var(--main-bg-dark);
   transition: all .2s ease-in-out;
-  fill: white;
 }
 
 .graph-icon-clean:hover {
