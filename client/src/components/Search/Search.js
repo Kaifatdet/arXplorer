@@ -119,7 +119,7 @@ function Search({ handleSearchForm, loading, setSelectedAuthor }) {
         <div className="search-filters">
           <div className="search-filter-date-picker">
             <h3>Publication date</h3>
-            <div className="date-picker-container">
+            <div data-testid="date-picker" className="date-picker-container">
               <div>
                 <label htmlFor="date-from" style={{ marginRight: '1rem' }}>
                   From:{' '}
