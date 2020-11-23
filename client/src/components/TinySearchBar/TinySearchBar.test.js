@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 import TinySearchBar from './TinySearchBar';
 import React from 'react';
-import { interpolate } from 'd3';
+// import { interpolate } from 'd3';
 
 // test('displays ');
 

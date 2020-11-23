@@ -30,3 +30,23 @@ test('Abstract label renders correctly', () => {
 test('Loads datepicker correctly', () => {
   expect(screen.getByTestId('date-picker')).toBeInTheDocument();
 });
+
+test('From label renders correctly', () => {
+  expect(screen.getByLabelText(/From/)).toBeInTheDocument();
+});
+
+test('To label renders correctly', () => {
+  expect(screen.getByLabelText(/to/)).toBeInTheDocument();
+});
+
+test('Text subject renders correctly', () => {
+  expect(screen.getByText('Subject')).toBeInTheDocument();
+});
+
+test('Text Physics renders correctly', () => {
+  expect(screen.getByText('Physics')).toBeInTheDocument();
+});
+
+test('Text Computer Science renders correctly', () => {
+  expect(screen.getByText('Computer Science')).toBeInTheDocument();
+});

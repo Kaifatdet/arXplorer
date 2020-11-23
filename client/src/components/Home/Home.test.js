@@ -9,3 +9,8 @@ test('renders correctly', () => {
   render(<Home />);
   expect(screen.getByTestId('home')).toBeInTheDocument();
 });
+
+test('title renders correctly', () => {
+  render(<Home />);
+  expect(screen.getByText('Ready to arXplore?')).toBeInTheDocument();
+});
