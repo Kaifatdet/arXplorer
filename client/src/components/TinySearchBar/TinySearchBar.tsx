@@ -16,6 +16,9 @@ const TinySearchBar: FunctionComponent<TinySearchBarProps> = ({
   const history = useHistory();
 
   const handleSubmit = (e: FormEvent) => {
+    if (!search) {
+      return null;
+    }
     e.preventDefault();
     handleQuickSearch(search);
     setSearch('');
@@ -28,7 +31,11 @@ const TinySearchBar: FunctionComponent<TinySearchBarProps> = ({
 
   return (
     <form className="tiny-container" onSubmit={handleSubmit}>
+      <label className="search-label" htmlFor="search-bar">
+        Quick Search
+      </label>
       <input
+        id="search-bar"
         type="text"
         name="tiny-search"
         className="tinysearch-input"

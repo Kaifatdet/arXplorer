@@ -38,7 +38,8 @@ export interface ArxivComment extends ArxivNode<ArxivSchemaDescription> {
   _: string;
 }
 
-export interface OpenSearchResponse extends ArxivNode<ArxivOpenSearchDescription> {
+export interface OpenSearchResponse
+  extends ArxivNode<ArxivOpenSearchDescription> {
   _: string;
 }
 

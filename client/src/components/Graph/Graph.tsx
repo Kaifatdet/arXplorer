@@ -8,6 +8,7 @@ import { Dictionary, Dimensions, GraphData, GraphNode } from '../../types';
 import './Graph.css';
 
 interface GraphProps {
+  emptyGraph: boolean;
   dimensions: Dimensions;
   graphData: GraphData | null;
   handleGraphExpand: (author: string) => Promise<void>;
@@ -25,6 +26,7 @@ interface GraphProps {
 }
 
 const Graph: FunctionComponent<GraphProps> = ({
+  emptyGraph,
   dimensions,
   graphData,
   handleGraphExpand,
@@ -40,15 +42,13 @@ const Graph: FunctionComponent<GraphProps> = ({
   tooLarge,
   setTooLarge,
 }) => {
-  const [emptyGraph, setEmptyGraph] = useState(true);
-
   const svgRef = useRef<SVGSVGElement>(null);
-
+  // console.log(emptyGraph);
   useEffect(() => {
     if (!emptyGraph) {
       const svg = select<SVGSVGElement, GraphNode>(svgRef.current as any);
       drawGraph(svg, graphData as GraphData, dimensions, handleClick);
-      graphData?.links && setEmptyGraph(false);
+      graphData?.links;
     }
   }, [graphData, dimensions]);
 
@@ -62,14 +62,13 @@ const Graph: FunctionComponent<GraphProps> = ({
 
   const handleClean = () => {
     killGraph();
-    setEmptyGraph(true);
     setTooLarge(false);
   };
 
   return (
     <div className="graph-container">
       <div className="data-container">
-        <svg ref={svgRef} className="graph-svg"></svg>
+        {!emptyGraph && <svg ref={svgRef} className="graph-svg"></svg>}
       </div>
       <RightSidebar
         selectedAuthor={selectedAuthor}
@@ -96,7 +95,7 @@ const Graph: FunctionComponent<GraphProps> = ({
             </defs>
             <path d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path>
           </svg>
-          <p className="kill-text">Are you sure you want to clear graph?</p>
+          <h1 className="kill-text">Are you sure you want to clear graph?</h1>
         </div>
       )}
       <GraphErrorHandler

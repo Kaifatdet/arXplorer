@@ -204,7 +204,9 @@ const ArticlesList: FunctionComponent<ArticlesListProps> = ({
         </div>
       )}
       <div className="list-filters">
+        <label htmlFor="filter-search">Search</label>
         <input
+          id="filter-search"
           type="text"
           name="filter-search"
           className="filter-search"
@@ -214,8 +216,10 @@ const ArticlesList: FunctionComponent<ArticlesListProps> = ({
         <h4>Filter articles by:</h4>
         <div className="filter-selectors">
           <div className="date-selector">
-            <p>Published: </p>
+            <label htmlFor="select-date-id">Published: </label>
+            {/* <p>Published: </p> */}
             <select
+              id="select-date-id"
               name="select-date"
               className="select-date select"
               onChange={handleDateFilter}
@@ -225,8 +229,10 @@ const ArticlesList: FunctionComponent<ArticlesListProps> = ({
             </select>
           </div>
           <div className="category-selector">
-            <p>Categories: </p>
+            <label htmlFor="select-category-id">Categories: </label>
+            {/* <p>Categories: </p> */}
             <select
+              id="select-category-id"
               name="select-category"
               className="select-cat select"
               onChange={handleCategoryFilter}
@@ -281,6 +287,7 @@ const ArticlesList: FunctionComponent<ArticlesListProps> = ({
                   .join(', ')}
               </div>
               <div className="list-article-link">
+                <label htmlFor="filter-search">Search</label>
                 <a
                   className="arxiv-link"
                   rel="noreferrer"

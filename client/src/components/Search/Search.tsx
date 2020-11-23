@@ -57,8 +57,15 @@ const Search: FunctionComponent<SearchProps> = ({
 
   const history = useHistory();
 
+  const emptyFields = (f: SearchState) => {
+    return Object.values(f).every((el) => !el);
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (emptyFields(fields)) {
+      return undefined;
+    }
     setSelectedAuthor('');
     const res = await handleSearchForm(
       fields.title,
@@ -135,6 +142,7 @@ const Search: FunctionComponent<SearchProps> = ({
               </label>
               <input
                 type="text"
+                id={`search-input-${field}`}
                 name={field}
                 className={`search-input-${field}`}
                 value={fields[field]}
@@ -169,7 +177,7 @@ const Search: FunctionComponent<SearchProps> = ({
                   type="date"
                   className="date-picker"
                   name="date-to"
-                  id="date-from"
+                  id="date-to"
                   onChange={handleDatePicker}
                 />
               </div>
@@ -177,18 +185,18 @@ const Search: FunctionComponent<SearchProps> = ({
           </div>
           <h3 style={{ marginTop: '1rem' }}>Subject</h3>
           <div className="search-filter-categories">
-            {Object.keys(subjects).map((cat) => (
+            {Object.keys(subjects).map((cat, i) => (
               <div key={cat} className="subject-container">
                 <label className="switch">
                   <input
-                    id="checkbox"
+                    id={`checkbox${i}`}
                     type="checkbox"
                     value={cat}
                     onChange={handleFilters}
                   />
                   <span className="slider round"></span>
                 </label>
-                <label htmlFor={cat}>{subjects[cat]}</label>
+                <label htmlFor={`checkbox${i}`}>{subjects[cat]}</label>
               </div>
             ))}
           </div>

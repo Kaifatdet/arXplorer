@@ -125,11 +125,13 @@ export const drawGraph = (
         clickHandler(author);
         // select(this).attr('fill', 'green');
       })
-      .on('mouseover', () => {
-        select(text.node()).attr('visibility', 'visible');
+      .on('mouseover', (d: any) => {
+        const index = d.target.__data__.index;
+        select(text._groups[0][index]).attr('visibility', 'visible');
       })
-      .on('mouseout', () => {
-        select(text.node()).attr('visibility', 'hidden');
+      .on('mouseout', (d: any) => {
+        const index = d.target.__data__.index;
+        select(text._groups[0][index]).attr('visibility', 'hidden');
       });
 
     text

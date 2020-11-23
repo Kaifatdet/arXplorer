@@ -25,6 +25,7 @@ import {
 } from './types';
 
 const App: FunctionComponent = () => {
+  const [emptyGraph, setEmptyGraph] = useState(true);
   const [authorDict, setAuthorDict] = useState<Dictionary>({});
   const [graphData, setGraphData] = useState<GraphData | null>(null);
   const [articleList, setArticleList] = useState<Article[]>([]);
@@ -73,6 +74,7 @@ const App: FunctionComponent = () => {
         setAuthorDict(dict);
         setGraphData({ ...(graphData || {}), ...data });
         setArticleList(articles);
+        setEmptyGraph(false);
       }
       setLoading(false);
       return true;
@@ -129,6 +131,7 @@ const App: FunctionComponent = () => {
 
   const killGraph = () => {
     setGraphData(null);
+    setEmptyGraph(true);
     setAuthorDict({});
     setArticleList([]);
     setSelectedAuthor('');
@@ -150,6 +153,7 @@ const App: FunctionComponent = () => {
         </Route>
         <Route exact path="/graph">
           <Graph
+            emptyGraph={emptyGraph}
             dimensions={dimensions}
             graphData={graphData}
             handleGraphExpand={handleGraphExpand}
