@@ -1,4 +1,6 @@
-export const categoriesDict = {
+import { AbbrTitle } from '../types';
+
+export const categoriesDict: AbbrTitle = {
   'astro-ph': 'Astrophysics',
   'astro-ph.CO': 'Cosmology and Nongalactic Astrophysics',
   'astro-ph.EP': 'Earth and Planetary Astrophysics',
@@ -154,7 +156,7 @@ export const categoriesDict = {
   'stat.TH': 'Statistics Theory',
 };
 
-export const subjects = {
+export const subjects: AbbrTitle = {
   cs: 'Computer Science',
   physics: 'Physics',
   math: 'Mathematics',

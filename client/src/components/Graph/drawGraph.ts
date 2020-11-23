@@ -1,5 +1,4 @@
-'use strict';
-
+/* eslint-disable no-unused-vars */
 import {
   select,
   forceSimulation,
@@ -7,7 +6,17 @@ import {
   forceCenter,
   forceLink,
   forceCollide,
+  Selection,
+  SimulationNodeDatum,
 } from 'd3';
+import {
+  Dimensions,
+  GraphCategory,
+  GraphData,
+  GraphLink,
+  GraphNode,
+} from '../../types';
+
 import { dragFunc, color, backgroundDrag } from './dragHelper';
 import {
   linkElement,
@@ -19,14 +28,32 @@ import {
   sizeLegendTextElement,
 } from './graphElements';
 
-const drawGraph = (
-  svg,
-  data,
-  { width, height },
-  clickHandler,
-  extractCategories
+type CallableDrag = (
+  selection: Selection<SVGSVGElement, GraphNode, HTMLElement, unknown>,
+  ...args: any[]
+) => void;
+
+const extractCategories = (data: GraphNode[]): GraphCategory[] => {
+  let cats: GraphCategory[] = [];
+  data.forEach((n) => {
+    if (cats.filter((el) => el.name === n.cat_name).length === 0) {
+      cats.push({
+        name: n.cat_name,
+        group: n.group,
+      });
+    }
+  });
+  return cats;
+};
+
+export const drawGraph = (
+  svg: Selection<SVGSVGElement, GraphNode, HTMLElement, undefined>,
+  data: GraphData,
+  { width, height }: Dimensions,
+  // eslint-disable-next-line no-unused-vars
+  clickHandler: (author: string) => void
 ) => {
-  svg.attr('viewBox', [0, 0, width, height]).classed('viewBox', true);
+  svg.attr('viewBox', [0, 0, width, height].join(' ')).classed('viewBox', true);
 
   // Clears out the existing DOM-elements so the new graph won't override the graph and duplicate
   svg.selectAll('rect').remove();
@@ -45,25 +72,27 @@ const drawGraph = (
     .attr('stroke', 'transparent')
     .attr('fill', 'transparent');
 
-  svg.call(backgroundDrag(svg, offsetX, offsetY));
+  svg.call((backgroundDrag(svg, offsetX, offsetY) as unknown) as CallableDrag);
 
   if (!data.nodes) return;
-  const nodes = data.nodes.map((d) => Object.create(d));
-  const links = data.links.map((d) => Object.create(d));
+  const nodes: GraphNode[] = data.nodes.map((d) => Object.create(d));
+  const links: GraphLink[] = data.links.map((d) => Object.create(d));
   const categories = extractCategories(nodes);
 
   const simulation = forceSimulation(nodes)
     .force(
       'link',
-      forceLink(links).id((d) => d.id)
+      forceLink(links).id((d: SimulationNodeDatum) => (d as GraphNode).id)
     )
     .force('charge', forceManyBody())
     .force('collision', forceCollide())
     .force('center', forceCenter(width / 2, height / 2));
 
   const link = linkElement(svg, links);
-  const node = nodeElement(svg, nodes, color).call(dragFunc(simulation));
-  const text = textElement(svg, nodes);
+  const node = nodeElement(svg, nodes, color).call(
+    dragFunc(simulation) as any
+  ) as any;
+  const text = textElement(svg, nodes) as any;
   const categoryLegendCircle = categoryLegendCircleElement(
     svg,
     categories,
@@ -83,28 +112,31 @@ const drawGraph = (
 
   simulation.on('tick', () => {
     link
-      .attr('x1', (d) => d.source.x)
-      .attr('y1', (d) => d.source.y)
-      .attr('x2', (d) => d.target.x)
-      .attr('y2', (d) => d.target.y);
+      .attr('x1', (d: any) => d.source.x)
+      .attr('y1', (d: any) => d.source.y)
+      .attr('x2', (d: any) => d.target.x)
+      .attr('y2', (d: any) => d.target.y);
 
     node
-      .attr('cx', (d) => d.x)
-      .attr('cy', (d) => d.y)
-      .on('click', function (d) {
-        clickHandler(d.target.__data__.id);
+      .attr('cx', (d: any) => d.x)
+      .attr('cy', (d: any) => d.y)
+      .on('click', function (d: any) {
+        const author: string = d.target.__data__.id;
+        clickHandler(author);
         // select(this).attr('fill', 'green');
       })
-      .on('mouseover', function (d) {
+      .on('mouseover', (d: any) => {
         const index = d.target.__data__.index;
         select(text._groups[0][index]).attr('visibility', 'visible');
       })
-      .on('mouseout', function (d) {
+      .on('mouseout', (d: any) => {
         const index = d.target.__data__.index;
         select(text._groups[0][index]).attr('visibility', 'hidden');
       });
 
-    text.attr('x', (d) => d.x).attr('y', (d) => d.y - Math.sqrt(d.weight) - 15);
+    text
+      .attr('x', (d: any) => d.x)
+      .attr('y', (d: any) => d.y - Math.sqrt(d.weight) - 15);
 
     categoryLegendCircle
       .attr('cx', -width * 0.05)
@@ -120,10 +152,9 @@ const drawGraph = (
     sizeLegendText
       .attr(
         'x',
-        (d) => width * 0.38 + d.id * width * 0.12 + Math.sqrt(d.weight) + 15
+        (d: any) =>
+          width * 0.38 + d.id * width * 0.12 + Math.sqrt(d.weight) + 15
       )
       .attr('y', height - height * 0.05 + 5);
   });
 };
-
-export default drawGraph;

@@ -1,14 +1,33 @@
-'use strict';
-
-import React, { useRef, useEffect, useState } from 'react';
-import './Graph.css';
-import drawGraph from './drawGraph';
+import React, { useRef, useEffect, useState, FunctionComponent } from 'react';
 import { select } from 'd3';
+import { drawGraph } from './drawGraph';
 import RightSidebar from '../RightSidebar';
 import TinySearchBar from '../TinySearchBar';
 import GraphErrorHandler from '../GraphErrorHandler';
+import { Dictionary, Dimensions, GraphData, GraphNode } from '../../types';
+import './Graph.css';
 
-function Graph({
+interface GraphProps {
+  emptyGraph: boolean;
+  dimensions: Dimensions;
+  graphData: GraphData | null;
+  handleGraphExpand: (author: string) => Promise<void>;
+  authorDict: Dictionary;
+  selectedAuthor: string;
+  setSelectedAuthor: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedArticle: React.Dispatch<React.SetStateAction<string>>;
+  removeSelectedAuthor: (author: string) => void;
+  handleQuickSearch: (author: string) => void;
+  killGraph: () => void;
+  emptySearch: boolean;
+  loading: boolean;
+  tooLarge: boolean;
+  setTooLarge: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Graph: FunctionComponent<GraphProps> = ({
+  emptyGraph,
+  dimensions,
   graphData,
   handleGraphExpand,
   authorDict,
@@ -22,24 +41,18 @@ function Graph({
   loading,
   tooLarge,
   setTooLarge,
-}) {
-  const [emptyGraph, setEmptyGraph] = useState(true);
-
+}) => {
+  const svgRef = useRef<SVGSVGElement>(null);
+  // console.log(emptyGraph);
   useEffect(() => {
-    const svg = select(svgRef.current);
+    if (!emptyGraph) {
+      const svg = select<SVGSVGElement, GraphNode>(svgRef.current as any);
+      drawGraph(svg, graphData as GraphData, dimensions, handleClick);
+      graphData?.links;
+    }
+  }, [graphData, dimensions]);
 
-    drawGraph(svg, graphData, dimensions, handleClick, extractCategories);
-
-    graphData.links && setEmptyGraph(false);
-  }, [graphData]);
-
-  const svgRef = useRef();
-  const dimensions = {
-    width: window.innerWidth,
-    height: window.innerWidth / 2,
-  };
-
-  const handleClick = (author) => {
+  const handleClick = (author: string) => {
     setSelectedAuthor(author);
   };
 
@@ -47,29 +60,15 @@ function Graph({
     handleGraphExpand(selectedAuthor);
   };
 
-  const extractCategories = (data) => {
-    let cats = [];
-    data.forEach((n) => {
-      if (cats.filter((el) => el.name === n.cat_name).length === 0) {
-        cats.push({
-          name: n.cat_name,
-          group: n.group,
-        });
-      }
-    });
-    return cats;
-  };
-
   const handleClean = () => {
     killGraph();
-    setEmptyGraph(true);
     setTooLarge(false);
   };
 
   return (
     <div className="graph-container">
       <div className="data-container">
-        <svg ref={svgRef} className="graph-svg"></svg>
+        {!emptyGraph && <svg ref={svgRef} className="graph-svg"></svg>}
       </div>
       <RightSidebar
         selectedAuthor={selectedAuthor}
@@ -80,7 +79,7 @@ function Graph({
         setSelectedArticle={setSelectedArticle}
       />
       <TinySearchBar handleQuickSearch={handleQuickSearch} />
-      {Object.keys(graphData).length > 0 && (
+      {graphData && Object.keys(graphData as GraphData).length > 0 && (
         <div className="graph-clean">
           <svg
             className="graph-icon-clean"
@@ -96,7 +95,7 @@ function Graph({
             </defs>
             <path d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path>
           </svg>
-          <p className="kill-text">Are you sure you want to clear graph?</p>
+          <h1 className="kill-text">Are you sure you want to clear graph?</h1>
         </div>
       )}
       <GraphErrorHandler
@@ -107,6 +106,6 @@ function Graph({
       />
     </div>
   );
-}
+};
 
 export default Graph;

@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import './App.css';
-import React, { useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Graph from './components/Graph';
@@ -17,22 +15,43 @@ import {
 } from './services/ApiClient';
 import { queryPathBuilder } from './services/apiHelpers';
 
-function App() {
-  const [authorDict, setAuthorDict] = useState({});
-  const [graphData, setGraphData] = useState({});
-  const [articleList, setArticleList] = useState([]);
+import './App.css';
+import {
+  Article,
+  Dictionary,
+  Dimensions,
+  GraphData,
+  QueryFilter,
+} from './types';
+
+const App: FunctionComponent = () => {
+  const [emptyGraph, setEmptyGraph] = useState(true);
+  const [authorDict, setAuthorDict] = useState<Dictionary>({});
+  const [graphData, setGraphData] = useState<GraphData | null>(null);
+  const [articleList, setArticleList] = useState<Article[]>([]);
   const [selectedAuthor, setSelectedAuthor] = useState('');
   const [selectedArticle, setSelectedArticle] = useState('');
   const [emptySearch, setEmptySearch] = useState(false);
   const [loading, setLoading] = useState(false);
   const [tooLarge, setTooLarge] = useState(false);
+  const [dimensions, setDimensions] = useState<Dimensions>({
+    width: 100,
+    height: 100,
+  });
+
+  useEffect(() => {
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerWidth / 2,
+    });
+  }, []);
 
   const handleSearchForm = async (
-    title,
-    author,
-    journal,
-    abstract,
-    filters
+    title = '',
+    author = '',
+    journal = '',
+    abstract = '',
+    filters: QueryFilter
   ) => {
     const [query, searchFilters] = queryPathBuilder(
       title,
@@ -43,22 +62,19 @@ function App() {
     );
     setLoading(true);
     try {
-      const [dict, data, metadata, articles] = await fetchGraphData(
+      const [dict, data, , articles] = await fetchGraphData(
         query,
         searchFilters
       );
+      if (!dict || !data || !articles) return false;
       if (data.links.length > 1000) {
         setTooLarge(true);
         setTimeout(() => setTooLarge(false), 5000);
       } else {
-        setAuthorDict(() => dict);
-        setGraphData((init) => {
-          return {
-            ...init,
-            ...data,
-          };
-        });
+        setAuthorDict(dict);
+        setGraphData({ ...(graphData || {}), ...data });
         setArticleList(articles);
+        setEmptyGraph(false);
       }
       setLoading(false);
       return true;
@@ -70,19 +86,20 @@ function App() {
     }
   };
 
-  const handleQuickSearch = (author) => {
+  const handleQuickSearch = (author: string) => {
     if (articleList.length === 0) {
-      handleSearchForm('', author, '', '');
+      handleSearchForm('', author, '', '', {});
     } else {
       handleGraphExpand(author);
     }
   };
 
-  const handleGraphExpand = async (author) => {
-    const [query, _] = queryPathBuilder('', author);
+  const handleGraphExpand = async (author: string) => {
+    const [query] = queryPathBuilder('', author);
     setLoading(true);
     try {
-      const [dict, data, metadata, articles] = await fetchGraphData(query);
+      const [dict, , , articles] = await fetchGraphData(query);
+      if (!dict || !articles) return undefined;
       const [updatedDict, updatedData] = await updateAuthorData(
         authorDict,
         dict
@@ -105,13 +122,16 @@ function App() {
     }
   };
 
-  const removeSelectedAuthor = (author) => {
-    setGraphData(() => removeAuthorFromGraph(graphData, author));
-    setSelectedAuthor('');
+  const removeSelectedAuthor = (author: string) => {
+    if (graphData) {
+      setGraphData(removeAuthorFromGraph(graphData, author));
+      setSelectedAuthor('');
+    }
   };
 
   const killGraph = () => {
-    setGraphData({});
+    setGraphData(null);
+    setEmptyGraph(true);
     setAuthorDict({});
     setArticleList([]);
     setSelectedAuthor('');
@@ -133,6 +153,8 @@ function App() {
         </Route>
         <Route exact path="/graph">
           <Graph
+            emptyGraph={emptyGraph}
+            dimensions={dimensions}
             graphData={graphData}
             handleGraphExpand={handleGraphExpand}
             authorDict={authorDict}
@@ -150,17 +172,17 @@ function App() {
         </Route>
         <Route exact path="/list">
           <ArticlesList
-            authorDict={authorDict}
             articleList={articleList}
-            selectedAuthor={selectedAuthor}
-            setSelectedAuthor={setSelectedAuthor}
+            authorDict={authorDict}
             selectedArticle={selectedArticle}
+            selectedAuthor={selectedAuthor}
             setSelectedArticle={setSelectedArticle}
+            setSelectedAuthor={setSelectedAuthor}
           />
         </Route>
       </Switch>
     </div>
   );
-}
+};
 
 export default App;
