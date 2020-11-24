@@ -49,7 +49,6 @@ const Graph: FunctionComponent<GraphProps> = ({
   setTooLarge,
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  // console.log(emptyGraph);
   useEffect(() => {
     if (!emptyGraph) {
       const svg = select<SVGSVGElement, GraphNode>(svgRef.current as any);
@@ -76,7 +75,7 @@ const Graph: FunctionComponent<GraphProps> = ({
     <div className="graph-container">
       <div className="data-container">
         {!emptyGraph && (
-          <svg ref={svgRef} className="graph-svg" data-testId="graph-svg"></svg>
+          <svg ref={svgRef} className="graph-svg" data-testid="graph-svg"></svg>
         )}
       </div>
       <RightSidebar

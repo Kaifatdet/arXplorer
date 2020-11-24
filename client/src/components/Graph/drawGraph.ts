@@ -34,7 +34,7 @@ type CallableDrag = (
 ) => void;
 
 const extractCategories = (data: GraphNode[]): GraphCategory[] => {
-  let cats: GraphCategory[] = [];
+  const cats: GraphCategory[] = [];
   data.forEach((n) => {
     if (cats.filter((el) => el.name === n.cat_name).length === 0) {
       cats.push({
@@ -59,8 +59,8 @@ export const drawGraph = (
   svg.selectAll('rect').remove();
   svg.selectAll('g').remove();
 
-  let offsetX = 0;
-  let offsetY = 0;
+  const offsetX = 0;
+  const offsetY = 0;
 
   svg
     .append('rect')
