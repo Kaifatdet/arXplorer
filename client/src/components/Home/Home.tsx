@@ -21,6 +21,7 @@ const Home: FunctionComponent<HomeProps> = ({ handleQuickSearch }) => {
       <h1 className="home-title">Ready to arXplore?</h1>
       <div className="home-container">
         <div
+          data-testid="home"
           className="home-component"
           onClick={() => handleRedirect('search')}
         >
