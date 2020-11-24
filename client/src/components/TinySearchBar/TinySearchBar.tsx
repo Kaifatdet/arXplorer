@@ -35,6 +35,7 @@ const TinySearchBar: FunctionComponent<TinySearchBarProps> = ({
         Quick Search
       </label>
       <input
+        data-testid="tiny-search-bar"
         id="search-bar"
         type="text"
         name="tiny-search"

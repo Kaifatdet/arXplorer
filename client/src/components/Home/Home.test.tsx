@@ -4,13 +4,9 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import TinySearchBar from '../TinySearchBar';
 import Home from './Home';
-
-test('renders correctly', () => {
-  render(<Home />);
-  expect(screen.getByTestId('home')).toBeInTheDocument();
-});
+import '@testing-library/jest-dom/extend-expect';
 
 test('title renders correctly', () => {
-  render(<Home />);
-  expect(screen.getByText('Ready to arXplore?')).toBeInTheDocument();
+  const { getByText } = render(<Home />);
+  expect(getByText('Ready to arXplore?')).toBeInTheDocument();
 });

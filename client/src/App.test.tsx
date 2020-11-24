@@ -11,6 +11,7 @@ import Navbar from './components/Navbar';
 import { createMemoryHistory } from 'history';
 import React from 'react';
 import { Router } from 'react-router-dom';
+import '@testing-library/jest-dom/extend-expect';
 
 beforeEach(() => {
   const history = createMemoryHistory();

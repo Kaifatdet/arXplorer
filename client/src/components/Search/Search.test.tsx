@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import TinySearchBar from '../TinySearchBar';
 import Search from './Search';
+import '@testing-library/jest-dom/extend-expect';
 
 beforeEach(() => {
   render(<Search />);
