@@ -6,7 +6,7 @@ import './RightSidebar.css';
 import { Dictionary, DictionaryAuthorDetails } from '../../types';
 import { FunctionComponent } from 'react';
 
-interface RightSidebarProps {
+export interface RightSidebarProps {
   selectedAuthor: string;
   handleExpandClick: () => void;
   authorDict: Dictionary;
