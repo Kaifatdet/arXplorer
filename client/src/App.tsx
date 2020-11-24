@@ -62,10 +62,10 @@ const App: FunctionComponent = () => {
     );
     setLoading(true);
     try {
-      const [dict, data, , articles] = await fetchGraphData(
-        query,
-        searchFilters
-      );
+      const response = await fetchGraphData(query, searchFilters); //added for test
+      const [dict, data, , articles] = response;
+
+      //[dict, data, , articles]
       if (!dict || !data || !articles) return false;
       if (data.links.length > 1000) {
         setTooLarge(true);
