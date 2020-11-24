@@ -1,10 +1,5 @@
-import { useHistory } from 'react-router-dom';
-import { subjects } from '../../services/categories';
-import LoadingSpinner from '../../styleComponents/LoadingSpinner.js';
-
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
-import TinySearchBar from '../TinySearchBar';
 import Search from './Search';
 import '@testing-library/jest-dom/extend-expect';
 
@@ -50,4 +45,16 @@ test('Text Physics renders correctly', () => {
 
 test('Text Computer Science renders correctly', () => {
   expect(screen.getByText('Computer Science')).toBeInTheDocument();
+});
+
+//test checkboxes. What are we testing though?
+
+test('Slider toggles', () => {
+  [...Array(8)].forEach((_, i) => {
+    const sliderInput = screen.getByTestId(`slider${i}`);
+    fireEvent.click(sliderInput);
+    expect(sliderInput.checked).toBe(true);
+    fireEvent.click(sliderInput);
+    expect(sliderInput.checked).toBe(false);
+  });
 });
