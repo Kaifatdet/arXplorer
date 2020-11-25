@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+/* eslint-disable no-undef */
+=======
+>>>>>>> master
 import React from 'react';
 import Navbar from './Navbar';
 import {
@@ -21,22 +25,27 @@ beforeEach(() => {
   );
 });
 
-test('Navbar renders correctly', () => {
-  // const history = createMemoryHistory();
-  // render(
-  //   <Router history={history}>
-  //     <Navbar />
-  //   </Router>
-  // );
-  // expect(screen.getByTestId('navbar')).toBeInTheDocument();
+test('Home link is shown', () => {
+  expect(screen.getByText('Home')).toBeInTheDocument();
 });
 
-// test('loads search page upon click', async () => {
-//   // const history = createMemoryHistory();
+test('Search link is shown', () => {
+  expect(screen.getByText('Search')).toBeInTheDocument();
+});
 
-//   // Click button
-//   fireEvent.click(screen.getByText('Search'));
-//   // Wait for page to update with query text
-//   const items = await screen.findByText('Author');
-//   expect(items).toHaveLength(1);
-// });
+test('Graph link is shown', () => {
+  expect(screen.getByText('Graph')).toBeInTheDocument();
+});
+
+test('List link is shown', () => {
+  expect(screen.getByText('List')).toBeInTheDocument();
+});
+
+test('loads search page upon click', async () => {
+  // const history = createMemoryHistory();
+  // Click button
+  // fireEvent.click(screen.getByText('Search'));
+  // Wait for page to update with query text
+  // const items = await screen.findByText('Author');
+  // console.log(items);
+});
