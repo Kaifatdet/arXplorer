@@ -155,7 +155,7 @@ const Search: FunctionComponent<SearchProps> = ({
         <div className="search-filters">
           <div className="search-filter-date-picker">
             <h3>Publication date</h3>
-            <div className="date-picker-container">
+            <div data-testid="date-picker" className="date-picker-container">
               <div>
                 <label htmlFor="date-from" style={{ marginRight: '1rem' }}>
                   From:{' '}
@@ -189,7 +189,9 @@ const Search: FunctionComponent<SearchProps> = ({
               <div key={cat} className="subject-container">
                 <label className="switch">
                   <input
+                    data-testid={`checkbox-${subjects[cat]}`}
                     id={`checkbox${i}`}
+                    className="checkbox"
                     type="checkbox"
                     value={cat}
                     onChange={handleFilters}

@@ -35,6 +35,7 @@ const TinySearchBar: FunctionComponent<TinySearchBarProps> = ({
         Quick Search
       </label>
       <input
+        data-testid="tiny-search-bar"
         id="search-bar"
         type="text"
         name="tiny-search"
@@ -43,7 +44,11 @@ const TinySearchBar: FunctionComponent<TinySearchBarProps> = ({
         placeholder="Search for author..."
         onChange={handleChange}
       />
-      <button type="submit" className="tinysearch-btn">
+      <button
+        data-testid="tiny-search-button" //isnerted by Jay
+        type="submit"
+        className="tinysearch-btn"
+      >
         Quicksearch
       </button>
     </form>

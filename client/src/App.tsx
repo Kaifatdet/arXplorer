@@ -139,7 +139,7 @@ const App: FunctionComponent = () => {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar data-testid="navbar" />
       <Switch>
         <Route exact path="/">
           <Home handleQuickSearch={handleQuickSearch} />
