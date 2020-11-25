@@ -189,8 +189,13 @@ const Search: FunctionComponent<SearchProps> = ({
               <div key={cat} className="subject-container">
                 <label className="switch">
                   <input
+<<<<<<< HEAD
+                    data-testid={`checkbox-${subjects[cat]}`}
+=======
                     data-testid={`slider${i}`}
+>>>>>>> master
                     id={`checkbox${i}`}
+                    className="checkbox"
                     type="checkbox"
                     value={cat}
                     onChange={handleFilters}

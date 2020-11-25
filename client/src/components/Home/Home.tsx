@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use strict';
 import React from 'react';
 import { FunctionComponent } from 'react';
@@ -26,7 +27,7 @@ const Home: FunctionComponent<HomeProps> = ({ handleQuickSearch }) => {
           onClick={() => handleRedirect('search')}
         >
           <div className="home-icon-container">
-            <svg className="home-icon" id="search-icon" viewBox="0 0 352 512">
+            <svg className="home-icon" id="search-icon" viewBox="0 0 352 512" data-testid="home-icon">
               <linearGradient id="icon-blue-gradient" x2="0.35" y2="1">
                 <stop offset="0%" stopColor="var(--blue-stop)" />
                 <stop offset="5%" stopColor="var(--blue-stop)" />
@@ -52,7 +53,7 @@ const Home: FunctionComponent<HomeProps> = ({ handleQuickSearch }) => {
         </div>
         <div className="home-component" onClick={() => handleRedirect('graph')}>
           <div className="home-icon-container">
-            <svg className="home-icon" id="graph-icon" viewBox="0 0 352 512">
+            <svg className="home-icon" id="graph-icon" viewBox="0 0 352 512" data-testid="graph-icon">
               <linearGradient id="icon-orange-gradient" x2="0.35" y2="1">
                 <stop offset="0%" stopColor="var(--orange-stop)" />
                 <stop offset="30%" stopColor="var(--orange-stop)" />
@@ -78,7 +79,7 @@ const Home: FunctionComponent<HomeProps> = ({ handleQuickSearch }) => {
         </div>
         <div className="home-component" onClick={() => handleRedirect('list')}>
           <div className="home-icon-container">
-            <svg className="home-icon" id="list-icon" viewBox="0 0 352 512">
+            <svg className="home-icon" id="list-icon" viewBox="0 0 352 512" data-testid="list-icon">
               <linearGradient id="icon-purple-gradient" x2="0.35" y2="1">
                 <stop offset="0%" stopColor="var(--purple-stop)" />
                 <stop offset="5%" stopColor="var(--purple-stop)" />

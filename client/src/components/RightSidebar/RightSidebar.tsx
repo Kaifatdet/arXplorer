@@ -6,7 +6,7 @@ import './RightSidebar.css';
 import { Dictionary, DictionaryAuthorDetails } from '../../types';
 import { FunctionComponent } from 'react';
 
-interface RightSidebarProps {
+export interface RightSidebarProps {
   selectedAuthor: string;
   handleExpandClick: () => void;
   authorDict: Dictionary;
@@ -106,7 +106,11 @@ const RightSidebar: FunctionComponent<RightSidebarProps> = ({
         </svg>
       </div>
       <div className="rsb-details">
-        <div className="rsb-author" onClick={handleAuthorClick}>
+        <div
+          className="rsb-author"
+          onClick={handleAuthorClick}
+          data-testid="author-testid"
+        >
           {selectedAuthor}
         </div>
         <div className="rsb-small-link" onClick={handleAuthorClick}>
@@ -118,6 +122,7 @@ const RightSidebar: FunctionComponent<RightSidebarProps> = ({
           ? details?.articles.map((ar) => {
               return (
                 <div
+                  data-testid="article-div"
                   key={getArticleId(ar)}
                   className="rsb-list-article"
                   onClick={() => handleArticleClick(getArticleId(ar))}
