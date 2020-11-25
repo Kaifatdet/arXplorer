@@ -59,6 +59,8 @@ test('searches correctly', async () => {
 
   const data = fetchGraphDataMock;
   const mockFn = jest.fn().mockResolvedValue(data);
+
+  //mocking module
   jest.mock('./services/ApiClient', () => {
     return {
       __esModule: true,
@@ -74,7 +76,10 @@ test('searches correctly', async () => {
   fireEvent.click(button);
 
   waitFor(document.querySelector('circle'), () => {
+    const circle = document.querySelector('circle');
     expect(history.location.pathname).toBe('/graph');
+    fireEvent.click(circle);
+    expect(screen.getByTestId('article-div0')).toBeInTheDocument();
     fireEvent.click(listbutton);
     expect(history.location.pathname).toBe('/list');
     screen.getByText('Total # of articles: 25');

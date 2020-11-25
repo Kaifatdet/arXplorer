@@ -97,7 +97,7 @@ function linkExists(arrOne: GraphLink, arrTwo: GraphLink): boolean {
 }
 
 export function updateAuthorDict(oldDict: Dictionary, newDict: Dictionary) {
-  let dict = Object.assign({}, oldDict);
+  const dict = Object.assign({}, oldDict);
   for (const key in newDict) {
     if (!dict[key]) {
       dict[key] = newDict[key];
@@ -184,7 +184,7 @@ function setCategoryProperties(
 }
 
 function calculateGroupsFromCategories(dict: Dictionary): CategoryReference {
-  let cats: CategoryReference = {};
+  const cats: CategoryReference = {};
   let counter = 1;
   for (const key in dict) {
     const cat = dict[key].main_cat;

@@ -7,6 +7,12 @@ import GraphErrorHandler from '../GraphErrorHandler';
 import { Dictionary, Dimensions, GraphData, GraphNode } from '../../types';
 import './Graph.css';
 
+//don't provide functions
+//empty graph should be false
+//n
+//provide dimensions
+//provide graph data
+//use snapshot
 interface GraphProps {
   emptyGraph: boolean;
   dimensions: Dimensions;
@@ -43,7 +49,6 @@ const Graph: FunctionComponent<GraphProps> = ({
   setTooLarge,
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  // console.log(emptyGraph);
   useEffect(() => {
     if (!emptyGraph) {
       const svg = select<SVGSVGElement, GraphNode>(svgRef.current as any);
@@ -68,7 +73,9 @@ const Graph: FunctionComponent<GraphProps> = ({
   return (
     <div className="graph-container">
       <div className="data-container">
-        {!emptyGraph && <svg ref={svgRef} className="graph-svg"></svg>}
+        {!emptyGraph && (
+          <svg ref={svgRef} className="graph-svg" data-testid="graph-svg"></svg>
+        )}
       </div>
       <RightSidebar
         selectedAuthor={selectedAuthor}

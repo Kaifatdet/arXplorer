@@ -9,6 +9,7 @@ import {
   Selection,
   SimulationNodeDatum,
 } from 'd3';
+import { fetchGraphData } from '../../services/ApiClient';
 import {
   Dimensions,
   GraphCategory,
@@ -34,7 +35,7 @@ type CallableDrag = (
 ) => void;
 
 const extractCategories = (data: GraphNode[]): GraphCategory[] => {
-  let cats: GraphCategory[] = [];
+  const cats: GraphCategory[] = [];
   data.forEach((n) => {
     if (cats.filter((el) => el.name === n.cat_name).length === 0) {
       cats.push({
@@ -59,8 +60,8 @@ export const drawGraph = (
   svg.selectAll('rect').remove();
   svg.selectAll('g').remove();
 
-  let offsetX = 0;
-  let offsetY = 0;
+  const offsetX = 0;
+  const offsetY = 0;
 
   svg
     .append('rect')
@@ -118,6 +119,7 @@ export const drawGraph = (
       .attr('y2', (d: any) => d.target.y);
 
     node
+      .attr('data-testid', (d: any) => d.index)
       .attr('cx', (d: any) => d.x)
       .attr('cy', (d: any) => d.y)
       .on('click', function (d: any) {
