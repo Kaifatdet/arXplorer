@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 /* eslint-disable no-undef */
+=======
+>>>>>>> master
 import React from 'react';
 import Navbar from './Navbar';
 import {

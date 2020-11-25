@@ -52,6 +52,7 @@ const Navbar = () => (
         Graph
       </NavLink>
       <NavLink
+        data-testid="listbutton"
         className="nav-link"
         data-testid="listlink"
         id="list"
