@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import {
   getByTestId,
   fireEvent,
@@ -34,12 +35,20 @@ test('displays front page title', () => {
 
 // test('Navbar renders correctly', () => {
 //   render(<Navbar />);
-//   expect(screen.getByTestId('navbar').toBeInTheDocument());
+//   expect(screen.getByTestId('navbar'));
 // });
 
 test('loads search page upon click', async () => {
   fireEvent.click(screen.getByText('Search'));
   // Wait for page to update with query text
+  const author = await screen.getByLabelText('Author');
+  const title = await screen.getByLabelText('Title');
+  const journal = await screen.getByLabelText('Journal');
+  const abstract = await screen.getByLabelText('Abstract');
+  expect(author).toBeInTheDocument();
+  expect(title).toBeInTheDocument();
+  expect(journal).toBeInTheDocument();
+  expect(abstract).toBeInTheDocument();
   const items = await screen.findAllByText('Author');
   expect(items).toHaveLength(1);
 });
