@@ -1,0 +1,808 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Graph renders nodes 1`] = `
+<body>
+  <div>
+    <div
+      class="graph-container"
+    >
+      <div
+        class="data-container"
+      >
+        <svg
+          class="graph-svg viewBox"
+          data-testid="graph-svg"
+          viewBox="0 0 1425 714"
+        >
+          <rect
+            class="bg"
+            fill="transparent"
+            height="714"
+            stroke="transparent"
+            width="1425"
+            x="0"
+            y="0"
+          />
+          <g
+            class="nodes"
+          >
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+            <line
+              stroke="#707070"
+              stroke-opacity="0.6"
+              stroke-width="1"
+            />
+          </g>
+          <g
+            class="nodes"
+          >
+            <circle
+              fill="#a6cee3"
+              r="8"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#1f78b4"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#1f78b4"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#b2df8a"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#b2df8a"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#33a02c"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#33a02c"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#fb9a99"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#fb9a99"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#e31a1c"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="black"
+              stroke-width="0.3"
+            />
+          </g>
+          <g
+            class="nodes"
+          >
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Darwin Chang
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Marc Schumann
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Laura Baudis
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              W. -Y. Keung
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Ernest Ma
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              A. Zee
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              R. N. Mohapatra
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Darwin Bautista
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Raimarc Dionido
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Oscar Darwin
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Stefan Kiefer
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Mladen Georgiev
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Jai Singh
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Dung-Hai Lee
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Wai-Yee Keung
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Ivan Phillips
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Jiang Liu
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Palash B. Pal
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Palash Pal
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Xiao-Gang He
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Sandip Pakvasa
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Shih-Chang Lee
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Paul Turcotte
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              Chuan-Hung Chen
+            </text>
+            <text
+              class="label"
+              font-size="1.8rem"
+              style="fill: whitesmoke;"
+              text-anchor="middle"
+              visibility="hidden"
+            >
+              David Bowser-Chao
+            </text>
+          </g>
+          <g
+            class="legend"
+          >
+            <circle
+              fill="#a6cee3"
+              r="1rem"
+              stroke="#000"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#1f78b4"
+              r="1rem"
+              stroke="#000"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#b2df8a"
+              r="1rem"
+              stroke="#000"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#33a02c"
+              r="1rem"
+              stroke="#000"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#fb9a99"
+              r="1rem"
+              stroke="#000"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#e31a1c"
+              r="1rem"
+              stroke="#000"
+              stroke-width="0.3"
+            />
+          </g>
+          <g
+            class="legend"
+          >
+            <text
+              class="legend-label"
+              font-size="1.2rem"
+              style="fill: whitesmoke;"
+            >
+              High Energy Physics - Phenomenology
+            </text>
+            <text
+              class="legend-label"
+              font-size="1.2rem"
+              style="fill: whitesmoke;"
+            >
+              Instrumentation and Methods for Astrophysics
+            </text>
+            <text
+              class="legend-label"
+              font-size="1.2rem"
+              style="fill: whitesmoke;"
+            >
+              Learning
+            </text>
+            <text
+              class="legend-label"
+              font-size="1.2rem"
+              style="fill: whitesmoke;"
+            >
+              Logic in Computer Science
+            </text>
+            <text
+              class="legend-label"
+              font-size="1.2rem"
+              style="fill: whitesmoke;"
+            >
+              Atmospheric and Oceanic Physics
+            </text>
+            <text
+              class="legend-label"
+              font-size="1.2rem"
+              style="fill: whitesmoke;"
+            >
+              Strongly Correlated Electrons
+            </text>
+          </g>
+          <g
+            class="legend"
+          >
+            <circle
+              fill="#a6cee3"
+              r="5"
+              stroke="#000"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="6.324555320336759"
+              stroke="#000"
+              stroke-width="0.3"
+            />
+            <circle
+              fill="#a6cee3"
+              r="10"
+              stroke="#000"
+              stroke-width="0.3"
+            />
+          </g>
+          <g
+            class="legend"
+          >
+            <text
+              class="legend-label"
+              font-size="1.2rem"
+              style="fill: whitesmoke;"
+            >
+              1 collaborator
+            </text>
+            <text
+              class="legend-label"
+              font-size="1.2rem"
+              style="fill: whitesmoke;"
+            >
+              10 collaborators
+            </text>
+            <text
+              class="legend-label"
+              font-size="1.2rem"
+              style="fill: whitesmoke;"
+            >
+              25 collaborators
+            </text>
+          </g>
+        </svg>
+      </div>
+      <div
+        class="rsb-container hide-rsb"
+      >
+        <div
+          class="rsb-icon"
+        >
+          <svg
+            class="rsb-icon-close"
+            viewBox="0 0 352 512"
+          >
+            <defs>
+              <lineargradient
+                id="icon-red-gradient"
+                x2="0.35"
+                y2="1"
+              >
+                <stop
+                  offset="0%"
+                  stop-color="var(--red-stop)"
+                />
+                <stop
+                  offset="30%"
+                  stop-color="var(--red-stop)"
+                />
+                <stop
+                  offset="100%"
+                  stop-color="var(--red-bot)"
+                />
+              </lineargradient>
+            </defs>
+            <path
+              d="M242.72 256 l100.07-100.07 c12.28-12.28 12.28-32.19 0-44.48 l-22.24-22.24 c-12.28-12.28-32.19-12.28-44.48 0 L176 189.28 75.93 89.21 c-12.28-12.28-32.19-12.28-44.48 0 L9.21 111.45 c-12.28 12.28-12.28 32.19 0 44.48 L109.28 256 9.21 356.07 c-12.28 12.28-12.28 32.19 0 44.48 l22.24 22.24 c12.28 12.28 32.2 12.28 44.48 0 L176 322.72 l100.07 100.07 c12.28 12.28 32.2 12.28 44.48 0 l22.24-22.24 c12.28-12.28 12.28-32.19 0-44.48 L242.72 256 z"
+            />
+          </svg>
+        </div>
+        <div
+          class="rsb-details"
+        >
+          <div
+            class="rsb-author"
+          />
+          <div
+            class="rsb-small-link"
+          >
+            show details
+          </div>
+        </div>
+        <div
+          class="rsb-list"
+        >
+          No articles to display
+        </div>
+        <div
+          class="rsb-buttons-container"
+        >
+          <button
+            class="rsb-expand-btn"
+            type="submit"
+          >
+            Expand graph
+          </button>
+          <button
+            class="rsb-delete-btn"
+            type="submit"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+      <form
+        class="tiny-container"
+      >
+        <label
+          class="search-label"
+          for="search-bar"
+        >
+          Quick Search
+        </label>
+        <input
+          class="tinysearch-input"
+          data-testid="tiny-search-bar"
+          id="search-bar"
+          name="tiny-search"
+          placeholder="Search for author..."
+          type="text"
+          value=""
+        />
+        <button
+          class="tinysearch-btn"
+          data-testid="tiny-search-button"
+          type="submit"
+        >
+          Quicksearch
+        </button>
+      </form>
+      <div
+        class="graph-clean"
+      >
+        <svg
+          class="graph-icon-clean"
+          viewBox="0 0 448 512"
+        >
+          <defs>
+            <lineargradient
+              id="icon-red-gradient"
+              x2="0.35"
+              y2="1"
+            >
+              <stop
+                offset="0%"
+                stop-color="var(--red-stop)"
+              />
+              <stop
+                offset="30%"
+                stop-color="var(--red-stop)"
+              />
+              <stop
+                offset="100%"
+                stop-color="var(--red-bot)"
+              />
+            </lineargradient>
+          </defs>
+          <path
+            d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
+          />
+        </svg>
+        <h1
+          class="kill-text"
+        >
+          Are you sure you want to clear graph?
+        </h1>
+      </div>
+    </div>
+  </div>
+</body>
+`;
