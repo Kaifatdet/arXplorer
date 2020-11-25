@@ -26,7 +26,7 @@ beforeEach(() => {
   );
 });
 
-test('displays front page title', () => {
+test('displays front page title and search bar', () => {
   const headingElement = screen.getByText('Ready to arXplore?');
   expect(headingElement).toBeInTheDocument();
   expect(screen.getByTestId('tiny-search-bar')).toBeInTheDocument();
@@ -50,6 +50,7 @@ test('searches correctly', async () => {
 
   const data = fetchGraphDataMock;
   const mockFn = jest.fn().mockResolvedValue(data);
+  2;
   jest.mock('./services/ApiClient', () => {
     return {
       __esModule: true,

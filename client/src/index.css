@@ -4,19 +4,76 @@
   --main-bg-light: rgb(215, 215, 215);
   --main-light: whitesmoke;
 }
-  
-html, body, div, span, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-abbr, address, cite, code,
-del, dfn, em, img, ins, kbd, q, samp,
-small, strong, sub, sup, var,
-b, i,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section, summary,
-time, mark, audio, video {
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -195,7 +252,7 @@ code {
   transition: 0.4s;
 }
 
-#checkbox:checked + .slider {
+.checkbox:checked + .slider {
   box-shadow: 0 0 1px 1px #333;
   background-image: -webkit-linear-gradient(
     280deg,
@@ -204,11 +261,11 @@ code {
   );
 }
 
-#checkbox:focus + .slider {
+.checkbox:focus + .slider {
   box-shadow: 0 0 1px #2196f3;
 }
 
-#checkbox:checked + .slider:before {
+.checkbox:checked + .slider:before {
   -webkit-transform: translateX(1.3rem);
   -ms-transform: translateX(1.3rem);
   transform: translateX(1.3rem);

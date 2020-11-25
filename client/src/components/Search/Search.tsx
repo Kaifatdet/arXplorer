@@ -191,6 +191,7 @@ const Search: FunctionComponent<SearchProps> = ({
                   <input
                     data-testid={`slider${i}`}
                     id={`checkbox${i}`}
+                    className="checkbox"
                     type="checkbox"
                     value={cat}
                     onChange={handleFilters}
