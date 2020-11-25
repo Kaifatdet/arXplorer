@@ -45,6 +45,7 @@ const RightSidebar: FunctionComponent<RightSidebarProps> = ({
   };
 
   const renderList = () => {
+    console.log(selectedAuthor && details?.['articles']);
     return selectedAuthor && details?.['articles'];
   };
 
@@ -119,10 +120,10 @@ const RightSidebar: FunctionComponent<RightSidebarProps> = ({
       </div>
       <div className="rsb-list">
         {renderList()
-          ? details?.articles.map((ar) => {
+          ? details?.articles.map((ar, i) => {
               return (
                 <div
-                  data-testid="article-div"
+                  data-testid={`article-div${i}`}
                   key={getArticleId(ar)}
                   className="rsb-list-article"
                   onClick={() => handleArticleClick(getArticleId(ar))}

@@ -26,7 +26,7 @@ export function queryPathBuilder(
 }
 
 export function parseResponse(res: string): [Article[], ArxivMetadata] {
-  let metadata: any = {};
+  const metadata: any = {};
   let articles: Article[] = [];
   parseString(res, function (err, result) {
     if (err) throw err;

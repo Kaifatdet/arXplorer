@@ -53,7 +53,7 @@ const ArticlesList: FunctionComponent<ArticlesListProps> = ({
 
     if (articleList.length > 0) {
       setCategories(() => {
-        let catDict: AbbrTitle = {};
+        const catDict: AbbrTitle = {};
         articleList.forEach((ar) => {
           ar.category.forEach((cat) => {
             if (!(cat && cat.$)) return;
