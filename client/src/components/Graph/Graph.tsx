@@ -57,7 +57,6 @@ const Graph: FunctionComponent<GraphProps> = ({
     }
   }, [graphData, dimensions]);
 
-  //don't need
   const handleClick = (author: string) => {
     setSelectedAuthor(author);
   };

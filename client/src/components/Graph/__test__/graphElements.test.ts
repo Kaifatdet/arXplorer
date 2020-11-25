@@ -1,5 +1,4 @@
 import '@testing-library/jest-dom/extend-expect';
-import { render } from '@testing-library/react';
 import {
   linkElement,
   textElement,
@@ -8,10 +7,6 @@ import {
   sizeLegendCircleElement,
   sizeLegendTextElement,
 } from '../graphElements';
-import { mockData } from './mockData';
-//make a beforeeach for selection and make sure all methods are counted for then call for each
-//only need to test that these functions are called
-//calledWith - provide mock data as second arg to check that the methods are called w/ correct arguents
 
 describe('graphElement', () => {
   let selection;

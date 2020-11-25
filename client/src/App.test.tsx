@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import '@testing-library/jest-dom/extend-expect';
-import * as React from 'react';
-import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import App from './App';
-test('renders learn react link', () => {
-  const { getByText } = render(<App />, { wrapper: MemoryRouter });
-  expect(getByText('Ready to arXplore?')).toBeInTheDocument();
-=======
 import {
   getByTestId,
   fireEvent,
@@ -49,5 +39,4 @@ test('loads search page upon click', async () => {
   // Wait for page to update with query text
   const items = await screen.findAllByText('Author');
   expect(items).toHaveLength(1);
->>>>>>> master
 });

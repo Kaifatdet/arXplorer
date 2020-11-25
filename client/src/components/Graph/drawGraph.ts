@@ -9,6 +9,7 @@ import {
   Selection,
   SimulationNodeDatum,
 } from 'd3';
+import { fetchGraphData } from '../../services/ApiClient';
 import {
   Dimensions,
   GraphCategory,
@@ -118,6 +119,7 @@ export const drawGraph = (
       .attr('y2', (d: any) => d.target.y);
 
     node
+      .attr('data-testid', (d: any) => d.index)
       .attr('cx', (d: any) => d.x)
       .attr('cy', (d: any) => d.y)
       .on('click', function (d: any) {
