@@ -47,8 +47,6 @@ test('Text Computer Science renders correctly', () => {
   expect(screen.getByText('Computer Science')).toBeInTheDocument();
 });
 
-//test checkboxes. What are we testing though?
-
 test('Slider toggles', () => {
   [...Array(8)].forEach((_, i) => {
     const sliderInput = screen.getByTestId(`slider${i}`);
