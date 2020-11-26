@@ -1,10 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import Navbar from './Navbar';
-import {
-  render,
-  screen,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';

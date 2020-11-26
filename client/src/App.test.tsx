@@ -6,6 +6,7 @@ import {
   render,
   screen,
   waitFor,
+  act,
 } from '@testing-library/react';
 import App from './App';
 
@@ -26,7 +27,7 @@ beforeEach(() => {
   );
 });
 
-test('displays front page title', () => {
+test('displays front page title and search bar', () => {
   const headingElement = screen.getByText('Ready to arXplore?');
   expect(headingElement).toBeInTheDocument();
   expect(screen.getByTestId('tiny-search-bar')).toBeInTheDocument();
@@ -48,7 +49,6 @@ test('loads search page upon click', async () => {
 });
 
 test('searches correctly', async () => {
-
   const data = fetchGraphDataMock;
   const mockFn = jest.fn().mockResolvedValue(data);
 
@@ -63,17 +63,24 @@ test('searches correctly', async () => {
   const searchInput = screen.getByPlaceholderText('Search for author...');
   const button = screen.getByText('Quicksearch');
 
-  fireEvent.change(searchInput, { target: { value: 'Trump' } });
-  fireEvent.click(button);
+  fireEvent.change(searchInput, { target: { value: 'Moon' } });
+  act(() => {
+    fireEvent.click(button);
+  });
+  expect(history.location.pathname).toBe('/graph');
 
-  waitFor(document.querySelector('circle'), () => {
+  await waitFor(() => {
+    expect(screen.getByTestId('graph-svg')).toBeInTheDocument();
     const circle = document.querySelector('circle');
     expect(history.location.pathname).toBe('/graph');
     const listbutton = screen.getByTestId('listbutton');
     fireEvent.click(circle);
     expect(screen.getByTestId('article-div0')).toBeInTheDocument();
-    fireEvent.click(listbutton);
-    expect(history.location.pathname).toBe('/list');
-    screen.getByText('Total # of articles: 25');
   });
+  const listbutton = screen.getByTestId('listbutton');
+  fireEvent.click(listbutton);
+  expect(history.location.pathname).toBe('/list');
+  screen.getByText('Total # of articles: 25');
+
+  // expect(fetchGraphData).toBeCalled();
 });

@@ -8,7 +8,6 @@ const Navbar = () => (
       <NavLink
         className="nav-link"
         id="home"
-        data-testid="homelink"
         exact
         to="/"
         activeStyle={{
@@ -24,7 +23,6 @@ const Navbar = () => (
       <NavLink
         className="nav-link"
         id="search"
-        data-testid="searchlink"
         to="/search"
         activeStyle={{
           background:
@@ -39,7 +37,6 @@ const Navbar = () => (
       <NavLink
         className="nav-link"
         id="graph"
-        data-testid="graphlink"
         to="/graph"
         activeStyle={{
           background:

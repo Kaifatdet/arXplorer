@@ -189,7 +189,7 @@ const Search: FunctionComponent<SearchProps> = ({
               <div key={cat} className="subject-container">
                 <div className="switch">
                   <input
-                    data-testid={`checkbox-${subjects[cat]}`}
+                    data-testid={`slider${i}`}
                     id={`checkbox${i}`}
                     className="checkbox"
                     type="checkbox"
