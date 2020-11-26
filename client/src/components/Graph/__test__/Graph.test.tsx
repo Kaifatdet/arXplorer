@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import '@testing-library/jest-dom/extend-expect';
 import * as React from 'react';
 import {
@@ -5,9 +6,6 @@ import {
   fireEvent,
   screen,
   cleanup,
-  queryByText,
-  getByTestId,
-  waitFor,
 } from '@testing-library/react';
 import Graph from '../Graph';
 import { mockData } from './mockData';

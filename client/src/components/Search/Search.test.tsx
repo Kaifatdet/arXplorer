@@ -1,8 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-undef */
-import { useHistory } from 'react-router-dom';
-import { subjects } from '../../services/categories';
-
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import Search from './Search';
@@ -51,8 +46,6 @@ test('Text Physics renders correctly', () => {
 test('Text Computer Science renders correctly', () => {
   expect(screen.getByText('Computer Science')).toBeInTheDocument();
 });
-
-//test checkboxes. What are we testing though?
 
 test('Slider toggles', () => {
   [...Array(8)].forEach((_, i) => {

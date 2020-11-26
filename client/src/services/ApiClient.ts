@@ -1,11 +1,5 @@
 import fetch from 'node-fetch';
-import {
-  Article,
-  // ArxivLink,
-  ArxivMetadata,
-  Dictionary,
-  GraphData,
-} from '../types';
+import { Article, ArxivMetadata, Dictionary, GraphData } from '../types';
 
 import { parseResponse } from './apiHelpers';
 import {
@@ -14,7 +8,6 @@ import {
   createLinksFromDict,
   updateAuthorDict,
   addNewArticles,
-  // deleteAuthorsFromDict,
 } from './dataHelpers';
 
 async function fetchRequest(
@@ -72,12 +65,7 @@ export function removeAuthorFromGraph(
   return { nodes, links };
 }
 
-export function shrinkGraph(
-  oldDict: Dictionary
-  // oldLinks: ArxivLink[],
-  // author: string
-): [Dictionary, GraphData] {
-  // const dict = deleteAuthorsFromDict(oldDict, oldLinks, author);
+export function shrinkGraph(oldDict: Dictionary): [Dictionary, GraphData] {
   const dict = oldDict;
   const nodes = createNodesFromDict(dict);
   const links = createLinksFromDict(dict);

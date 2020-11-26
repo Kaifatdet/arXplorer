@@ -9,9 +9,8 @@ import {
   act,
 } from '@testing-library/react';
 import App from './App';
-import Navbar from './components/Navbar';
 
-import { createMemoryHistory, location } from 'history';
+import { createMemoryHistory } from 'history';
 
 import React from 'react';
 import { Router } from 'react-router-dom';
@@ -34,11 +33,6 @@ test('displays front page title and search bar', () => {
   expect(screen.getByTestId('tiny-search-bar')).toBeInTheDocument();
 });
 
-// test('Navbar renders correctly', () => {
-//   render(<Navbar />);
-//   expect(screen.getByTestId('navbar'));
-// });
-
 test('loads search page upon click', async () => {
   fireEvent.click(screen.getByText('Search'));
   // Wait for page to update with query text
@@ -55,9 +49,6 @@ test('loads search page upon click', async () => {
 });
 
 test('searches correctly', async () => {
-  // const fetchGraphData = jest.fn();
-  // fetchGraphData.mockResolvedValue(fetchGraphDataMock);
-
   const data = fetchGraphDataMock;
   const mockFn = jest.fn().mockResolvedValue(data);
 
@@ -81,7 +72,8 @@ test('searches correctly', async () => {
   await waitFor(() => {
     expect(screen.getByTestId('graph-svg')).toBeInTheDocument();
     const circle = document.querySelector('circle');
-    console.log(circle);
+    expect(history.location.pathname).toBe('/graph');
+    const listbutton = screen.getByTestId('listbutton');
     fireEvent.click(circle);
     expect(screen.getByTestId('article-div0')).toBeInTheDocument();
   });

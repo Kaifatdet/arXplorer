@@ -40,9 +40,9 @@ const Home: FunctionComponent<HomeProps> = ({ handleQuickSearch }) => {
             </svg>
           </div>
           <div className="component-description">
-            <h3 className="description-header">
+            <h2 className="description-header">
               Search for your favorite authors
-            </h3>
+            </h2>
             <p>
               The search feature allows you to directly query the vast arXiv
               library for all the papers submitted by your favorite authors and
