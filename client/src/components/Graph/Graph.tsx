@@ -49,7 +49,7 @@ const Graph: FunctionComponent<GraphProps> = ({
       drawGraph(svg, graphData as GraphData, dimensions, handleClick);
       graphData?.links;
     }
-  }, [graphData, dimensions]);
+  }, [graphData, dimensions, emptyGraph]);
 
   const handleClick = (author: string) => {
     setSelectedAuthor(author);
