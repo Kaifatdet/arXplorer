@@ -32,7 +32,7 @@ const ArticlesList: FunctionComponent<ArticlesListProps> = ({
   selectedArticle,
   setSelectedArticle,
 }) => {
-  const [filteredList, setFilteredList] = useState<Article[]>([]);
+  const [filteredList, setFilteredList] = useState<Article[]>(articleList);
   const [categories, setCategories] = useState<AbbrTitle>({});
   const [sortOrder, setSortOrder] = useState('newest');
   const history = useHistory();
@@ -257,7 +257,11 @@ const ArticlesList: FunctionComponent<ArticlesListProps> = ({
       </div>
       {filteredList.length > 0 && articleList.length > 0 ? (
         filteredList.map((ar) => (
-          <div key={getArticleId(ar)} className="list-article">
+          <div
+            key={getArticleId(ar)}
+            className="list-article"
+            data-testid="article"
+          >
             <div className="list-article-title">
               {parseGreekLetters(ar.title[0])}
             </div>
