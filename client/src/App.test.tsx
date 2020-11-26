@@ -70,14 +70,15 @@ test('searches correctly', async () => {
 
   const searchInput = screen.getByPlaceholderText('Search for author...');
   const button = screen.getByText('Quicksearch');
-  const listbutton = screen.getByTestId('listbutton');
 
   fireEvent.change(searchInput, { target: { value: 'Trump' } });
   fireEvent.click(button);
 
   waitFor(document.querySelector('circle'), () => {
+  
     const circle = document.querySelector('circle');
     expect(history.location.pathname).toBe('/graph');
+    const listbutton = screen.getByTestId('listbutton');
     fireEvent.click(circle);
     expect(screen.getByTestId('article-div0')).toBeInTheDocument();
     fireEvent.click(listbutton);

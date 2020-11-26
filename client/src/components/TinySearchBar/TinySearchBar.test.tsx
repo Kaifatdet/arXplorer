@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { fireEvent, render } from '@testing-library/react';
 import TinySearchBar from './TinySearchBar';
 import React from 'react';

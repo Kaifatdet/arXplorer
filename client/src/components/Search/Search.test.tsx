@@ -1,13 +1,9 @@
-<<<<<<< HEAD
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-undef */
 import { useHistory } from 'react-router-dom';
 import { subjects } from '../../services/categories';
 
 import { getByTestId, render, screen, fireEvent} from '@testing-library/react';
-=======
-import { render, screen, fireEvent } from '@testing-library/react';
->>>>>>> master
 import React from 'react';
 import Search from './Search';
 import '@testing-library/jest-dom/extend-expect';
@@ -56,7 +52,6 @@ test('Text Computer Science renders correctly', () => {
   expect(screen.getByText('Computer Science')).toBeInTheDocument();
 });
 
-<<<<<<< HEAD
 test('Computer Science checkbox works correctly', () => {
   const compSciCheckBox = screen.getByTestId('checkbox-Computer Science');
   expect(compSciCheckBox.checked).toEqual(false);
@@ -128,16 +123,3 @@ test('Statistics checkbox works correctly', () => {
   fireEvent.click(statCheckBox);
   expect(statCheckBox.checked).toEqual(false);
 });
-=======
-//test checkboxes. What are we testing though?
-
-test('Slider toggles', () => {
-  [...Array(8)].forEach((_, i) => {
-    const sliderInput = screen.getByTestId(`slider${i}`);
-    fireEvent.click(sliderInput);
-    expect(sliderInput.checked).toBe(true);
-    fireEvent.click(sliderInput);
-    expect(sliderInput.checked).toBe(false);
-  });
-});
->>>>>>> master

@@ -1,17 +1,7 @@
-<<<<<<< HEAD
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-undef */
 'use strict';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-=======
-'use strict';
-import { render, screen } from '@testing-library/react';
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import TinySearchBar from '../TinySearchBar';
->>>>>>> master
 import Home from './Home';
 import '@testing-library/jest-dom/extend-expect';
 
