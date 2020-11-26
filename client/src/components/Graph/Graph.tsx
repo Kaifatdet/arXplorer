@@ -7,12 +7,6 @@ import GraphErrorHandler from '../GraphErrorHandler';
 import { Dictionary, Dimensions, GraphData, GraphNode } from '../../types';
 import './Graph.css';
 
-//don't provide functions
-//empty graph should be false
-//n
-//provide dimensions
-//provide graph data
-//use snapshot
 interface GraphProps {
   emptyGraph: boolean;
   dimensions: Dimensions;

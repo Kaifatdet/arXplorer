@@ -54,7 +54,6 @@ const Navbar = () => (
       <NavLink
         data-testid="listbutton"
         className="nav-link"
-        data-testid="listlink"
         id="list"
         to="/list"
         activeStyle={{
