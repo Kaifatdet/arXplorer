@@ -187,13 +187,9 @@ const Search: FunctionComponent<SearchProps> = ({
           <div className="search-filter-categories">
             {Object.keys(subjects).map((cat, i) => (
               <div key={cat} className="subject-container">
-                <label className="switch">
+                <div className="switch">
                   <input
-<<<<<<< HEAD
                     data-testid={`checkbox-${subjects[cat]}`}
-=======
-                    data-testid={`slider${i}`}
->>>>>>> master
                     id={`checkbox${i}`}
                     className="checkbox"
                     type="checkbox"
@@ -201,7 +197,7 @@ const Search: FunctionComponent<SearchProps> = ({
                     onChange={handleFilters}
                   />
                   <span className="slider round"></span>
-                </label>
+                </div>
                 <label htmlFor={`checkbox${i}`}>{subjects[cat]}</label>
               </div>
             ))}

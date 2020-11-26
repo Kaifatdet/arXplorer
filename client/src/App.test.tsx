@@ -8,9 +8,8 @@ import {
   waitFor,
 } from '@testing-library/react';
 import App from './App';
-import Navbar from './components/Navbar';
 
-import { createMemoryHistory, location } from 'history';
+import { createMemoryHistory } from 'history';
 
 import React from 'react';
 import { Router } from 'react-router-dom';
@@ -33,11 +32,6 @@ test('displays front page title', () => {
   expect(screen.getByTestId('tiny-search-bar')).toBeInTheDocument();
 });
 
-// test('Navbar renders correctly', () => {
-//   render(<Navbar />);
-//   expect(screen.getByTestId('navbar'));
-// });
-
 test('loads search page upon click', async () => {
   fireEvent.click(screen.getByText('Search'));
   // Wait for page to update with query text
@@ -54,8 +48,6 @@ test('loads search page upon click', async () => {
 });
 
 test('searches correctly', async () => {
-  // const fetchGraphData = jest.fn();
-  // fetchGraphData.mockResolvedValue(fetchGraphDataMock);
 
   const data = fetchGraphDataMock;
   const mockFn = jest.fn().mockResolvedValue(data);
@@ -70,7 +62,6 @@ test('searches correctly', async () => {
 
   const searchInput = screen.getByPlaceholderText('Search for author...');
   const button = screen.getByText('Quicksearch');
-  const listbutton = screen.getByTestId('listbutton');
 
   fireEvent.change(searchInput, { target: { value: 'Trump' } });
   fireEvent.click(button);
@@ -78,12 +69,11 @@ test('searches correctly', async () => {
   waitFor(document.querySelector('circle'), () => {
     const circle = document.querySelector('circle');
     expect(history.location.pathname).toBe('/graph');
+    const listbutton = screen.getByTestId('listbutton');
     fireEvent.click(circle);
     expect(screen.getByTestId('article-div0')).toBeInTheDocument();
     fireEvent.click(listbutton);
     expect(history.location.pathname).toBe('/list');
     screen.getByText('Total # of articles: 25');
   });
-
-  // expect(fetchGraphData).toBeCalled();
 });
