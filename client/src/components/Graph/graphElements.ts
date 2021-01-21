@@ -1,4 +1,10 @@
-export const linkElement = (selection, data) => {
+import { Selection } from 'd3';
+import { GraphCategory, GraphLegend, GraphLink, GraphNode } from '../../types';
+
+export const linkElement = (
+  selection: Selection<SVGSVGElement, GraphNode, HTMLElement, undefined>,
+  data: GraphLink[]
+) => {
   return selection
     .append('g')
     .classed('nodes', true)
@@ -10,7 +16,11 @@ export const linkElement = (selection, data) => {
     .attr('stroke-opacity', 0.6);
 };
 
-export const nodeElement = (selection, data, cb) => {
+export const nodeElement = (
+  selection: Selection<SVGSVGElement, GraphNode, HTMLElement, undefined>,
+  data: GraphNode[],
+  cb: any
+) => {
   return selection
     .append('g')
     .classed('nodes', true)
@@ -23,7 +33,10 @@ export const nodeElement = (selection, data, cb) => {
     .attr('stroke-width', 0.3);
 };
 
-export const textElement = (selection, data) => {
+export const textElement = (
+  selection: Selection<SVGSVGElement, GraphNode, HTMLElement, undefined>,
+  data: GraphNode[]
+) => {
   return selection
     .append('g')
     .classed('nodes', true)
@@ -38,7 +51,11 @@ export const textElement = (selection, data) => {
     .text((d) => d.id);
 };
 
-export const categoryLegendCircleElement = (selection, data, cb) => {
+export const categoryLegendCircleElement = (
+  selection: Selection<SVGSVGElement, GraphNode, HTMLElement, undefined>,
+  data: GraphCategory[],
+  cb: () => (d: any) => string
+) => {
   return selection
     .append('g')
     .classed('legend', true)
@@ -51,7 +68,10 @@ export const categoryLegendCircleElement = (selection, data, cb) => {
     .attr('fill', cb());
 };
 
-export const categoryLegendTextElement = (selection, data) => {
+export const categoryLegendTextElement = (
+  selection: Selection<SVGSVGElement, GraphNode, HTMLElement, undefined>,
+  data: GraphCategory[]
+) => {
   return selection
     .append('g')
     .classed('legend', true)
@@ -64,7 +84,10 @@ export const categoryLegendTextElement = (selection, data) => {
     .text((d) => d.name);
 };
 
-export const sizeLegendCircleElement = (selection, data) => {
+export const sizeLegendCircleElement = (
+  selection: Selection<SVGSVGElement, GraphNode, HTMLElement, undefined>,
+  data: GraphLegend[]
+) => {
   return selection
     .append('g')
     .classed('legend', true)
@@ -77,8 +100,11 @@ export const sizeLegendCircleElement = (selection, data) => {
     .attr('fill', '#a6cee3');
 };
 
-export const sizeLegendTextElement = (selection, data) => {
-  return selection
+export const sizeLegendTextElement = (
+  selection: Selection<SVGSVGElement, GraphNode, HTMLElement, undefined>,
+  data: GraphLegend[]
+) => {
+  return (selection as any)
     .append('g')
     .classed('legend', true)
     .selectAll('legend-text')
@@ -87,5 +113,5 @@ export const sizeLegendTextElement = (selection, data) => {
     .attr('class', 'legend-label')
     .attr('font-size', '1.2rem')
     .style('fill', 'whitesmoke')
-    .text((d) => d.legend);
+    .text((d: any) => d.legend);
 };

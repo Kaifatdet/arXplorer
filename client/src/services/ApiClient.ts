@@ -1,20 +1,21 @@
-'use strict';
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
+import { Article, ArxivMetadata, Dictionary, GraphData } from '../types';
 
-const {
+import { parseResponse } from './apiHelpers';
+import {
   createAuthorDict,
   createNodesFromDict,
   createLinksFromDict,
   updateAuthorDict,
   addNewArticles,
-  deleteAuthorsFromDict,
-} = require('./dataHelpers');
+} from './dataHelpers';
 
-const { parseResponse } = require('./apiHelpers');
-
-async function fetchRequest(queryPath) {
-  if (localStorage.getItem(queryPath))
-    return JSON.parse(localStorage.getItem(queryPath));
+async function fetchRequest(
+  queryPath: string
+): Promise<[Article[], ArxivMetadata]> {
+  if (localStorage.getItem(queryPath)) {
+    return JSON.parse(localStorage.getItem(queryPath) || '');
+  }
   const res = await fetch(queryPath);
   const text = await res.text();
   const parsed = parseResponse(text);
@@ -22,7 +23,10 @@ async function fetchRequest(queryPath) {
   return parsed;
 }
 
-export async function fetchGraphData(query, filters) {
+export async function fetchGraphData(
+  query: string,
+  filters = {}
+): Promise<[Dictionary, GraphData, ArxivMetadata, Article[]] | []> {
   const [articles, metadata] = await fetchRequest(query);
   if (articles) {
     const dict = createAuthorDict(articles, filters);
@@ -30,21 +34,30 @@ export async function fetchGraphData(query, filters) {
     const links = createLinksFromDict(dict);
     return [dict, { nodes, links }, metadata, articles];
   }
-  return false;
+  return [];
 }
 
-export async function updateAuthorData(oldDict, newDict) {
+export async function updateAuthorData(
+  oldDict: Dictionary,
+  newDict: Dictionary
+): Promise<[Dictionary, GraphData]> {
   const dict = updateAuthorDict(oldDict, newDict);
   const nodes = createNodesFromDict(dict);
   const links = createLinksFromDict(dict);
   return [dict, { nodes, links }];
 }
 
-export async function updateArticlesList(oldList, newList) {
+export function updateArticlesList(
+  oldList: Article[],
+  newList: Article[]
+): Article[] {
   return addNewArticles(oldList, newList);
 }
 
-export function removeAuthorFromGraph(graphData, author) {
+export function removeAuthorFromGraph(
+  graphData: GraphData,
+  author: string
+): GraphData {
   const nodes = [...graphData.nodes].filter((node) => node.id !== author);
   const links = [...graphData.links].filter(
     (link) => link.source !== author && link.target !== author
@@ -52,8 +65,8 @@ export function removeAuthorFromGraph(graphData, author) {
   return { nodes, links };
 }
 
-export function shrinkGraph(oldDict, oldLinks, author) {
-  const dict = deleteAuthorsFromDict(oldDict, oldLinks, author);
+export function shrinkGraph(oldDict: Dictionary): [Dictionary, GraphData] {
+  const dict = oldDict;
   const nodes = createNodesFromDict(dict);
   const links = createLinksFromDict(dict);
   return [dict, { nodes, links }];

@@ -1,4 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+  FunctionComponent,
+  ChangeEvent,
+} from 'react';
 import dayjs from 'dayjs';
 import './ArticlesList.css';
 import { categoriesDict } from '../../services/categories';
@@ -8,22 +13,32 @@ import {
   getArticleId,
   parseGreekLetters,
 } from '../../services/dataHelpers';
+import { Article, Dictionary, AbbrTitle } from '../../types';
 
-function ArticlesList({
+interface ArticlesListProps {
+  articleList: Article[];
+  authorDict: Dictionary;
+  selectedArticle: string;
+  selectedAuthor: string;
+  setSelectedArticle: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedAuthor: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const ArticlesList: FunctionComponent<ArticlesListProps> = ({
   articleList,
   selectedAuthor,
   authorDict,
   setSelectedAuthor,
   selectedArticle,
   setSelectedArticle,
-}) {
-  const [filteredList, setFilteredList] = useState([]);
-  const [categories, setCategories] = useState([]);
+}) => {
+  const [filteredList, setFilteredList] = useState<Article[]>(articleList);
+  const [categories, setCategories] = useState<AbbrTitle>({});
   const [sortOrder, setSortOrder] = useState('newest');
   const history = useHistory();
 
   useEffect(() => {
-    setFilteredList(() => sortArticleList([...articleList]));
+    setFilteredList(sortArticleList([...articleList]));
     if (authorDict[selectedAuthor]) {
       setFilteredList(() =>
         selectedArticle
@@ -38,11 +53,13 @@ function ArticlesList({
 
     if (articleList.length > 0) {
       setCategories(() => {
-        let catDict = {};
+        const catDict: AbbrTitle = {};
         articleList.forEach((ar) => {
           ar.category.forEach((cat) => {
-            if (!catDict[cat.$.term] && categoriesDict[cat.$.term])
+            if (!(cat && cat.$)) return;
+            if (!catDict[cat.$.term] && categoriesDict[cat.$.term]) {
               catDict[cat.$.term] = categoriesDict[cat.$.term];
+            }
           });
         });
         return catDict;
@@ -64,7 +81,7 @@ function ArticlesList({
     );
   }
 
-  const handleDateFilter = (e) => {
+  const handleDateFilter = (e: ChangeEvent<HTMLSelectElement>) => {
     setSortOrder(e.target.value);
     setFilteredList(() => {
       return e.target.value === 'newest'
@@ -73,39 +90,37 @@ function ArticlesList({
     });
   };
 
-  const handleCategoryFilter = (e) => {
+  const handleCategoryFilter = (e: ChangeEvent<HTMLSelectElement>) => {
     setFilteredList(() => {
       if (e.target.value === 'none') return [...articleList];
-      const filtered = articleList.map((ar) => {
-        const tempCat = ar.category.filter(
-          (cat) => cat.$.term === e.target.value
-        );
-        if (tempCat.length > 0) return ar;
-      });
-      return sortArticleList(
-        [...filtered].filter((el) => el !== undefined),
-        sortOrder
-      );
+      const filtered = articleList
+        .map((ar) => {
+          const tempCat = ar.category.filter(
+            (cat) => cat?.$?.term === e.target.value
+          );
+          if (tempCat.length > 0) return ar;
+        })
+        .filter(Boolean);
+      return sortArticleList([...filtered] as Article[], sortOrder);
     });
   };
 
-  const handleSearchFilter = (e) => {
+  const handleSearchFilter = (e: ChangeEvent<HTMLInputElement>) => {
     setFilteredList(() => {
-      const filtered = articleList.map((ar) => {
-        const tempAuth = ar.author.filter((au) =>
-          au.name[0].toLowerCase().includes(e.target.value.toLowerCase())
-        );
+      const filtered = articleList
+        .map((ar) => {
+          const tempAuth = ar.author.filter((au) =>
+            au.name[0].toLowerCase().includes(e.target.value.toLowerCase())
+          );
 
-        const tempTitle = ar.title[0]
-          .toLowerCase()
-          .includes(e.target.value.toLowerCase());
+          const tempTitle = ar.title[0]
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase());
 
-        if (tempAuth.length > 0 || tempTitle) return ar;
-      });
-      return sortArticleList(
-        [...filtered].filter((el) => el !== undefined),
-        sortOrder
-      );
+          if (tempAuth.length > 0 || tempTitle) return ar;
+        })
+        .filter(Boolean);
+      return sortArticleList([...filtered] as Article[], sortOrder);
     });
   };
 
@@ -189,7 +204,9 @@ function ArticlesList({
         </div>
       )}
       <div className="list-filters">
+        <label htmlFor="filter-search">Search</label>
         <input
+          id="filter-search"
           type="text"
           name="filter-search"
           className="filter-search"
@@ -199,8 +216,10 @@ function ArticlesList({
         <h4>Filter articles by:</h4>
         <div className="filter-selectors">
           <div className="date-selector">
-            <p>Published: </p>
+            <label htmlFor="select-date-id">Published: </label>
+            {/* <p>Published: </p> */}
             <select
+              id="select-date-id"
               name="select-date"
               className="select-date select"
               onChange={handleDateFilter}
@@ -210,8 +229,10 @@ function ArticlesList({
             </select>
           </div>
           <div className="category-selector">
-            <p>Categories: </p>
+            <label htmlFor="select-category-id">Categories: </label>
+            {/* <p>Categories: </p> */}
             <select
+              id="select-category-id"
               name="select-category"
               className="select-cat select"
               onChange={handleCategoryFilter}
@@ -236,7 +257,11 @@ function ArticlesList({
       </div>
       {filteredList.length > 0 && articleList.length > 0 ? (
         filteredList.map((ar) => (
-          <div key={getArticleId(ar)} className="list-article">
+          <div
+            key={getArticleId(ar)}
+            className="list-article"
+            data-testid="article"
+          >
             <div className="list-article-title">
               {parseGreekLetters(ar.title[0])}
             </div>
@@ -257,14 +282,16 @@ function ArticlesList({
                 <strong>Categories: </strong>
                 {ar.category
                   .map((au) => {
-                    if (categoriesDict[au.$.term]) {
-                      return categoriesDict[au.$.term];
+                    const term: string = au?.$?.term || '';
+                    if (categoriesDict[term]) {
+                      return categoriesDict[term];
                     }
                   })
                   .filter((el) => el !== undefined)
                   .join(', ')}
               </div>
               <div className="list-article-link">
+                <label htmlFor="filter-search">Search</label>
                 <a
                   className="arxiv-link"
                   rel="noreferrer"
@@ -297,6 +324,6 @@ function ArticlesList({
       )}
     </div>
   );
-}
+};
 
 export default ArticlesList;

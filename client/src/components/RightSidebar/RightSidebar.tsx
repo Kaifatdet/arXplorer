@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
-import './RightSidebar.css';
 import { getArticleId, parseGreekLetters } from '../../services/dataHelpers';
+import './RightSidebar.css';
+import { Dictionary, DictionaryAuthorDetails } from '../../types';
+import { FunctionComponent } from 'react';
 
-function RightSidebar({
+export interface RightSidebarProps {
+  selectedAuthor: string;
+  handleExpandClick: () => void;
+  authorDict: Dictionary;
+  setSelectedAuthor: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedArticle: React.Dispatch<React.SetStateAction<string>>;
+  removeSelectedAuthor: (author: string) => void;
+}
+
+const RightSidebar: FunctionComponent<RightSidebarProps> = ({
   selectedAuthor,
   handleExpandClick,
   authorDict,
   setSelectedAuthor,
   setSelectedArticle,
   removeSelectedAuthor,
-}) {
-  const [details, setDetails] = useState({});
+}) => {
+  const [details, setDetails] = useState<DictionaryAuthorDetails | null>(null);
   const [open, setOpen] = useState(false);
   const history = useHistory();
 
@@ -34,7 +45,8 @@ function RightSidebar({
   };
 
   const renderList = () => {
-    return selectedAuthor && details['articles'];
+    console.log(selectedAuthor && details?.['articles']);
+    return selectedAuthor && details?.['articles'];
   };
 
   const handleAuthorClick = () => {
@@ -49,7 +61,7 @@ function RightSidebar({
     setOpen(false);
   };
 
-  const handleArticleClick = (id) => {
+  const handleArticleClick = (id: string) => {
     setSelectedArticle(id);
     setSelectedAuthor(selectedAuthor);
     history.push('/list');
@@ -95,7 +107,11 @@ function RightSidebar({
         </svg>
       </div>
       <div className="rsb-details">
-        <div className="rsb-author" onClick={handleAuthorClick}>
+        <div
+          className="rsb-author"
+          onClick={handleAuthorClick}
+          data-testid="author-testid"
+        >
           {selectedAuthor}
         </div>
         <div className="rsb-small-link" onClick={handleAuthorClick}>
@@ -104,9 +120,10 @@ function RightSidebar({
       </div>
       <div className="rsb-list">
         {renderList()
-          ? details.articles.map((ar) => {
+          ? details?.articles.map((ar, i) => {
               return (
                 <div
+                  data-testid={`article-div${i}`}
                   key={getArticleId(ar)}
                   className="rsb-list-article"
                   onClick={() => handleArticleClick(getArticleId(ar))}
@@ -139,6 +156,6 @@ function RightSidebar({
       </div>
     </div>
   );
-}
+};
 
 export default RightSidebar;
